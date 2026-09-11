@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta Admin | Evaluación Crediticia & Emisión de Cuenta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-500/20">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">Tarjeta Admin</span>
+            <span class="text-[10px] text-amber-400 font-medium uppercase tracking-wider">Riesgo & Emisión</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-chart-line w-4 text-center"></i>
+          <span>Métricas Globales</span>
+        </a>
+        <a href="cuentas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-semibold text-xs border border-amber-500/20">
+          <i class="fa-solid fa-users-gear w-4 text-center"></i>
+          <span>Clientes & Cuentas</span>
+        </a>
+        <a href="productos-tarjetas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-layer-group w-4 text-center"></i>
+          <span>Planes de Tarjeta</span>
+        </a>
+        <a href="transacciones-audit-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-shield-halved w-4 text-center"></i>
+          <span>Auditoría & Fraude</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="cuentas-list.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-arrow-left text-amber-400"></i>
+        <span>Volver a Cuentas</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <!-- Top Header -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Financiero</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="cuentas-list.html" class="hover:text-slate-800">Cuentas</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">Nueva Evaluación & Emisión</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          Buró de Crédito Online
+        </span>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="flex-1 overflow-y-auto p-6 bg-slate-50/50">
+      <div class="max-w-4xl mx-auto space-y-6">
+
+        <!-- Title Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div>
+            <h1 class="text-2xl font-bold font-heading text-slate-900">Evaluación Crediticia y Emisión</h1>
+            <p class="text-xs text-slate-500 mt-1">Ingresa antecedentes comerciales para evaluar perfil de riesgo y aprobar cupo financiero.</p>
+          </div>
+          <a href="cuentas-list.html" class="px-4 py-2 border border-slate-300 hover:bg-slate-100 rounded-xl text-xs font-semibold text-slate-700 transition">
+            Cancelar
+          </a>
+        </div>
+
+        <!-- Form Card -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+          <form id="evaluationForm" onsubmit="event.preventDefault(); emitCardContract();" class="space-y-6">
+
+            <!-- Section 1: Datos Personales y Laborales -->
+            <div>
+              <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-user-tie text-amber-500"></i>
+                1. Antecedentes del Titular
+              </h2>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Nombre Completo</label>
+                  <input type="text" required placeholder="Ej: Marcela Paz Troncoso" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">RUT / Identificación</label>
+                  <input type="text" required placeholder="Ej: 17.820.441-9" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Correo Electrónico</label>
+                  <input type="email" required placeholder="marcela.troncoso@correo.cl" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Teléfono Móvil</label>
+                  <input type="tel" required placeholder="+56 9 7788 9900" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Renta Líquida Mensual ($ CLP)</label>
+                  <input type="number" id="incomeInput" oninput="calculateScoring()" required min="400000" step="50000" value="1800000" class="w-full text-xs font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Antigüedad Laboral</label>
+                  <select id="senioritySelect" onchange="calculateScoring()" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <option value="1">Menos de 1 año</option>
+                    <option value="2" selected>Entre 1 y 3 años</option>
+                    <option value="3">Más de 3 años (Indefinido)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: Evaluación Financiera & Score DICOM -->
+            <div class="pt-6 border-t border-slate-100">
+              <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-chart-pie text-amber-500"></i>
+                2. Score de Riesgo & Capacidad Crediticia
+              </h2>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+                <!-- Visual Scoring Gauge -->
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-2">
+                  <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Score Crediticio Predictivo</span>
+                  <div class="flex items-center justify-center gap-2">
+                    <span class="text-4xl font-extrabold font-heading text-emerald-600" id="scoreDisplay">860</span>
+                    <span class="text-xs font-bold text-slate-400">/ 990 pts</span>
+                  </div>
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 inline-block" id="scoreBadge">
+                    Riesgo Mínimo (Aprobado)
+                  </span>
+                  <p class="text-[11px] text-slate-500 mt-1">Sin morosidades vigentes en el sistema financiero.</p>
+                </div>
+
+                <!-- Capacidad máxima calculada -->
+                <div class="space-y-3 text-xs">
+                  <div class="flex justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+                    <span class="text-slate-500">Capacidad Máx. de Endeudamiento:</span>
+                    <strong class="text-slate-900 font-mono" id="maxCapDisplay">$4.200.000 CLP</strong>
+                  </div>
+                  <div class="flex justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+                    <span class="text-slate-500">Ratio Cuota / Ingreso Sugerido:</span>
+                    <strong class="text-slate-900">25% mensual</strong>
+                  </div>
+                  <div class="flex justify-between p-3 rounded-xl bg-amber-50 border border-amber-200">
+                    <span class="text-amber-800 font-semibold">Producto Recomendado:</span>
+                    <strong class="text-amber-900 font-bold" id="recPlanDisplay">MusicPro Platinum</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3: Definición del Producto y Línea de Crédito -->
+            <div class="pt-6 border-t border-slate-100">
+              <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-amber-500"></i>
+                3. Asignación de Producto & Límite
+              </h2>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Tipo de Tarjeta a Emitir</label>
+                  <select id="cardPlanSelect" onchange="updatePlanDefaults()" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 font-medium">
+                    <option value="classic">MusicPro Classic (Cupo hasta $800.000)</option>
+                    <option value="gold">MusicPro Gold (Cupo hasta $1.800.000)</option>
+                    <option value="platinum" selected>MusicPro Platinum (Cupo hasta $3.500.000)</option>
+                    <option value="black">MusicPro Black (Cupo hasta $6.000.000)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Línea de Crédito en Pesos ($ CLP)</label>
+                  <input type="number" id="assignedCredit" value="2500000" step="100000" class="w-full text-xs font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Cupo Internacional (USD)</label>
+                  <input type="number" id="assignedUsd" value="2500" step="100" class="w-full text-xs font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Tasa de Interés Mensual Pactada</label>
+                  <input type="text" id="assignedRate" value="1.75% mensual (CAE 24.2%)" class="w-full text-xs font-medium bg-slate-100 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-700">
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit buttons -->
+            <div class="pt-4 flex items-center justify-end gap-3">
+              <a href="cuentas-list.html" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+                Cancelar
+              </a>
+              <button type="submit" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl shadow-md shadow-amber-500/20 transition flex items-center gap-2">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Aprobar & Emitir Plástico</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function calculateScoring() {
+      const income = parseFloat(document.getElementById('incomeInput').value) || 0;
+      const seniority = parseInt(document.getElementById('senioritySelect').value) || 1;
+
+      let score = 500 + Math.min(350, Math.round(income / 6000)) + (seniority * 40);
+      score = Math.min(960, Math.max(350, score));
+
+      document.getElementById('scoreDisplay').textContent = score;
+      
+      const maxCap = Math.round(income * (1.5 + (seniority * 0.5)));
+      document.getElementById('maxCapDisplay').textContent = `$${maxCap.toLocaleString('es-CL')} CLP`;
+
+      const badge = document.getElementById('scoreBadge');
+      const rec = document.getElementById('recPlanDisplay');
+      if (score >= 800) {
+        badge.textContent = "Riesgo Mínimo (Aprobado)";
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 inline-block";
+        rec.textContent = "MusicPro Platinum / Black";
+      } else if (score >= 650) {
+        badge.textContent = "Riesgo Medio (Aprobado con Límites)";
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200 inline-block";
+        rec.textContent = "MusicPro Gold";
+      } else {
+        badge.textContent = "Riesgo Elevado (Requiere Aval)";
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200 inline-block";
+        rec.textContent = "MusicPro Classic";
+      }
+    }
+
+    function updatePlanDefaults() {
+      const plan = document.getElementById('cardPlanSelect').value;
+      const credit = document.getElementById('assignedCredit');
+      const usd = document.getElementById('assignedUsd');
+      const rate = document.getElementById('assignedRate');
+
+      if (plan === 'classic') {
+        credit.value = 500000;
+        usd.value = 500;
+        rate.value = "2.10% mensual (CAE 29.8%)";
+      } else if (plan === 'gold') {
+        credit.value = 1200000;
+        usd.value = 1200;
+        rate.value = "1.89% mensual (CAE 26.5%)";
+      } else if (plan === 'platinum') {
+        credit.value = 2500000;
+        usd.value = 2500;
+        rate.value = "1.75% mensual (CAE 24.2%)";
+      } else if (plan === 'black') {
+        credit.value = 4500000;
+        usd.value = 5000;
+        rate.value = "1.50% mensual (CAE 20.8%)";
+      }
+    }
+
+    function emitCardContract() {
+      alert('¡Evaluación aprobada y contrato emitido exitosamente! Se ha creado el contrato #CTA-10072 y enviado el kit digital de bienvenida al cliente.');
+      window.location.href = "cuentas-list.html";
+    }
+  </script>
+</body>
+</html>

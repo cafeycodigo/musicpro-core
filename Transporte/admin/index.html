@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transporte Logística | Torre de Control</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- Sidebar Fija 260px -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-cyan-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-cyan-500/20">
+            <i class="fa-solid fa-route"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">Torre Logística</span>
+            <span class="text-[10px] text-cyan-400 font-medium uppercase tracking-wider">Flota & Despacho</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <div class="px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">Operaciones Centrales</div>
+        
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold text-xs border border-cyan-500/20">
+          <i class="fa-solid fa-tower-broadcast w-4 text-center"></i>
+          <span>Torre de Control</span>
+        </a>
+
+        <a href="vehiculos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-truck w-4 text-center"></i>
+          <span>Flota & Vehículos</span>
+        </a>
+
+        <a href="conductores-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
+          <span>Conductores</span>
+        </a>
+
+        <a href="zonas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-map-location-dot w-4 text-center"></i>
+          <span>Zonas & Tarifas</span>
+        </a>
+
+        <a href="rutas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-clipboard-list w-4 text-center"></i>
+          <span>Planificador de Rutas</span>
+        </a>
+
+        <a href="incidencias-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-triangle-exclamation w-4 text-center text-amber-400"></i>
+          <span>Incidencias & Excepciones</span>
+        </a>
+
+        <div class="pt-4 px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">Acción Rápida</div>
+
+        <a href="rutas-create.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-plus-circle w-4 text-center text-cyan-400"></i>
+          <span>Asignar Ruta</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="../cliente/envios-list.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition mb-3">
+        <i class="fa-solid fa-truck-fast text-cyan-400"></i>
+        <span>Ver Portal Remitentes</span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center font-bold text-xs text-cyan-400 border border-slate-700">TL</div>
+        <div class="overflow-hidden">
+          <div class="text-xs font-semibold text-white truncate">Despacho Central</div>
+          <div class="text-[10px] text-slate-500">Supervisor de Flota</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Container -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <span class="font-semibold text-slate-800">Torre Logística</span>
+        <span>•</span>
+        <span>Centro de Operaciones Metropolitana</span>
+      </div>
+      <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">Torre de Control de Envíos y Flota</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Monitoreo de móviles en calle, asignación de encomiendas por zona y control de tiempos de entrega.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="rutas-create.html" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-semibold shadow-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i>
+            <span>Nueva Hoja de Ruta</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- KPI Cards (Requeridos) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-xs font-medium text-slate-500 block mb-1">Móviles en Operación</span>
+            <span class="font-heading font-extrabold text-2xl text-slate-900">18 / 22</span>
+            <span class="text-[11px] text-emerald-600 font-semibold block mt-1">
+              <i class="fa-solid fa-circle-check"></i> 82% de flota en ruta
+            </span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-truck-moving"></i>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-xs font-medium text-slate-500 block mb-1">Envíos del Día</span>
+            <span class="font-heading font-extrabold text-2xl text-slate-900">146 Paquetes</span>
+            <span class="text-[11px] text-slate-400 block mt-1">98 entregados / 48 en curso</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-boxes-packing"></i>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-xs font-medium text-slate-500 block mb-1">Efectividad de Entrega</span>
+            <span class="font-heading font-extrabold text-2xl text-emerald-600">97.8%</span>
+            <span class="text-[11px] text-emerald-600 font-semibold block mt-1">
+              <i class="fa-solid fa-arrow-up"></i> Tasa On-Time Delivery
+            </span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-xs font-medium text-slate-500 block mb-1">Alertas / Incidencias</span>
+            <span class="font-heading font-extrabold text-2xl text-rose-600">2 Alertas</span>
+            <span class="text-[11px] text-rose-500 font-semibold block mt-1">
+              <i class="fa-solid fa-triangle-exclamation"></i> Domicilio no encontrado
+            </span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-bell"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Main Columns: Estado de Flota Activa y Rutas en Curso -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        
+        <!-- Rutas en Curso (2 cols) -->
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-2.5 h-2.5 rounded-full bg-cyan-500"></div>
+              <h2 class="font-heading font-bold text-base text-slate-900">Hojas de Ruta Activas Hoy</h2>
+            </div>
+            <a href="rutas-list.html" class="text-xs font-semibold text-cyan-600 hover:text-cyan-700">Ver Todas las Rutas &rarr;</a>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-600">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 uppercase font-semibold text-[11px]">
+                <tr>
+                  <th class="py-3 px-5"># Ruta & Chofer</th>
+                  <th class="py-3 px-4">Zona / Comuna</th>
+                  <th class="py-3 px-4 text-center">Bultos</th>
+                  <th class="py-3 px-4">Progreso Entrega</th>
+                  <th class="py-3 px-4">Estado</th>
+                  <th class="py-3 px-5 text-right">Acción</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="py-3.5 px-5">
+                    <a href="rutas-detail.html" class="font-mono font-bold text-slate-900 hover:text-cyan-600 block">RUTA-2026-08</a>
+                    <span class="text-slate-500">Patricio Silva (Van F-04)</span>
+                  </td>
+                  <td class="py-3.5 px-4 font-medium text-slate-800">Providencia / Las Condes</td>
+                  <td class="py-3.5 px-4 text-center font-bold text-slate-900">18</td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex items-center gap-2">
+                      <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-cyan-600 rounded-full" style="width: 72%"></div>
+                      </div>
+                      <span class="font-mono font-bold text-slate-700 text-[11px]">72%</span>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-cyan-50 text-cyan-700 border border-cyan-200">En Despacho</span>
+                  </td>
+                  <td class="py-3.5 px-5 text-right">
+                    <a href="rutas-detail.html" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-[11px] transition">Ver Paradas</a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="py-3.5 px-5">
+                    <a href="rutas-detail.html" class="font-mono font-bold text-slate-900 hover:text-cyan-600 block">RUTA-2026-09</a>
+                    <span class="text-slate-500">Rodrigo Fuentes (Camión C-02)</span>
+                  </td>
+                  <td class="py-3.5 px-4 font-medium text-slate-800">Santiago Centro / Ñuñoa</td>
+                  <td class="py-3.5 px-4 text-center font-bold text-slate-900">34</td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex items-center gap-2">
+                      <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-cyan-600 rounded-full" style="width: 45%"></div>
+                      </div>
+                      <span class="font-mono font-bold text-slate-700 text-[11px]">45%</span>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-cyan-50 text-cyan-700 border border-cyan-200">En Despacho</span>
+                  </td>
+                  <td class="py-3.5 px-5 text-right">
+                    <a href="rutas-detail.html" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-[11px] transition">Ver Paradas</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Incidencias en Vivo -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col justify-between">
+          <div>
+            <h2 class="font-heading font-bold text-base text-slate-900 mb-1">Alertas de Reparto</h2>
+            <p class="text-xs text-slate-500 mb-4">Requieren resolución de logística</p>
+
+            <div class="space-y-3">
+              <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs space-y-1">
+                <div class="flex items-center justify-between font-bold text-rose-800">
+                  <span>TRK-2026-0041</span>
+                  <span>11:20 hrs</span>
+                </div>
+                <p class="text-rose-700">Destinatario ausente en Las Condes. Chofer en espera de llamada.</p>
+                <div class="pt-2 flex gap-2">
+                  <button onclick="alert('Reprogramando entrega para el segundo turno...')" class="px-2 py-1 bg-white border border-rose-300 text-rose-700 rounded text-[10px] font-bold">Reprogramar</button>
+                  <button onclick="alert('Contactando a destinatario...')" class="px-2 py-1 bg-rose-600 text-white rounded text-[10px] font-bold">Llamar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100">
+            <a href="vehiculos-list.html" class="w-full block text-center py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-semibold text-slate-700 transition">
+              Administrar Flota de Móviles &rarr;
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

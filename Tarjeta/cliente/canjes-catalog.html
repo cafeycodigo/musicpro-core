@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Card | Club de Beneficios y Canjes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800 antialiased">
+
+  <!-- Navbar -->
+  <header class="bg-slate-900 text-white sticky top-0 z-40 border-b border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-400/20">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base tracking-wide flex items-center gap-1.5">
+              MusicPro <span class="text-amber-400 font-extrabold text-xs uppercase px-1.5 py-0.5 rounded bg-amber-400/10 border border-amber-400/30">Black</span>
+            </span>
+            <span class="text-[10px] text-slate-400 block -mt-0.5">Banca y Fidelización Digital</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1 text-xs font-semibold">
+          <a href="tarjeta-dashboard.html" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Mi Tarjeta</a>
+          <a href="movimientos-list.html" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Movimientos</a>
+          <a href="transferencias-create.html" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Transferencias</a>
+          <a href="canjes-catalog.html" class="px-3 py-2 rounded-lg bg-slate-800 text-amber-400 border border-slate-700">Club de Puntos</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold">
+          <i class="fa-solid fa-gem text-amber-400"></i>
+          <span id="navPointsBalance">14,850 Puntos Pro</span>
+        </div>
+
+        <div class="flex items-center gap-3 pl-3 border-l border-slate-800">
+          <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center font-bold text-xs border border-slate-600">
+            BM
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-6">
+
+    <!-- Header Banner con Saldo y Destacado -->
+    <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 rounded-3xl p-6 sm:p-8 border border-amber-500/30 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 w-56 h-56 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10">
+        <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30 inline-flex items-center gap-1.5 mb-2">
+          <i class="fa-solid fa-gem"></i> Club de Fidelización Exclusivo
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-bold font-heading text-white">Canjea tus Puntos MusicPro</h1>
+        <p class="text-xs text-slate-300 mt-1 max-w-xl">Aprovecha tus puntos acumulados por compras con tarjeta para adquirir instrumentos premium, masterclasses exclusivas o gift cards de descuento inmediato.</p>
+      </div>
+
+      <div class="bg-slate-800/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-700/80 flex items-center gap-4 relative z-10 flex-shrink-0">
+        <div class="w-12 h-12 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-coins"></i>
+        </div>
+        <div>
+          <span class="text-[11px] text-slate-400 uppercase tracking-wider block">Tu Saldo Disponible</span>
+          <span class="font-heading font-extrabold text-2xl text-amber-400" id="heroPoints">14.850 pts</span>
+          <span class="text-[10px] text-slate-300 block">Equivalen a $74.250 CLP</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Toolbar -->
+    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="flex flex-wrap items-center gap-2">
+        <button onclick="filterCategory('ALL', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-sm transition">
+          Todos los Beneficios
+        </button>
+        <button onclick="filterCategory('INST', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
+          Instrumentos & Audio
+        </button>
+        <button onclick="filterCategory('COUPON', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
+          Gift Cards & Tienda
+        </button>
+        <button onclick="filterCategory('MASTER', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
+          Masterclasses & Eventos
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs">
+        <label class="text-slate-500 flex items-center gap-1.5 cursor-pointer">
+          <input type="checkbox" id="affordableOnly" onchange="toggleAffordableOnly()" class="rounded border-slate-300 text-amber-500 focus:ring-amber-500">
+          <span>Solo lo que puedo canjear ahora (≤ 14.850 pts)</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="canjesGrid">
+      
+      <!-- Card 1 -->
+      <div class="canje-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group" data-cat="INST" data-pts="12500" data-title="Pedal Boss Overdrive SD-1">
+        <div class="p-5">
+          <div class="h-40 rounded-xl bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-400 mb-4 group-hover:scale-[1.02] transition">
+            <i class="fa-solid fa-volume-high text-5xl text-amber-500/80"></i>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700">Audio & Efectos</span>
+          <h3 class="font-bold text-slate-900 text-sm mt-1.5 line-clamp-1">Pedal Boss Overdrive SD-1</h3>
+          <p class="text-xs text-slate-500 mt-1 line-clamp-2">Pedal clásico analógico para guitarra con respuesta dinámica a la púa.</p>
+        </div>
+        <div class="p-5 pt-0 border-t border-slate-100 mt-2">
+          <div class="flex items-center justify-between py-3">
+            <span class="text-xs text-slate-400">Puntos requeridos:</span>
+            <span class="font-heading font-extrabold text-base text-amber-600">12.500 pts</span>
+          </div>
+          <button onclick="openCanjeModal('Pedal Boss Overdrive SD-1', 12500, 'Audio & Efectos')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-gift text-amber-400"></i>
+            <span>Canjear Ahora</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="canje-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group" data-cat="COUPON" data-pts="5000" data-title="Gift Card Tienda $25.000">
+        <div class="p-5">
+          <div class="h-40 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-600 text-slate-950 flex flex-col items-center justify-center mb-4 p-4 shadow-sm group-hover:scale-[1.02] transition">
+            <i class="fa-solid fa-tag text-3xl mb-1"></i>
+            <span class="font-heading font-extrabold text-xl tracking-tight">$25.000 CLP</span>
+            <span class="text-[10px] font-semibold uppercase tracking-wider">Vale de Descuento</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700">Gift Card Digital</span>
+          <h3 class="font-bold text-slate-900 text-sm mt-1.5 line-clamp-1">Gift Card Tienda $25.000</h3>
+          <p class="text-xs text-slate-500 mt-1 line-clamp-2">Cupón digital aplicable en cualquier compra sobre $50.000 en MusicPro Retail.</p>
+        </div>
+        <div class="p-5 pt-0 border-t border-slate-100 mt-2">
+          <div class="flex items-center justify-between py-3">
+            <span class="text-xs text-slate-400">Puntos requeridos:</span>
+            <span class="font-heading font-extrabold text-base text-amber-600">5.000 pts</span>
+          </div>
+          <button onclick="openCanjeModal('Gift Card Tienda $25.000', 5000, 'Gift Card Digital')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-gift text-amber-400"></i>
+            <span>Canjear Ahora</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="canje-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group" data-cat="MASTER" data-pts="8500" data-title="Masterclass Mezcla con Ingeniero Grammy">
+        <div class="p-5">
+          <div class="h-40 rounded-xl bg-slate-900 text-cyan-400 flex flex-col items-center justify-center mb-4 p-4 shadow-sm group-hover:scale-[1.02] transition">
+            <i class="fa-solid fa-sliders text-4xl mb-2 text-cyan-400"></i>
+            <span class="text-xs font-bold text-white uppercase tracking-wider">Taller Online VIP</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-50 text-cyan-700">Educación & VIP</span>
+          <h3 class="font-bold text-slate-900 text-sm mt-1.5 line-clamp-1">Masterclass Mezcla Audio Pro</h3>
+          <p class="text-xs text-slate-500 mt-1 line-clamp-2">Acceso a taller de 3 horas vía streaming con certificado oficial MusicPro Academy.</p>
+        </div>
+        <div class="p-5 pt-0 border-t border-slate-100 mt-2">
+          <div class="flex items-center justify-between py-3">
+            <span class="text-xs text-slate-400">Puntos requeridos:</span>
+            <span class="font-heading font-extrabold text-base text-amber-600">8.500 pts</span>
+          </div>
+          <button onclick="openCanjeModal('Masterclass Mezcla Audio Pro', 8500, 'Educación & VIP')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-gift text-amber-400"></i>
+            <span>Canjear Ahora</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 4 (Requiere más puntos: 25.000) -->
+      <div class="canje-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group opacity-90" data-cat="INST" data-pts="25000" data-title="Micrófono Shure SM58 Pro">
+        <div class="p-5">
+          <div class="h-40 rounded-xl bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-400 mb-4 group-hover:scale-[1.02] transition">
+            <i class="fa-solid fa-microphone text-5xl text-slate-500"></i>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-50 text-purple-700">Microfonía</span>
+          <h3 class="font-bold text-slate-900 text-sm mt-1.5 line-clamp-1">Micrófono Vocal Shure SM58</h3>
+          <p class="text-xs text-slate-500 mt-1 line-clamp-2">El micrófono dinámico estándar de la industria mundial con patrón cardioide.</p>
+        </div>
+        <div class="p-5 pt-0 border-t border-slate-100 mt-2">
+          <div class="flex items-center justify-between py-3">
+            <span class="text-xs text-slate-400">Puntos requeridos:</span>
+            <span class="font-heading font-extrabold text-base text-slate-700">25.000 pts</span>
+          </div>
+          <button onclick="alert('Te faltan 10.150 puntos para canjear este artículo. ¡Sigue utilizando tu tarjeta MusicPro!')" class="w-full py-2 bg-slate-100 text-slate-500 hover:bg-slate-200 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-lock text-slate-400"></i>
+            <span>Puntos Insuficientes</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Modal Confirmación de Canje -->
+  <div id="canjeModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-150">
+      <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg shadow-amber-500/10">
+        <i class="fa-solid fa-gift"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 text-center mb-1">Confirmar Canje de Beneficio</h3>
+      <p class="text-xs text-slate-500 text-center mb-5">Estás a punto de descontar puntos de tu saldo acumulado para adquirir este artículo.</p>
+
+      <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 text-xs space-y-2 mb-5">
+        <div class="flex justify-between">
+          <span class="text-slate-500">Artículo / Beneficio:</span>
+          <strong class="text-slate-900 text-right" id="modalBenefitTitle">Pedal Boss Overdrive</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Categoría:</span>
+          <span class="font-semibold text-slate-800" id="modalBenefitCat">Audio & Efectos</span>
+        </div>
+        <div class="flex justify-between border-t border-slate-200 pt-2">
+          <span class="text-slate-500">Puntos a Descontar:</span>
+          <strong class="text-amber-600 font-bold text-sm" id="modalBenefitPts">12.500 pts</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Nuevo Saldo Restante:</span>
+          <strong class="text-slate-900 font-bold" id="modalBenefitRemaining">2.350 pts</strong>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <button onclick="closeCanjeModal()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+          Cancelar
+        </button>
+        <button onclick="executeCanje()" class="flex-1 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-bold shadow-md shadow-amber-500/20 transition">
+          Confirmar Canje
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentBalance = 14850;
+    let selectedItem = null;
+
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.className = "cat-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition";
+      });
+      btn.className = "cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-sm transition";
+
+      const cards = document.querySelectorAll('#canjesGrid .canje-card');
+      cards.forEach(card => {
+        const matchesCat = cat === 'ALL' || card.dataset.cat === cat;
+        if (matchesCat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function toggleAffordableOnly() {
+      const checked = document.getElementById('affordableOnly').checked;
+      const cards = document.querySelectorAll('#canjesGrid .canje-card');
+      cards.forEach(card => {
+        const pts = parseInt(card.dataset.pts);
+        if (checked && pts > currentBalance) {
+          card.classList.add('hidden');
+        } else {
+          card.classList.remove('hidden');
+        }
+      });
+    }
+
+    function openCanjeModal(title, pts, cat) {
+      selectedItem = { title, pts, cat };
+      document.getElementById('modalBenefitTitle').textContent = title;
+      document.getElementById('modalBenefitCat').textContent = cat;
+      document.getElementById('modalBenefitPts').textContent = `${pts.toLocaleString('es-CL')} pts`;
+      document.getElementById('modalBenefitRemaining').textContent = `${(currentBalance - pts).toLocaleString('es-CL')} pts`;
+      document.getElementById('canjeModal').classList.remove('hidden');
+    }
+
+    function closeCanjeModal() {
+      document.getElementById('canjeModal').classList.add('hidden');
+    }
+
+    function executeCanje() {
+      currentBalance -= selectedItem.pts;
+      document.getElementById('heroPoints').textContent = `${currentBalance.toLocaleString('es-CL')} pts`;
+      document.getElementById('navPointsBalance').textContent = `${currentBalance.toLocaleString('es-CL')} Puntos Pro`;
+      closeCanjeModal();
+      alert(`¡Felicitaciones! Has canjeado con éxito "${selectedItem.title}". Recibirás las instrucciones de retiro y tu cupón digital en tu correo registrado.`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transporte Admin | Zonas y Tarifas Logísticas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- SIDEBAR TMS -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-cyan-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-cyan-500/20">
+            <i class="fa-solid fa-route"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">Torre Logística</span>
+            <span class="text-[10px] text-cyan-400 font-medium uppercase tracking-wider">TMS & Despacho</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-tower-broadcast w-4 text-center"></i>
+          <span>Torre de Control</span>
+        </a>
+        <a href="vehiculos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-truck w-4 text-center"></i>
+          <span>Flota & Vehículos</span>
+        </a>
+        <a href="conductores-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
+          <span>Conductores</span>
+        </a>
+        <a href="zonas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold text-xs border border-cyan-500/20">
+          <i class="fa-solid fa-map-location-dot w-4 text-center"></i>
+          <span>Zonas & Tarifas</span>
+        </a>
+        <a href="rutas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-clipboard-list w-4 text-center"></i>
+          <span>Planificador de Rutas</span>
+        </a>
+        <a href="incidencias-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-triangle-exclamation w-4 text-center text-amber-400"></i>
+          <span>Incidencias & Excepciones</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800 space-y-2">
+      <a href="../cliente/puntos-red.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800/60 hover:bg-slate-800 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-location-dot text-cyan-400"></i>
+        <span>Red Puntos Pick-up</span>
+      </a>
+      <a href="../cliente/envios-list.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-truck-fast text-cyan-400"></i>
+        <span>Portal Remitentes</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Logística</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Zonas y Tarifas de Despacho</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Matriz de Tarifas 2026 V3</span>
+        <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+          <i class="fa-solid fa-house"></i>
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+      
+      <!-- CABECERA -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Zonificación Logística & Tarifas</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Definición de zonas de cobertura, flete base, recargo por kilogramo y compromiso SLA.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openModal()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-semibold shadow-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i>
+            <span>Nueva Zona / Tarifa</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KPIS DE ZONIFICACIÓN -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Zonas Activas</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">14 Zonas</span>
+            <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">100% Operativo</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tarifa Base Promedio</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">$3.850</span>
+            <span class="text-xs text-slate-500 font-mono">Hasta 2.0 kg</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tiempo Tránsito SLA</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-cyan-600">24.4 hrs</span>
+            <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">98.2% Cumplimiento</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Operador Preferente</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">Flota Propia</span>
+            <span class="text-xs text-slate-500 font-mono">78% de OTs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLA DE ZONAS -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Filtrar por código de zona o comuna..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+          <div class="flex items-center gap-2">
+            <select class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">
+              <option>Todas las Regiones</option>
+              <option>RM Urbana</option>
+              <option>RM Periférica</option>
+              <option>Norte</option>
+              <option>Centro / Sur</option>
+              <option>Austral</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-6">Código / Nombre</th>
+                <th class="py-3.5 px-6">Comunas Representativas</th>
+                <th class="py-3.5 px-6">Tarifa Base (&le;2kg)</th>
+                <th class="py-3.5 px-6">Kg Adicional</th>
+                <th class="py-3.5 px-6">SLA Entrega</th>
+                <th class="py-3.5 px-6">Flota / Red</th>
+                <th class="py-3.5 px-6">Estado</th>
+                <th class="py-3.5 px-6 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              
+              <!-- Fila 1 -->
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="font-bold text-slate-900 font-mono text-sm">RM-URB-01</div>
+                  <div class="text-[11px] text-slate-500 font-semibold">Santiago Anillo Américo Vespucio</div>
+                </td>
+                <td class="py-4 px-6 max-w-xs">
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Providencia</span>
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Las Condes</span>
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Santiago Centro</span>
+                  <span class="text-[10px] text-cyan-600 font-bold">+18 comunas</span>
+                </td>
+                <td class="py-4 px-6 font-bold text-slate-900 font-mono text-sm">$3.290</td>
+                <td class="py-4 px-6 font-semibold text-slate-700 font-mono">$490</td>
+                <td class="py-4 px-6">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-100 text-cyan-800">Mismo Día / 24h</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-truck text-cyan-600"></i> Flota Propia</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activa</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <button onclick="openModal()" class="text-cyan-600 hover:text-cyan-800 font-bold">Editar</button>
+                </td>
+              </tr>
+
+              <!-- Fila 2 -->
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="font-bold text-slate-900 font-mono text-sm">RM-PERIF-02</div>
+                  <div class="text-[11px] text-slate-500 font-semibold">RM Periférica y Rural</div>
+                </td>
+                <td class="py-4 px-6 max-w-xs">
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Colina / Chicureo</span>
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Talagante</span>
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Buin</span>
+                  <span class="text-[10px] text-cyan-600 font-bold">+8 comunas</span>
+                </td>
+                <td class="py-4 px-6 font-bold text-slate-900 font-mono text-sm">$4.490</td>
+                <td class="py-4 px-6 font-semibold text-slate-700 font-mono">$650</td>
+                <td class="py-4 px-6">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">24 a 48 hrs</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-truck text-cyan-600"></i> Mixta (Propia + Aliada)</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activa</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <button onclick="openModal()" class="text-cyan-600 hover:text-cyan-800 font-bold">Editar</button>
+                </td>
+              </tr>
+
+              <!-- Fila 3 -->
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="font-bold text-slate-900 font-mono text-sm">VAL-COQU-03</div>
+                  <div class="text-[11px] text-slate-500 font-semibold">Valparaíso y Coquimbo</div>
+                </td>
+                <td class="py-4 px-6 max-w-xs">
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Viña del Mar</span>
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Valparaíso</span>
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">La Serena</span>
+                </td>
+                <td class="py-4 px-6 font-bold text-slate-900 font-mono text-sm">$4.990</td>
+                <td class="py-4 px-6 font-semibold text-slate-700 font-mono">$790</td>
+                <td class="py-4 px-6">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">48 hrs</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-truck-fast text-orange-500"></i> Blue Express Troncal</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activa</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <button onclick="openModal()" class="text-cyan-600 hover:text-cyan-800 font-bold">Editar</button>
+                </td>
+              </tr>
+
+              <!-- Fila 4 -->
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="font-bold text-slate-900 font-mono text-sm">SUR-BIO-04</div>
+                  <div class="text-[11px] text-slate-500 font-semibold">Biobío y Araucanía</div>
+                </td>
+                <td class="py-4 px-6 max-w-xs">
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Concepción</span>
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">San Pedro</span>
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Temuco</span>
+                </td>
+                <td class="py-4 px-6 font-bold text-slate-900 font-mono text-sm">$5.490</td>
+                <td class="py-4 px-6 font-semibold text-slate-700 font-mono">$890</td>
+                <td class="py-4 px-6">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">48 a 72 hrs</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-truck-fast text-orange-500"></i> Starken / Blue Express</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activa</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <button onclick="openModal()" class="text-cyan-600 hover:text-cyan-800 font-bold">Editar</button>
+                </td>
+              </tr>
+
+              <!-- Fila 5 -->
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="font-bold text-slate-900 font-mono text-sm">AUS-EXT-05</div>
+                  <div class="text-[11px] text-slate-500 font-semibold">Zona Austral y Extrema</div>
+                </td>
+                <td class="py-4 px-6 max-w-xs">
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Punta Arenas</span>
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Coyhaique</span>
+                  <span class="inline-block bg-slate-100 px-2 py-0.5 rounded text-[10px] text-slate-700 mr-1 mb-1">Puerto Natales</span>
+                </td>
+                <td class="py-4 px-6 font-bold text-slate-900 font-mono text-sm">$8.990</td>
+                <td class="py-4 px-6 font-semibold text-slate-700 font-mono">$1.450</td>
+                <td class="py-4 px-6">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">4 a 6 días</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-plane text-purple-600"></i> Aéreo / Courier Aliado</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activa</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <button onclick="openModal()" class="text-cyan-600 hover:text-cyan-800 font-bold">Editar</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL NUEVA ZONA / EDICIÓN -->
+  <div id="modalZona" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <h3 class="font-heading font-bold text-slate-900 text-base">Parámetros de Zona & Tarifa</h3>
+        <button onclick="closeModal()" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-600 transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="py-4 space-y-3 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Código de Zona</label>
+            <input type="text" value="RM-URB-03" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-cyan-500 font-mono">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Región / Macro-zona</label>
+            <select class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-cyan-500">
+              <option>Región Metropolitana</option>
+              <option>Zona Centro</option>
+              <option>Zona Sur</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Nombre Descriptivo</label>
+          <input type="text" value="Santiago Sector Poniente" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-cyan-500">
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Tarifa Base ($)</label>
+            <input type="number" value="3490" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-cyan-500 font-mono">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Kilo Adicional ($)</label>
+            <input type="number" value="520" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-cyan-500 font-mono">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">SLA (Horas)</label>
+            <input type="number" value="24" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-cyan-500 font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Operador / Courier Asignado</label>
+          <select class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-cyan-500">
+            <option>Flota Propia MusicPro (Vehículos Van/3/4)</option>
+            <option>Red Aliada Blue Express</option>
+            <option>Starken Troncal</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+        <button onclick="closeModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">Cancelar</button>
+        <button onclick="alert('Zona y matriz de tarifas guardada correctamente.'); closeModal();" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl text-xs font-bold transition">Guardar Parámetros</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('modalZona').classList.remove('hidden');
+    }
+    function closeModal() {
+      document.getElementById('modalZona').classList.add('hidden');
+    }
+  </script>
+
+</body>
+</html>

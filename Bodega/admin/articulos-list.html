@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega WMS | Maestro de Artículos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- Sidebar Fija (260px) -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-500/20">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">WMS Bodega</span>
+            <span class="text-[10px] text-amber-400 font-medium uppercase tracking-wider">Back-Office Admin</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <div class="px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">Módulos Principales</div>
+        
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-gauge-high w-4 text-center"></i>
+          <span>Dashboard WMS</span>
+        </a>
+
+        <a href="articulos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-semibold text-xs border border-amber-500/20">
+          <i class="fa-solid fa-barcode w-4 text-center"></i>
+          <span>Maestro de Artículos</span>
+        </a>
+
+        <a href="ubicaciones-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-table-cells-large w-4 text-center"></i>
+          <span>Ubicaciones & Racks</span>
+        </a>
+
+        <a href="movimientos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-arrows-rotate w-4 text-center"></i>
+          <span>Movimientos & Mermas</span>
+        </a>
+
+        <div class="pt-4 px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">Operaciones Rápidas</div>
+
+        <a href="articulos-create.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-plus-circle w-4 text-center text-amber-400"></i>
+          <span>Nuevo Artículo</span>
+        </a>
+
+        <a href="movimientos-create.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-file-circle-plus w-4 text-center text-amber-400"></i>
+          <span>Ingreso / Ajuste</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="../cliente/solicitudes-list.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition mb-3">
+        <i class="fa-solid fa-store text-amber-400"></i>
+        <span>Ver Portal Sucursales</span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center font-bold text-xs text-amber-400 border border-slate-700">JB</div>
+        <div class="overflow-hidden">
+          <div class="text-xs font-semibold text-white truncate">Juan Bustamante</div>
+          <div class="text-[10px] text-slate-500">Jefe de Bodega Central</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Container -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    
+    <!-- Topbar -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">WMS</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Maestro de Artículos</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition" title="Ir al Hub Central">
+          <i class="fa-solid fa-house"></i>
+        </a>
+      </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Catálogo Maestro de Artículos</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Control de SKUs, códigos de barra EAN-13, ubicaciones físicas asignadas y saldos de inventario.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="exportCSV()" class="px-3.5 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-file-excel text-emerald-600"></i>
+            <span>Exportar CSV</span>
+          </button>
+          <a href="articulos-create.html" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i>
+            <span>Ingresar Nuevo Producto</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Table Card Container -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        
+        <!-- Filters & Live Search -->
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" id="adminSkuSearch" placeholder="Buscar por SKU, EAN-13 o descripción..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition">
+          </div>
+
+          <div class="flex items-center gap-3">
+            <select id="categoryFilter" onchange="filterAdminTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 font-medium">
+              <option value="all">Todas las Categorías</option>
+              <option value="Cuerdas">Cuerdas / Guitarras</option>
+              <option value="Amplificación">Amplificación</option>
+              <option value="Percusión">Percusión</option>
+              <option value="Teclados">Teclados</option>
+              <option value="Accesorios">Accesorios</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dense Data Table (Requerimiento WMS) -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-3.5 px-4 sm:px-6">SKU & Código EAN-13</th>
+                <th class="py-3.5 px-4">Descripción del Artículo</th>
+                <th class="py-3.5 px-4">Categoría</th>
+                <th class="py-3.5 px-4">Ubicación Pasillo-Rack</th>
+                <th class="py-3.5 px-4 text-center">Físico</th>
+                <th class="py-3.5 px-4 text-center">Reservado</th>
+                <th class="py-3.5 px-4 text-center">Disponible</th>
+                <th class="py-3.5 px-4 sm:px-6 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="articulosTableBody" class="divide-y divide-slate-200">
+
+              <!-- Item 1 -->
+              <tr class="hover:bg-slate-50/80 transition sku-row" data-cat="Cuerdas" data-sku="SKU-GTR-001">
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=100&auto=format&fit=crop&q=80" alt="SKU" class="w-9 h-9 rounded-lg object-contain bg-slate-100 border border-slate-200 p-0.5">
+                    <div>
+                      <a href="articulos-detail.html" class="font-mono font-bold text-slate-900 hover:text-amber-600 transition block">SKU-GTR-001</a>
+                      <span class="font-mono text-[10px] text-slate-400">7809823410293</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-slate-800">
+                  Guitarra Eléctrica Fender Stratocaster Player
+                  <span class="block text-[11px] text-slate-400 font-normal">Unidad individual</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="px-2 py-0.5 rounded text-[11px] bg-slate-100 font-medium text-slate-700">Cuerdas</span>
+                </td>
+                <td class="py-3.5 px-4 font-mono font-semibold text-amber-700">P02-R04-N1</td>
+                <td class="py-3.5 px-4 text-center font-bold text-slate-800">54</td>
+                <td class="py-3.5 px-4 text-center font-bold text-amber-600">12</td>
+                <td class="py-3.5 px-4 text-center font-bold text-emerald-600 bg-emerald-50/50">42</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right space-x-1">
+                  <a href="articulos-detail.html" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition inline-block" title="Ver Detalle & Kardex">
+                    <i class="fa-regular fa-eye"></i>
+                  </a>
+                  <a href="articulos-edit.html" class="p-1.5 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 transition inline-block" title="Editar Parámetros">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="openDeactivateModal('SKU-GTR-001', 'Fender Stratocaster Player', 42)" class="p-1.5 text-rose-500 hover:text-rose-700 rounded-lg hover:bg-rose-50 transition inline-block" title="Desactivar SKU">
+                    <i class="fa-regular fa-circle-stop"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Item 2 -->
+              <tr class="hover:bg-slate-50/80 transition sku-row" data-cat="Amplificación" data-sku="SKU-AMP-004">
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1525410886566-646ef8586c75?w=100&auto=format&fit=crop&q=80" alt="SKU" class="w-9 h-9 rounded-lg object-contain bg-slate-100 border border-slate-200 p-0.5">
+                    <div>
+                      <a href="articulos-detail.html" class="font-mono font-bold text-slate-900 hover:text-amber-600 transition block">SKU-AMP-004</a>
+                      <span class="font-mono text-[10px] text-slate-400">7809823410884</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-slate-800">
+                  Amplificador Marshall DSL40CR a Tubos
+                  <span class="block text-[11px] text-slate-400 font-normal">Caja embalaje original</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="px-2 py-0.5 rounded text-[11px] bg-slate-100 font-medium text-slate-700">Amplificación</span>
+                </td>
+                <td class="py-3.5 px-4 font-mono font-semibold text-amber-700">P03-R01-N2</td>
+                <td class="py-3.5 px-4 text-center font-bold text-slate-800">22</td>
+                <td class="py-3.5 px-4 text-center font-bold text-amber-600">8</td>
+                <td class="py-3.5 px-4 text-center font-bold text-amber-600 bg-amber-50/50">14</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right space-x-1">
+                  <a href="articulos-detail.html" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition inline-block" title="Ver Detalle & Kardex">
+                    <i class="fa-regular fa-eye"></i>
+                  </a>
+                  <a href="articulos-edit.html" class="p-1.5 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 transition inline-block" title="Editar Parámetros">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="openDeactivateModal('SKU-AMP-004', 'Marshall DSL40CR', 14)" class="p-1.5 text-rose-500 hover:text-rose-700 rounded-lg hover:bg-rose-50 transition inline-block" title="Desactivar SKU">
+                    <i class="fa-regular fa-circle-stop"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Item 3: Quiebre -->
+              <tr class="hover:bg-slate-50/80 transition sku-row bg-rose-50/30" data-cat="Percusión" data-sku="SKU-DRM-012">
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=100&auto=format&fit=crop&q=80" alt="SKU" class="w-9 h-9 rounded-lg object-contain bg-slate-100 border border-slate-200 p-0.5">
+                    <div>
+                      <a href="articulos-detail.html" class="font-mono font-bold text-slate-900 hover:text-amber-600 transition block">SKU-DRM-012</a>
+                      <span class="font-mono text-[10px] text-slate-400">7809823419021</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-slate-800">
+                  Batería Acústica Pearl Export EXX 5 Cuerpos
+                  <span class="block text-[11px] text-rose-600 font-semibold">¡Quiebre de Stock Físico!</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="px-2 py-0.5 rounded text-[11px] bg-slate-100 font-medium text-slate-700">Percusión</span>
+                </td>
+                <td class="py-3.5 px-4 font-mono font-semibold text-slate-500">P03-R08-N1</td>
+                <td class="py-3.5 px-4 text-center font-bold text-rose-600">0</td>
+                <td class="py-3.5 px-4 text-center font-bold text-slate-400">0</td>
+                <td class="py-3.5 px-4 text-center font-bold text-rose-600 bg-rose-50/50">0</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right space-x-1">
+                  <a href="articulos-detail.html" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition inline-block" title="Ver Detalle & Kardex">
+                    <i class="fa-regular fa-eye"></i>
+                  </a>
+                  <a href="articulos-edit.html" class="p-1.5 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 transition inline-block" title="Editar Parámetros">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="openDeactivateModal('SKU-DRM-012', 'Pearl Export EXX', 0)" class="p-1.5 text-rose-500 hover:text-rose-700 rounded-lg hover:bg-rose-50 transition inline-block" title="Desactivar SKU">
+                    <i class="fa-regular fa-circle-stop"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Item 4 -->
+              <tr class="hover:bg-slate-50/80 transition sku-row" data-cat="Teclados" data-sku="SKU-KEY-007">
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=100&auto=format&fit=crop&q=80" alt="SKU" class="w-9 h-9 rounded-lg object-contain bg-slate-100 border border-slate-200 p-0.5">
+                    <div>
+                      <a href="articulos-detail.html" class="font-mono font-bold text-slate-900 hover:text-amber-600 transition block">SKU-KEY-007</a>
+                      <span class="font-mono text-[10px] text-slate-400">7809823414431</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-slate-800">
+                  Sintetizador Analógico Korg Minilogue XD
+                  <span class="block text-[11px] text-slate-400 font-normal">Caja sellada fábrica</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="px-2 py-0.5 rounded text-[11px] bg-slate-100 font-medium text-slate-700">Teclados</span>
+                </td>
+                <td class="py-3.5 px-4 font-mono font-semibold text-amber-700">P01-R02-N3</td>
+                <td class="py-3.5 px-4 text-center font-bold text-slate-800">30</td>
+                <td class="py-3.5 px-4 text-center font-bold text-amber-600">4</td>
+                <td class="py-3.5 px-4 text-center font-bold text-emerald-600 bg-emerald-50/50">26</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right space-x-1">
+                  <a href="articulos-detail.html" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition inline-block" title="Ver Detalle & Kardex">
+                    <i class="fa-regular fa-eye"></i>
+                  </a>
+                  <a href="articulos-edit.html" class="p-1.5 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 transition inline-block" title="Editar Parámetros">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="openDeactivateModal('SKU-KEY-007', 'Korg Minilogue XD', 26)" class="p-1.5 text-rose-500 hover:text-rose-700 rounded-lg hover:bg-rose-50 transition inline-block" title="Desactivar SKU">
+                    <i class="fa-regular fa-circle-stop"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Footer -->
+        <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
+          <span>Mostrando <strong>4</strong> de <strong>1,480</strong> artículos maestros</span>
+          <div class="flex items-center gap-1">
+            <button class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-100 disabled:opacity-50" disabled>Anterior</button>
+            <button class="px-2.5 py-1 rounded border border-amber-500 bg-amber-50 text-amber-700 font-semibold">1</button>
+            <button class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-100">2</button>
+            <button class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-100">Siguiente</button>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Modal Desactivar / Delete -->
+  <div id="deactivateModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
+      <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 class="font-heading font-bold text-lg text-slate-900 mb-1">¿Desactivar Código SKU?</h3>
+      <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+        Estás por desactivar el artículo <strong id="modalSkuName" class="text-slate-800"></strong> (<span id="modalSkuCode" class="font-mono"></span>).
+      </p>
+      
+      <!-- Warning if stock > 0 -->
+      <div id="modalStockWarning" class="hidden p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-[11px] mb-4">
+        <i class="fa-solid fa-circle-exclamation text-rose-600 mr-1"></i>
+        <strong>¡Atención!</strong> Este artículo posee <span id="modalStockCount" class="font-bold"></span> unidades en stock disponible. Se recomienda realizar una merma o ajuste previo antes de dar de baja.
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button onclick="closeDeactivateModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition">Cancelar</button>
+        <button onclick="confirmDeactivate()" class="px-4 py-2 text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 rounded-lg shadow-sm transition">Sí, Desactivar SKU</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeDeactivateSku = null;
+
+    function filterAdminTable() {
+      const category = document.getElementById('categoryFilter').value;
+      const query = document.getElementById('adminSkuSearch').value.toLowerCase();
+      const rows = document.querySelectorAll('.sku-row');
+
+      rows.forEach(row => {
+        const cat = row.getAttribute('data-cat');
+        const text = row.innerText.toLowerCase();
+
+        const matchCat = (category === 'all' || cat === category);
+        const matchQuery = text.includes(query);
+
+        row.style.display = (matchCat && matchQuery) ? '' : 'none';
+      });
+    }
+
+    document.getElementById('adminSkuSearch').addEventListener('input', filterAdminTable);
+
+    function openDeactivateModal(sku, name, stock) {
+      activeDeactivateSku = sku;
+      document.getElementById('modalSkuCode').innerText = sku;
+      document.getElementById('modalSkuName').innerText = name;
+      const warning = document.getElementById('modalStockWarning');
+      if (stock > 0) {
+        warning.classList.remove('hidden');
+        document.getElementById('modalStockCount').innerText = stock;
+      } else {
+        warning.classList.add('hidden');
+      }
+      document.getElementById('deactivateModal').classList.remove('hidden');
+    }
+
+    function closeDeactivateModal() {
+      document.getElementById('deactivateModal').classList.add('hidden');
+      activeDeactivateSku = null;
+    }
+
+    function confirmDeactivate() {
+      if (activeDeactivateSku) {
+        const row = document.querySelector(`tr[data-sku="${activeDeactivateSku}"]`);
+        if (row) {
+          row.style.opacity = '0.4';
+          row.querySelector('td:nth-child(2)').innerHTML += ' <span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-200 text-slate-600">Desactivado</span>';
+        }
+      }
+      closeDeactivateModal();
+    }
+
+    function exportCSV() {
+      alert('Generando exportación CSV del maestro de inventario...');
+    }
+  </script>
+</body>
+</html>

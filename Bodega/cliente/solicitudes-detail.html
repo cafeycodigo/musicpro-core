@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega | Detalle Solicitud SOL-2026-082</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Topbar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm print:hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-6">
+          <a href="../../index.html" class="flex items-center gap-2 group text-slate-500 hover:text-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition">
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+            <div>
+              <span class="font-heading font-bold text-base text-slate-900 leading-none block">Bodega<span class="text-amber-500">WMS</span></span>
+              <span class="text-[10px] text-slate-400 font-medium tracking-wide">Portal Sucursales</span>
+            </div>
+          </a>
+
+          <nav class="hidden md:flex items-center space-x-1">
+            <a href="solicitudes-list.html" class="px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200/60 flex items-center gap-1.5">
+              <i class="fa-solid fa-clipboard-list"></i>
+              <span>Mis Solicitudes</span>
+            </a>
+            <a href="stock-catalog.html" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>Catálogo de Stock</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button onclick="window.print()" class="px-3.5 py-1.5 text-xs font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-lg shadow-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-print text-amber-600"></i>
+            <span>Descargar Vale / Imprimir</span>
+          </button>
+          <a href="solicitudes-list.html" class="px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition flex items-center gap-1">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Volver</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Header Section -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-semibold text-amber-700 uppercase tracking-wider mb-1">
+          <i class="fa-solid fa-receipt"></i>
+          <span>Ficha Técnica de Pedido de Salida</span>
+        </div>
+        <h1 class="font-heading font-bold text-2xl sm:text-3xl text-slate-900 tracking-tight flex items-center gap-3">
+          <span>Solicitud #SOL-2026-082</span>
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+            <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span>
+            En Picking
+          </span>
+        </h1>
+        <p class="text-xs text-slate-500 mt-1">Emitido el 08 de Septiembre de 2026 • Asignado a Bodeguero: <strong>Carlos Morales (Estación 4)</strong></p>
+      </div>
+
+      <div class="flex items-center gap-2 print:hidden">
+        <a href="solicitudes-edit.html" class="px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 rounded-xl border border-slate-300 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-pen-to-square text-blue-600"></i>
+          <span>Editar</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Stepper / Timeline de Avance -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
+      <h2 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-5">Línea de Tiempo del Pedido</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 relative">
+        <!-- Step 1: Completado -->
+        <div class="flex items-center sm:flex-col sm:text-center gap-3 sm:gap-2">
+          <div class="w-9 h-9 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-bold shadow-md shadow-emerald-500/20 ring-4 ring-emerald-50">
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-slate-900">1. Borrador Creado</div>
+            <div class="text-[11px] text-slate-400">08 Sep - 09:30 AM</div>
+          </div>
+        </div>
+
+        <!-- Step 2: Activo -->
+        <div class="flex items-center sm:flex-col sm:text-center gap-3 sm:gap-2">
+          <div class="w-9 h-9 rounded-full bg-amber-500 text-white flex items-center justify-center text-sm font-bold shadow-md shadow-amber-500/20 ring-4 ring-amber-50">
+            <i class="fa-solid fa-dolly"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-amber-700">2. En Picking</div>
+            <div class="text-[11px] text-amber-600 font-medium">En proceso de recolección</div>
+          </div>
+        </div>
+
+        <!-- Step 3: Pendiente -->
+        <div class="flex items-center sm:flex-col sm:text-center gap-3 sm:gap-2 opacity-50">
+          <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-box-check"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-slate-700">3. Embalado & Auditoría</div>
+            <div class="text-[11px] text-slate-400">Pendiente de pesaje</div>
+          </div>
+        </div>
+
+        <!-- Step 4: Pendiente -->
+        <div class="flex items-center sm:flex-col sm:text-center gap-3 sm:gap-2 opacity-50">
+          <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-slate-700">4. Despachado</div>
+            <div class="text-[11px] text-slate-400">Generación de flete</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metadata Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      
+      <!-- Origen y Destino -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div class="flex items-center gap-2 text-xs font-bold text-slate-900 mb-3">
+          <i class="fa-solid fa-location-dot text-amber-600"></i>
+          <span>Ubicaciones</span>
+        </div>
+        <div class="space-y-3 text-xs">
+          <div>
+            <span class="text-slate-400 block text-[11px]">Origen (Almacén Central):</span>
+            <strong class="text-slate-800">Bodega Central Lampa - Rack A3/C2</strong>
+          </div>
+          <div class="pt-2 border-t border-slate-100">
+            <span class="text-slate-400 block text-[11px]">Sucursal de Destino:</span>
+            <strong class="text-slate-800">Sucursal Providencia Mall (Nivel 2)</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fechas y Prioridad -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div class="flex items-center gap-2 text-xs font-bold text-slate-900 mb-3">
+          <i class="fa-solid fa-calendar-check text-amber-600"></i>
+          <span>Tiempos de Entrega</span>
+        </div>
+        <div class="space-y-3 text-xs">
+          <div>
+            <span class="text-slate-400 block text-[11px]">Fecha Estimada de Llegada:</span>
+            <strong class="text-slate-800">11 de Septiembre, 2026</strong>
+          </div>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-slate-400 text-[11px]">Prioridad de Despacho:</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">Media</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Métricas del Bulto -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div class="flex items-center gap-2 text-xs font-bold text-slate-900 mb-3">
+          <i class="fa-solid fa-weight-hanging text-amber-600"></i>
+          <span>Carga y Bultos</span>
+        </div>
+        <div class="space-y-3 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400 text-[11px]">Total Unidades:</span>
+            <strong class="text-slate-900 font-bold text-base">32 uds</strong>
+          </div>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-slate-400 text-[11px]">Peso Estimado:</span>
+            <strong class="text-slate-800">84.5 kg</strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Lista Detallada de Artículos -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+      <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+        <div>
+          <h2 class="font-heading font-bold text-base text-slate-900">Artículos Asignados para Picking</h2>
+          <p class="text-xs text-slate-500">Ubicación exacta en racks para la recolección física</p>
+        </div>
+        <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 rounded-lg text-slate-600">3 SKUs Distintos</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-600">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-semibold text-[11px] uppercase">
+            <tr>
+              <th class="py-3.5 px-6">SKU & Código EAN</th>
+              <th class="py-3.5 px-4">Descripción del Producto</th>
+              <th class="py-3.5 px-4">Ubicación en Bodega</th>
+              <th class="py-3.5 px-4 text-center">Cant. Solicitada</th>
+              <th class="py-3.5 px-6 text-center">Estado Picking</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="py-4 px-6">
+                <span class="font-mono font-bold text-slate-900 block">SKU-GTR-001</span>
+                <span class="text-[10px] text-slate-400">7809823410293</span>
+              </td>
+              <td class="py-4 px-4">
+                <strong class="text-slate-900 block">Guitarra Eléctrica Fender Stratocaster Player</strong>
+                <span class="text-[11px] text-slate-500">Color Polar White / Maple Fretboard</span>
+              </td>
+              <td class="py-4 px-4 font-mono font-semibold text-amber-700">
+                <span class="px-2 py-0.5 bg-amber-50 rounded border border-amber-200">Pasillo 02 • Rack R04 • Nivel 1</span>
+              </td>
+              <td class="py-4 px-4 text-center font-bold text-slate-900 text-sm">12</td>
+              <td class="py-4 px-6 text-center">
+                <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  <i class="fa-solid fa-check text-xs"></i> 12/12 Recolectado
+                </span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="py-4 px-6">
+                <span class="font-mono font-bold text-slate-900 block">SKU-AMP-004</span>
+                <span class="text-[10px] text-slate-400">7809823410884</span>
+              </td>
+              <td class="py-4 px-4">
+                <strong class="text-slate-900 block">Amplificador Marshall DSL40CR a Tubos</strong>
+                <span class="text-[11px] text-slate-500">Combo 40W 1x12 Celestion V-Type</span>
+              </td>
+              <td class="py-4 px-4 font-mono font-semibold text-amber-700">
+                <span class="px-2 py-0.5 bg-amber-50 rounded border border-amber-200">Pasillo 03 • Rack R01 • Nivel 2</span>
+              </td>
+              <td class="py-4 px-4 text-center font-bold text-slate-900 text-sm">8</td>
+              <td class="py-4 px-6 text-center">
+                <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                  <i class="fa-solid fa-spinner fa-spin text-xs"></i> 5/8 En Proceso
+                </span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="py-4 px-6">
+                <span class="font-mono font-bold text-slate-900 block">SKU-ACC-033</span>
+                <span class="text-[10px] text-slate-400">7809823419912</span>
+              </td>
+              <td class="py-4 px-4">
+                <strong class="text-slate-900 block">Cables de Instrumento Ernie Ball 3m Braided</strong>
+                <span class="text-[11px] text-slate-500">Cable apantallado libre de oxígeno</span>
+              </td>
+              <td class="py-4 px-4 font-mono font-semibold text-amber-700">
+                <span class="px-2 py-0.5 bg-amber-50 rounded border border-amber-200">Pasillo 01 • Rack R08 • Nivel 4</span>
+              </td>
+              <td class="py-4 px-4 text-center font-bold text-slate-900 text-sm">12</td>
+              <td class="py-4 px-6 text-center">
+                <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                  <i class="fa-regular fa-clock text-xs"></i> 0/12 Pendiente
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Observaciones & Firmas -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 text-xs text-slate-600 flex flex-col sm:flex-row justify-between gap-6">
+      <div class="max-w-md">
+        <span class="font-bold text-slate-900 block mb-1">Notas del Encargado de Sucursal:</span>
+        <p class="text-slate-500 leading-relaxed italic">"Se solicita priorizar los amplificadores Marshall debido a demostración pactada con cliente VIP el sábado por la mañana."</p>
+      </div>
+      <div class="flex items-center gap-6 self-end sm:self-center pt-4 sm:pt-0">
+        <div class="text-center">
+          <div class="w-36 border-b border-slate-300 pb-1 font-mono text-[10px] text-slate-400">Firma Digital #9842</div>
+          <span class="text-[10px] font-semibold text-slate-700">Jefe de Bodega Central</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</body>
+</html>

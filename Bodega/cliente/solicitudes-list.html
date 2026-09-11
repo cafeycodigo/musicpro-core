@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega | Mis Solicitudes de Despacho</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Topbar Cliente / Sucursal -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-6">
+          <a href="../../index.html" class="flex items-center gap-2 group text-slate-500 hover:text-slate-800" title="Volver al Hub Central">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition">
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+            <div>
+              <span class="font-heading font-bold text-base text-slate-900 leading-none block">Bodega<span class="text-amber-500">WMS</span></span>
+              <span class="text-[10px] text-slate-400 font-medium tracking-wide">Portal Sucursales</span>
+            </div>
+          </a>
+
+          <!-- Navigation Links -->
+          <nav class="hidden md:flex items-center space-x-1">
+            <a href="solicitudes-list.html" class="px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200/60 flex items-center gap-1.5">
+              <i class="fa-solid fa-clipboard-list"></i>
+              <span>Mis Solicitudes</span>
+            </a>
+            <a href="stock-catalog.html" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>Catálogo de Stock</span>
+            </a>
+            <a href="solicitudes-create.html" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-cart-plus"></i>
+              <span>Nuevo Pedido</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Right Side: Branch selector, notifications, switch to admin -->
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-xs text-slate-600">
+            <i class="fa-solid fa-store text-amber-600"></i>
+            <span>Sucursal: <strong class="text-slate-900 font-semibold">Providencia Mall</strong></span>
+          </div>
+
+          <a href="../admin/index.html" class="px-3 py-1.5 text-xs font-semibold text-amber-700 bg-amber-100/70 hover:bg-amber-200/80 rounded-lg transition flex items-center gap-1.5 border border-amber-300/60" title="Cambiar al Panel de Control WMS">
+            <i class="fa-solid fa-shield-halved text-xs"></i>
+            <span class="hidden sm:inline">Panel Admin</span>
+          </a>
+
+          <a href="../../index.html" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition" title="Ir al Hub General">
+            <i class="fa-solid fa-house text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-semibold text-amber-700 uppercase tracking-wider mb-1">
+          <i class="fa-solid fa-boxes-packing"></i>
+          <span>Gestión de Pedidos de Salida</span>
+        </div>
+        <h1 class="font-heading font-bold text-2xl sm:text-3xl text-slate-900 tracking-tight">Mis Solicitudes de Despacho</h1>
+        <p class="text-slate-500 text-sm mt-0.5">Controla el estado de reposición de mercadería y emite solicitudes de reposición a bodega central.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="stock-catalog.html" class="px-4 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition flex items-center gap-2">
+          <i class="fa-solid fa-search"></i>
+          <span>Consultar Stock</span>
+        </a>
+        <a href="solicitudes-create.html" class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-sm hover:shadow transition flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i>
+          <span>Nueva Solicitud</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div class="w-11 h-11 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+          <i class="fa-solid fa-file-lines text-lg"></i>
+        </div>
+        <div>
+          <div class="text-xs font-medium text-slate-500">Total Solicitudes</div>
+          <div class="text-xl font-bold text-slate-800">24</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div class="w-11 h-11 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+          <i class="fa-solid fa-pen-ruler text-lg"></i>
+        </div>
+        <div>
+          <div class="text-xs font-medium text-slate-500">En Borrador</div>
+          <div class="text-xl font-bold text-blue-700">3</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div class="w-11 h-11 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+          <i class="fa-solid fa-dolly text-lg"></i>
+        </div>
+        <div>
+          <div class="text-xs font-medium text-slate-500">En Picking</div>
+          <div class="text-xl font-bold text-amber-700">5</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div class="w-11 h-11 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+          <i class="fa-solid fa-truck text-lg"></i>
+        </div>
+        <div>
+          <div class="text-xs font-medium text-slate-500">Despachados</div>
+          <div class="text-xl font-bold text-emerald-700">16</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table Card Container -->
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      
+      <!-- Table Filters & Search -->
+      <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="relative flex-1 max-w-md">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input type="text" id="searchInput" placeholder="Buscar por # Pedido, fecha o estado..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition">
+        </div>
+
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-xs font-medium text-slate-500">Filtrar:</span>
+          <button onclick="filterStatus('all')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-600 text-white transition" data-filter="all">Todos</button>
+          <button onclick="filterStatus('Borrador')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-filter="Borrador">Borrador</button>
+          <button onclick="filterStatus('En Picking')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-filter="En Picking">En Picking</button>
+          <button onclick="filterStatus('Despachado')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-filter="Despachado">Despachado</button>
+        </div>
+      </div>
+
+      <!-- Responsive Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-600">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
+            <tr>
+              <th scope="col" class="py-3.5 px-4 sm:px-6"># Pedido</th>
+              <th scope="col" class="py-3.5 px-4">Fecha Solicitud</th>
+              <th scope="col" class="py-3.5 px-4">Fecha Requerida</th>
+              <th scope="col" class="py-3.5 px-4 text-center">Bultos</th>
+              <th scope="col" class="py-3.5 px-4">Prioridad</th>
+              <th scope="col" class="py-3.5 px-4">Estado</th>
+              <th scope="col" class="py-3.5 px-4 sm:px-6 text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="pedidosTableBody" class="divide-y divide-slate-200">
+            <!-- Row 1: Borrador -->
+            <tr class="hover:bg-slate-50/80 transition pedido-row" data-status="Borrador" data-id="SOL-2026-089">
+              <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900">
+                <a href="solicitudes-detail.html" class="hover:text-amber-600 transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-file-invoice text-amber-500"></i>
+                  <span>SOL-2026-089</span>
+                </a>
+              </td>
+              <td class="py-4 px-4">10 Sep, 2026</td>
+              <td class="py-4 px-4 font-medium text-slate-800">12 Sep, 2026</td>
+              <td class="py-4 px-4 text-center font-bold text-slate-700">14</td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-rose-50 text-rose-700 border border-rose-200">
+                  <i class="fa-solid fa-bolt text-[9px] mr-1"></i> Alta
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-500 mr-1.5"></span> Borrador
+                </span>
+              </td>
+              <td class="py-4 px-4 sm:px-6 text-right space-x-1">
+                <a href="solicitudes-detail.html" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition inline-block" title="Ver Detalle">
+                  <i class="fa-regular fa-eye"></i>
+                </a>
+                <a href="solicitudes-edit.html" class="p-1.5 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 transition inline-block" title="Editar Solicitud">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </a>
+                <button onclick="openDeleteModal('SOL-2026-089')" class="p-1.5 text-rose-500 hover:text-rose-700 rounded-lg hover:bg-rose-50 transition inline-block" title="Anular Solicitud">
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 2: En Picking -->
+            <tr class="hover:bg-slate-50/80 transition pedido-row" data-status="En Picking" data-id="SOL-2026-082">
+              <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900">
+                <a href="solicitudes-detail.html" class="hover:text-amber-600 transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-file-invoice text-amber-500"></i>
+                  <span>SOL-2026-082</span>
+                </a>
+              </td>
+              <td class="py-4 px-4">08 Sep, 2026</td>
+              <td class="py-4 px-4 font-medium text-slate-800">11 Sep, 2026</td>
+              <td class="py-4 px-4 text-center font-bold text-slate-700">32</td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                  Media
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5 animate-ping"></span> En Picking
+                </span>
+              </td>
+              <td class="py-4 px-4 sm:px-6 text-right space-x-1">
+                <a href="solicitudes-detail.html" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition inline-block" title="Ver Detalle">
+                  <i class="fa-regular fa-eye"></i>
+                </a>
+                <span class="p-1.5 text-slate-300 cursor-not-allowed inline-block" title="Bloqueado (En Preparación)">
+                  <i class="fa-solid fa-lock text-xs"></i>
+                </span>
+              </td>
+            </tr>
+
+            <!-- Row 3: Despachado -->
+            <tr class="hover:bg-slate-50/80 transition pedido-row" data-status="Despachado" data-id="SOL-2026-074">
+              <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900">
+                <a href="solicitudes-detail.html" class="hover:text-amber-600 transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-file-invoice text-amber-500"></i>
+                  <span>SOL-2026-074</span>
+                </a>
+              </td>
+              <td class="py-4 px-4">04 Sep, 2026</td>
+              <td class="py-4 px-4 font-medium text-slate-800">06 Sep, 2026</td>
+              <td class="py-4 px-4 text-center font-bold text-slate-700">18</td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                  Normal
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> Despachado
+                </span>
+              </td>
+              <td class="py-4 px-4 sm:px-6 text-right space-x-1">
+                <a href="solicitudes-detail.html" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition inline-block" title="Ver Detalle">
+                  <i class="fa-regular fa-eye"></i>
+                </a>
+                <a href="solicitudes-detail.html" class="p-1.5 text-emerald-600 hover:text-emerald-700 rounded-lg hover:bg-emerald-50 transition inline-block" title="Descargar Guía">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </a>
+              </td>
+            </tr>
+
+            <!-- Row 4: Borrador -->
+            <tr class="hover:bg-slate-50/80 transition pedido-row" data-status="Borrador" data-id="SOL-2026-071">
+              <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900">
+                <a href="solicitudes-detail.html" class="hover:text-amber-600 transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-file-invoice text-amber-500"></i>
+                  <span>SOL-2026-071</span>
+                </a>
+              </td>
+              <td class="py-4 px-4">01 Sep, 2026</td>
+              <td class="py-4 px-4 font-medium text-slate-800">05 Sep, 2026</td>
+              <td class="py-4 px-4 text-center font-bold text-slate-700">8</td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                  Media
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-500 mr-1.5"></span> Borrador
+                </span>
+              </td>
+              <td class="py-4 px-4 sm:px-6 text-right space-x-1">
+                <a href="solicitudes-detail.html" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition inline-block" title="Ver Detalle">
+                  <i class="fa-regular fa-eye"></i>
+                </a>
+                <a href="solicitudes-edit.html" class="p-1.5 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 transition inline-block" title="Editar Solicitud">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </a>
+                <button onclick="openDeleteModal('SOL-2026-071')" class="p-1.5 text-rose-500 hover:text-rose-700 rounded-lg hover:bg-rose-50 transition inline-block" title="Anular Solicitud">
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer / Pagination -->
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
+        <span>Mostrando <strong>4</strong> de <strong>24</strong> solicitudes</span>
+        <div class="flex items-center gap-1">
+          <button class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-100 disabled:opacity-50" disabled>Anterior</button>
+          <button class="px-2.5 py-1 rounded border border-amber-500 bg-amber-50 text-amber-700 font-semibold">1</button>
+          <button class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-100">2</button>
+          <button class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-100">Siguiente</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Delete / Cancelación -->
+  <div id="deleteModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 transform transition-all">
+      <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl mb-4">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 class="font-heading font-bold text-lg text-slate-900 mb-1">¿Anular Solicitud de Despacho?</h3>
+      <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+        Estás a punto de cancelar la solicitud <strong id="deleteTargetId" class="text-slate-800"></strong>. Esta acción devolverá los bultos reservados a stock libre y no se puede deshacer.
+      </p>
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button onclick="closeDeleteModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition">Conservar Solicitud</button>
+        <button onclick="confirmDelete()" class="px-4 py-2 text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 rounded-lg shadow-sm transition">Sí, Anular Definitivamente</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="hidden fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl border border-slate-700 flex items-center gap-3 text-xs">
+    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toastMessage">Operación realizada con éxito</span>
+  </div>
+
+  <!-- Vanilla JS: Search, Filter, Modals, Toasts -->
+  <script>
+    let currentDeleteId = null;
+
+    // Search with simulated debounce
+    const searchInput = document.getElementById('searchInput');
+    let debounceTimer;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        const query = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll('.pedido-row');
+        rows.forEach(row => {
+          const text = row.innerText.toLowerCase();
+          row.style.display = text.includes(query) ? '' : 'none';
+        });
+      }, 200);
+    });
+
+    // Filter by Status
+    function filterStatus(status) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-filter') === status) {
+          btn.className = 'filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-600 text-white transition';
+        } else {
+          btn.className = 'filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition';
+        }
+      });
+
+      const rows = document.querySelectorAll('.pedido-row');
+      rows.forEach(row => {
+        if (status === 'all' || row.getAttribute('data-status') === status) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    // Modal Delete Handlers
+    function openDeleteModal(id) {
+      currentDeleteId = id;
+      document.getElementById('deleteTargetId').innerText = id;
+      document.getElementById('deleteModal').classList.remove('hidden');
+    }
+
+    function closeDeleteModal() {
+      document.getElementById('deleteModal').classList.add('hidden');
+      currentDeleteId = null;
+    }
+
+    function confirmDelete() {
+      if (currentDeleteId) {
+        const row = document.querySelector(`tr[data-id="${currentDeleteId}"]`);
+        if (row) {
+          row.remove();
+          showToast(`La solicitud ${currentDeleteId} ha sido anulada con éxito.`);
+        }
+      }
+      closeDeleteModal();
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastMessage').innerText = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>

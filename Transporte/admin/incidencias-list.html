@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transporte Admin | Monitor de Incidencias & Excepciones</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- SIDEBAR TMS -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-cyan-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-cyan-500/20">
+            <i class="fa-solid fa-route"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">Torre Logística</span>
+            <span class="text-[10px] text-cyan-400 font-medium uppercase tracking-wider">TMS & Despacho</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-tower-broadcast w-4 text-center"></i>
+          <span>Torre de Control</span>
+        </a>
+        <a href="vehiculos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-truck w-4 text-center"></i>
+          <span>Flota & Vehículos</span>
+        </a>
+        <a href="conductores-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
+          <span>Conductores</span>
+        </a>
+        <a href="zonas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-map-location-dot w-4 text-center"></i>
+          <span>Zonas & Tarifas</span>
+        </a>
+        <a href="rutas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-clipboard-list w-4 text-center"></i>
+          <span>Planificador de Rutas</span>
+        </a>
+        <a href="incidencias-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-semibold text-xs border border-amber-500/20">
+          <i class="fa-solid fa-triangle-exclamation w-4 text-center text-amber-400"></i>
+          <span>Incidencias & Excepciones</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800 space-y-2">
+      <a href="../cliente/puntos-red.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800/60 hover:bg-slate-800 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-location-dot text-cyan-400"></i>
+        <span>Red Puntos Pick-up</span>
+      </a>
+      <a href="../cliente/envios-list.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-truck-fast text-cyan-400"></i>
+        <span>Portal Remitentes</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Logística</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Monitor de Excepciones e Incidencias</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+          8 Casos Requieren Acción Inmediata
+        </span>
+        <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+          <i class="fa-solid fa-house"></i>
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+      
+      <!-- CABECERA -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Gestor de Excepciones de Reparto</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Control y resolución de entregas no efectuadas, siniestros y logística inversa.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="alert('Exportando reporte de incidentes en Excel...')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-file-excel text-emerald-600"></i>
+            <span>Exportar Bitácora</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- METRICAS DE EXCEPCIÓN -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Incidencias Hoy</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-amber-600">12 Casos</span>
+            <span class="text-xs font-semibold text-slate-500">1.3% del volumen</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Destinatario Ausente</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">7 Casos</span>
+            <span class="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">Reprogramables</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Dirección Errónea</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-rose-600">3 Casos</span>
+            <span class="text-xs font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">Contactar Cliente</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Retorno a Bodega</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-purple-600">2 OTs</span>
+            <span class="text-xs font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md">3er Intento Fallido</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLA DE CASOS -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Buscar por número de OT, chofer o cliente..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+          <div class="flex items-center gap-2">
+            <select class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">
+              <option>Todos los estados</option>
+              <option>Pendiente Gestión</option>
+              <option>Reprogramado</option>
+              <option>Retorno a Bodega</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-6">Orden OT</th>
+                <th class="py-3.5 px-6">Destinatario & Comuna</th>
+                <th class="py-3.5 px-6">Móvil / Chofer</th>
+                <th class="py-3.5 px-6">Causal de Excepción</th>
+                <th class="py-3.5 px-6">Hora Registro</th>
+                <th class="py-3.5 px-6">Estado Acción</th>
+                <th class="py-3.5 px-6 text-right">Resolución</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              
+              <!-- Incidencia 1 -->
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <span class="font-bold text-slate-900 font-mono text-sm block">OT-98421055</span>
+                  <span class="text-[10px] text-slate-400">Intento 1 de 2</span>
+                </td>
+                <td class="py-4 px-6">
+                  <div class="font-semibold text-slate-900">Rodrigo Tapia Muñoz</div>
+                  <div class="text-[11px] text-slate-500">Av. Macul 2810, Macul</div>
+                </td>
+                <td class="py-4 px-6">
+                  <div class="font-semibold text-slate-800">Van F-02 (JW-89-21)</div>
+                  <div class="text-[10px] text-slate-500">Chofer: Pedro Morales</div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                    <i class="fa-solid fa-house-chimney-crack text-amber-500"></i> Morador Ausente / Nadie atiende
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-mono text-slate-500 text-[11px]">11:28 hrs</td>
+                <td class="py-4 px-6">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">Pendiente Contacto</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <button onclick="openResolveModal('OT-98421055', 'Rodrigo Tapia', '+56 9 7812 3456', 'Morador Ausente')" class="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl font-bold text-[11px] transition shadow-sm">
+                    Resolver Caso
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Incidencia 2 -->
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <span class="font-bold text-slate-900 font-mono text-sm block">OT-98420994</span>
+                  <span class="text-[10px] text-rose-500 font-bold">Intento 2 de 2</span>
+                </td>
+                <td class="py-4 px-6">
+                  <div class="font-semibold text-slate-900">Francisca Ugarte</div>
+                  <div class="text-[11px] text-slate-500">Pasaje Los Ciruelos 45, La Florida</div>
+                </td>
+                <td class="py-4 px-6">
+                  <div class="font-semibold text-slate-800">Camión C-01 (KT-34-11)</div>
+                  <div class="text-[10px] text-slate-500">Chofer: Marcelo Valdés</div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-50 text-rose-800 border border-rose-200">
+                    <i class="fa-solid fa-map-location text-rose-500"></i> Número de Calle Inexistente
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-mono text-slate-500 text-[11px]">10:45 hrs</td>
+                <td class="py-4 px-6">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">Requiere Aclaración</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <button onclick="openResolveModal('OT-98420994', 'Francisca Ugarte', '+56 9 9123 4567', 'Número Inexistente')" class="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl font-bold text-[11px] transition shadow-sm">
+                    Resolver Caso
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Incidencia 3 -->
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <span class="font-bold text-slate-900 font-mono text-sm block">OT-98420812</span>
+                  <span class="text-[10px] text-purple-600 font-bold">Retorno CD</span>
+                </td>
+                <td class="py-4 px-6">
+                  <div class="font-semibold text-slate-900">Claudio Bravo Díaz</div>
+                  <div class="text-[11px] text-slate-500">Av. Apoquindo 4400, Las Condes</div>
+                </td>
+                <td class="py-4 px-6">
+                  <div class="font-semibold text-slate-800">Van F-04 (JW-89-21)</div>
+                  <div class="text-[10px] text-slate-500">Chofer: Pedro Morales</div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-purple-50 text-purple-800 border border-purple-200">
+                    <i class="fa-solid fa-ban text-purple-500"></i> Rechazado por Cliente (Canceló Pedido)
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-mono text-slate-500 text-[11px]">09:12 hrs</td>
+                <td class="py-4 px-6">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800">Devolución en Curso</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <span class="text-slate-400 font-semibold text-[11px]">Hacia Bodega Lo Boza</span>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL DE RESOLUCIÓN DE CASO -->
+  <div id="resolveModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 class="font-heading font-bold text-slate-900 text-base">Gestión de Excepción de Reparto</h3>
+          <p class="text-[11px] text-slate-500 font-mono" id="modalOtLabel">OT: OT-98421055</p>
+        </div>
+        <button onclick="closeResolveModal()" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-600 transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="py-4 space-y-4 text-xs">
+        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 grid grid-cols-2 gap-3">
+          <div>
+            <span class="text-slate-400 block text-[10px] uppercase font-bold">Cliente</span>
+            <strong class="text-slate-900 text-sm" id="modalCustomer">Rodrigo Tapia</strong>
+          </div>
+          <div>
+            <span class="text-slate-400 block text-[10px] uppercase font-bold">Teléfono Contacto</span>
+            <strong class="text-cyan-700 text-sm font-mono" id="modalPhone">+56 9 7812 3456</strong>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1.5">Acción Correctiva Inmediata</label>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+              <input type="radio" name="actionType" checked class="text-cyan-600">
+              <div>
+                <strong class="text-slate-900 block font-semibold">Reprogramar Entrega para Mañana</strong>
+                <span class="text-[11px] text-slate-500">Reagendar automáticamente en la ruta matutina del sector.</span>
+              </div>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+              <input type="radio" name="actionType" class="text-cyan-600">
+              <div>
+                <strong class="text-slate-900 block font-semibold">Derivar a Punto Pick-up / Locker más cercano</strong>
+                <span class="text-[11px] text-slate-500">Enviar SMS con código de retiro al cliente para buscar en punto aliado.</span>
+              </div>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+              <input type="radio" name="actionType" class="text-cyan-600">
+              <div>
+                <strong class="text-slate-900 block font-semibold">Autorizar Devolución a Bodega (RMA)</strong>
+                <span class="text-[11px] text-slate-500">Emitir guía de retorno a Centro de Distribución Lo Boza.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Nota de Resolución para el Conductor</label>
+          <textarea rows="2" placeholder="Ej: Cliente autoriza dejar en conserjería con Sr. Carlos..." class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-cyan-500 text-xs"></textarea>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+        <button onclick="closeResolveModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">Cancelar</button>
+        <button onclick="alert('Caso resuelto y sincronizado con el móvil del conductor.'); closeResolveModal();" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl text-xs font-bold transition">Aplicar Resolución</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openResolveModal(ot, customer, phone, causal) {
+      document.getElementById('modalOtLabel').textContent = 'OT: ' + ot + ' • Causal: ' + causal;
+      document.getElementById('modalCustomer').textContent = customer;
+      document.getElementById('modalPhone').textContent = phone;
+      document.getElementById('resolveModal').classList.remove('hidden');
+    }
+    function closeResolveModal() {
+      document.getElementById('resolveModal').classList.add('hidden');
+    }
+  </script>
+
+</body>
+</html>

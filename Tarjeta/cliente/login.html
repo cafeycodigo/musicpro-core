@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Card | Banca en Línea & Acceso Seguro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+            mono: ['"Share Tech Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col justify-between font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Header -->
+  <header class="p-4 sm:p-6 flex items-center justify-between max-w-7xl mx-auto w-full">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-500 flex items-center justify-center text-slate-950 font-bold text-xl shadow-lg shadow-amber-400/20 group-hover:rotate-6 transition-transform">
+        <i class="fa-solid fa-credit-card"></i>
+      </div>
+      <div>
+        <span class="font-heading font-extrabold text-white text-lg leading-tight tracking-tight block">MusicPro <span class="text-amber-400">Card</span></span>
+        <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Banca Digital Segura</span>
+      </div>
+    </a>
+
+    <a href="index.html" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold border border-slate-800 transition flex items-center gap-1.5">
+      <i class="fa-solid fa-arrow-left text-slate-400"></i>
+      <span>Volver al Portal</span>
+    </a>
+  </header>
+
+  <!-- Login Card Center -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6">
+    <div class="w-full max-w-md bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-2xl space-y-6 relative overflow-hidden">
+      
+      <!-- Subtle gold glow -->
+      <div class="absolute -right-20 -top-20 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+      <!-- Header -->
+      <div class="text-center space-y-1.5 relative z-10">
+        <div class="w-12 h-12 bg-amber-500/10 text-amber-400 rounded-2xl flex items-center justify-center mx-auto text-xl border border-amber-500/20 shadow-xs mb-2">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h1 class="text-2xl font-bold font-heading text-white">Ingreso Titulares</h1>
+        <p class="text-xs text-slate-400">Accede a tus movimientos, saldo disponible y canjes</p>
+      </div>
+
+      <!-- Form -->
+      <form onsubmit="event.preventDefault(); handleLogin();" class="space-y-4 text-xs relative z-10">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1.5">RUT / Identificación del Titular</label>
+          <div class="relative">
+            <i class="fa-solid fa-id-card absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+            <input type="text" id="rutInput" required value="18.940.122-3" placeholder="Ej: 18.940.122-3" class="w-full pl-9 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white font-mono focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1.5">
+            <label class="font-semibold text-slate-300">Clave de Internet (6 dígitos)</label>
+            <button type="button" onclick="alert('Ingresa con tu clave temporal enviada a tu teléfono o comunícate al 600 400 8000.')" class="text-[11px] text-amber-400 hover:underline">
+              ¿Olvidaste tu clave?
+            </button>
+          </div>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+            <input type="password" id="pinInput" maxlength="6" required value="123456" placeholder="Clave numérica" class="w-full pl-9 pr-10 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white font-mono focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <button type="button" onclick="togglePinVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
+              <i class="fa-solid fa-eye text-xs" id="pinEyeIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Virtual Keypad toggle -->
+        <div>
+          <button type="button" onclick="toggleVirtualKeypad()" class="text-[11px] text-slate-400 hover:text-amber-400 flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-calculator text-[10px]"></i>
+            <span>Usar teclado virtual de seguridad</span>
+          </button>
+          
+          <!-- Virtual Keypad (hidden by default) -->
+          <div id="virtualKeypad" class="hidden mt-2 p-2 bg-slate-950 rounded-xl border border-slate-800 grid grid-cols-5 gap-1 text-center">
+            <button type="button" onclick="addPinDigit('7')" class="p-2 hover:bg-slate-800 rounded font-mono font-bold">7</button>
+            <button type="button" onclick="addPinDigit('2')" class="p-2 hover:bg-slate-800 rounded font-mono font-bold">2</button>
+            <button type="button" onclick="addPinDigit('9')" class="p-2 hover:bg-slate-800 rounded font-mono font-bold">9</button>
+            <button type="button" onclick="addPinDigit('1')" class="p-2 hover:bg-slate-800 rounded font-mono font-bold">1</button>
+            <button type="button" onclick="addPinDigit('4')" class="p-2 hover:bg-slate-800 rounded font-mono font-bold">4</button>
+            <button type="button" onclick="addPinDigit('0')" class="p-2 hover:bg-slate-800 rounded font-mono font-bold">0</button>
+            <button type="button" onclick="addPinDigit('8')" class="p-2 hover:bg-slate-800 rounded font-mono font-bold">8</button>
+            <button type="button" onclick="addPinDigit('3')" class="p-2 hover:bg-slate-800 rounded font-mono font-bold">3</button>
+            <button type="button" onclick="addPinDigit('5')" class="p-2 hover:bg-slate-800 rounded font-mono font-bold">5</button>
+            <button type="button" onclick="clearPin()" class="p-2 hover:bg-rose-950 text-rose-400 rounded font-bold"><i class="fa-solid fa-delete-left"></i></button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-1">
+          <label class="flex items-center gap-2 cursor-pointer text-slate-400">
+            <input type="checkbox" checked class="rounded border-slate-700 bg-slate-950 text-amber-500 focus:ring-amber-500">
+            <span>Recordar RUT en este dispositivo</span>
+          </label>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-extrabold rounded-xl text-xs shadow-lg shadow-amber-500/20 transition flex items-center justify-center gap-2 hover:scale-[1.01]">
+          <i class="fa-solid fa-lock"></i>
+          <span>Ingresar a Mi Tarjeta</span>
+        </button>
+      </form>
+
+      <!-- Solicitud prompt -->
+      <div class="pt-4 border-t border-slate-800 text-center text-xs text-slate-400 relative z-10">
+        <span>¿Aún no tienes tu tarjeta MusicPro? </span>
+        <a href="registro.html" class="font-bold text-amber-400 hover:underline">Solicítala 100% online aquí</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="p-4 text-center text-xs text-slate-500 border-t border-slate-900">
+    <span>MusicPro Servicios Financieros S.A. © 2026 • Certificado de Seguridad Bancaria 256-bit</span>
+  </footer>
+
+  <script>
+    function togglePinVisibility() {
+      const input = document.getElementById('pinInput');
+      const icon = document.getElementById('pinEyeIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fa-solid fa-eye-slash text-xs';
+      } else {
+        input.type = 'password';
+        icon.className = 'fa-solid fa-eye text-xs';
+      }
+    }
+
+    function toggleVirtualKeypad() {
+      const kp = document.getElementById('virtualKeypad');
+      kp.classList.toggle('hidden');
+    }
+
+    function addPinDigit(digit) {
+      const input = document.getElementById('pinInput');
+      if (input.value.length < 6) {
+        input.value += digit;
+      }
+    }
+
+    function clearPin() {
+      document.getElementById('pinInput').value = '';
+    }
+
+    function handleLogin() {
+      window.location.href = "tarjeta-dashboard.html";
+    }
+  </script>
+</body>
+</html>

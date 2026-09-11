@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega | Editar Solicitud SOL-2026-089</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Topbar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-6">
+          <a href="../../index.html" class="flex items-center gap-2 group text-slate-500 hover:text-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition">
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+            <div>
+              <span class="font-heading font-bold text-base text-slate-900 leading-none block">Bodega<span class="text-amber-500">WMS</span></span>
+              <span class="text-[10px] text-slate-400 font-medium tracking-wide">Portal Sucursales</span>
+            </div>
+          </a>
+
+          <nav class="hidden md:flex items-center space-x-1">
+            <a href="solicitudes-list.html" class="px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200/60 flex items-center gap-1.5">
+              <i class="fa-solid fa-clipboard-list"></i>
+              <span>Mis Solicitudes</span>
+            </a>
+            <a href="stock-catalog.html" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>Catálogo de Stock</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="solicitudes-list.html" class="px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition flex items-center gap-1">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Volver</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-semibold text-amber-700 uppercase tracking-wider mb-1">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <span>Modificación de Orden</span>
+        </div>
+        <h1 class="font-heading font-bold text-2xl sm:text-3xl text-slate-900 tracking-tight flex items-center gap-3">
+          <span>Editar Solicitud SOL-2026-089</span>
+          <span id="badgeEstado" class="text-xs px-2.5 py-1 rounded-full font-medium bg-slate-100 text-slate-700 border border-slate-300">
+            Borrador
+          </span>
+        </h1>
+      </div>
+
+      <!-- Simulator Selector -->
+      <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-slate-200 text-xs">
+        <span class="text-slate-500 font-medium">Simular Estado:</span>
+        <select id="stateSimulator" onchange="toggleLockState()" class="bg-slate-50 border border-slate-300 rounded px-2 py-1 text-xs font-semibold text-slate-800">
+          <option value="Borrador">Borrador (Editable)</option>
+          <option value="En Picking">En Picking (Bloqueado)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Alert Box for Locked State -->
+    <div id="lockWarning" class="hidden mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 flex items-start gap-3 text-xs">
+      <i class="fa-solid fa-lock text-amber-600 text-base mt-0.5"></i>
+      <div>
+        <strong class="font-semibold block text-sm">Solicitud Bloqueada para Modificaciones</strong>
+        Esta solicitud ya se encuentra en fase <em>En Picking</em> por el equipo de bodega. No se pueden alterar los bultos ni fechas para garantizar la consistencia logística. Si requieres cambios, contacta directamente con el supervisor WMS.
+      </div>
+    </div>
+
+    <form id="editForm" onsubmit="handleEditSubmit(event)" class="space-y-6">
+
+      <!-- Parameters Card -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <h2 class="font-heading font-bold text-base text-slate-900 mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-truck-ramp-box text-amber-600"></i>
+          <span>Parámetros del Despacho</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Sucursal Destino</label>
+            <input type="text" value="Sucursal Providencia Mall" disabled class="w-full bg-slate-100 border border-slate-200 rounded-lg px-3.5 py-2 text-xs text-slate-600 cursor-not-allowed">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Fecha Requerida de Entrega</label>
+            <input type="date" id="fechaReqInput" value="2026-09-12" class="form-field w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-amber-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Nivel de Prioridad</label>
+            <select id="prioridadInput" class="form-field w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-amber-500">
+              <option value="Alta" selected>Alta (24 horas)</option>
+              <option value="Media">Media (48 horas)</option>
+              <option value="Normal">Normal (3 a 5 días)</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Notas u Observaciones</label>
+            <textarea id="notasInput" rows="2" class="form-field w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-amber-500">Pedido urgente para reponer vitrina principal de guitarras de gama media y alta.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Items Detail Card -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <h2 class="font-heading font-bold text-base text-slate-900 mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-boxes-packing text-amber-600"></i>
+          <span>Ítems Asignados</span>
+        </h2>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-xl mb-4">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-semibold text-[11px] uppercase">
+              <tr>
+                <th class="py-3 px-4">SKU</th>
+                <th class="py-3 px-4">Descripción</th>
+                <th class="py-3 px-4">Categoría</th>
+                <th class="py-3 px-4 text-center">Unidades Solicitadas</th>
+                <th class="py-3 px-4 text-right">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="editTableBody" class="divide-y divide-slate-200">
+              <tr>
+                <td class="py-3 px-4 font-mono font-medium text-slate-900">SKU-GTR-001</td>
+                <td class="py-3 px-4 font-semibold text-slate-800">Guitarra Eléctrica Fender Stratocaster Player</td>
+                <td class="py-3 px-4 text-slate-500">Cuerdas</td>
+                <td class="py-3 px-4 text-center">
+                  <input type="number" min="1" max="42" value="8" class="form-field item-qty w-20 text-center py-1 bg-slate-50 border border-slate-300 rounded text-xs font-bold text-slate-800" onchange="recalcTotal()">
+                </td>
+                <td class="py-3 px-4 text-right">
+                  <button type="button" onclick="this.closest('tr').remove(); recalcTotal();" class="form-btn text-rose-500 hover:text-rose-700 p-1">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-mono font-medium text-slate-900">SKU-AMP-004</td>
+                <td class="py-3 px-4 font-semibold text-slate-800">Amplificador Marshall DSL40CR a Tubos</td>
+                <td class="py-3 px-4 text-slate-500">Amplificación</td>
+                <td class="py-3 px-4 text-center">
+                  <input type="number" min="1" max="18" value="6" class="form-field item-qty w-20 text-center py-1 bg-slate-50 border border-slate-300 rounded text-xs font-bold text-slate-800" onchange="recalcTotal()">
+                </td>
+                <td class="py-3 px-4 text-right">
+                  <button type="button" onclick="this.closest('tr').remove(); recalcTotal();" class="form-btn text-rose-500 hover:text-rose-700 p-1">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200">
+          <span class="text-xs text-slate-500 font-medium">Bultos Totales Calculados:</span>
+          <span id="totalBultosEdit" class="font-heading font-bold text-xl text-amber-600">14</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center justify-end gap-3">
+        <a href="solicitudes-list.html" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-100 transition">
+          Volver
+        </a>
+        <button type="submit" id="saveButton" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-md transition flex items-center gap-2">
+          <i class="fa-solid fa-floppy-disk"></i>
+          <span>Guardar Cambios</span>
+        </button>
+      </div>
+
+    </form>
+
+  </main>
+
+  <script>
+    function recalcTotal() {
+      let total = 0;
+      document.querySelectorAll('.item-qty').forEach(input => {
+        total += parseInt(input.value || 0);
+      });
+      document.getElementById('totalBultosEdit').innerText = total;
+    }
+
+    function toggleLockState() {
+      const state = document.getElementById('stateSimulator').value;
+      const badge = document.getElementById('badgeEstado');
+      const warning = document.getElementById('lockWarning');
+      const saveBtn = document.getElementById('saveButton');
+      const fields = document.querySelectorAll('.form-field');
+      const btns = document.querySelectorAll('.form-btn');
+
+      if (state === 'En Picking') {
+        badge.innerText = 'En Picking';
+        badge.className = 'text-xs px-2.5 py-1 rounded-full font-medium bg-amber-100 text-amber-800 border border-amber-300';
+        warning.classList.remove('hidden');
+        saveBtn.disabled = true;
+        saveBtn.className = 'px-6 py-2.5 rounded-xl bg-slate-300 text-slate-500 text-xs font-semibold cursor-not-allowed flex items-center gap-2';
+        fields.forEach(f => f.disabled = true);
+        btns.forEach(b => b.classList.add('hidden'));
+      } else {
+        badge.innerText = 'Borrador';
+        badge.className = 'text-xs px-2.5 py-1 rounded-full font-medium bg-slate-100 text-slate-700 border border-slate-300';
+        warning.classList.add('hidden');
+        saveBtn.disabled = false;
+        saveBtn.className = 'px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-md transition flex items-center gap-2';
+        fields.forEach(f => f.disabled = false);
+        btns.forEach(b => b.classList.remove('hidden'));
+      }
+    }
+
+    function handleEditSubmit(e) {
+      e.preventDefault();
+      alert('¡Solicitud SOL-2026-089 actualizada con éxito!');
+      window.location.href = 'solicitudes-list.html';
+    }
+  </script>
+</body>
+</html>

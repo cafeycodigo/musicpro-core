@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta Admin | Catálogo de Beneficios & Puntos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- SIDEBAR TARJETA ADMIN -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-500/20">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">Tarjeta Admin</span>
+            <span class="text-[10px] text-amber-400 font-medium uppercase tracking-wider">Riesgo & Emisión</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-chart-line w-4 text-center"></i>
+          <span>Métricas Globales</span>
+        </a>
+        <a href="cuentas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-users-gear w-4 text-center"></i>
+          <span>Clientes & Cuentas</span>
+        </a>
+        <a href="productos-tarjetas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-layer-group w-4 text-center"></i>
+          <span>Planes de Tarjeta</span>
+        </a>
+        <a href="transacciones-audit-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-receipt w-4 text-center"></i>
+          <span>Transacciones en Vivo</span>
+        </a>
+        <a href="fraude-reglas.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-shield-halved w-4 text-center"></i>
+          <span>Reglas Antifraude</span>
+        </a>
+        <a href="beneficios-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-semibold text-xs border border-amber-500/20">
+          <i class="fa-solid fa-gift w-4 text-center"></i>
+          <span>Catálogo Beneficios</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="../cliente/tarjeta-dashboard.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-wallet text-amber-400"></i>
+        <span>Ir a Portal Titular</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Financiero</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Programa de Lealtad & Beneficios</span>
+      </div>
+      <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Catálogo de Beneficios y Canje de Puntos</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Gestión de alianzas con festivales, salas de ensayo, cupones de descuento y premios.</p>
+        </div>
+        <button onclick="openBenefitModal()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold shadow-sm transition flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i>
+          <span>Nuevo Beneficio</span>
+        </button>
+      </div>
+
+      <!-- KPIS BENEFICIOS -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Beneficios Activos</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">14 Alianzas</span>
+            <span class="text-xs font-semibold text-emerald-600">En vigencia</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Puntos Canjeados Mes</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-amber-600">1.82M pts</span>
+            <span class="text-xs text-slate-500 font-mono">+18% vs ago</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tasa de Satisfacción</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">96.4%</span>
+            <span class="text-xs font-semibold text-emerald-600">Muy Alta</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Stock Cupones Disp.</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-purple-600">485 Códigos</span>
+            <span class="text-xs text-slate-500 font-mono">Disponibles</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLA DE BENEFICIOS -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Buscar beneficio o aliado comercial..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-400">
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-6">Beneficio / Recompensa</th>
+                <th class="py-3.5 px-6">Aliado Comercial</th>
+                <th class="py-3.5 px-6">Puntos Requeridos</th>
+                <th class="py-3.5 px-6">Stock / Cupos</th>
+                <th class="py-3.5 px-6">Vigencia</th>
+                <th class="py-3.5 px-6">Estado</th>
+                <th class="py-3.5 px-6 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-sm">
+                      <i class="fa-solid fa-ticket"></i>
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Pase VIP Lollapalooza Chile 2027</span>
+                      <span class="text-[11px] text-slate-500">Acceso preferencial y lounge exclusivo MusicPro</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Lotus Pro / Lollapalooza</td>
+                <td class="py-4 px-6 font-extrabold text-amber-600 font-mono text-sm">25.000 pts</td>
+                <td class="py-4 px-6">
+                  <span class="font-bold text-slate-900 font-mono">18 / 50</span>
+                  <span class="block text-[10px] text-slate-400">32 canjeados</span>
+                </td>
+                <td class="py-4 px-6 font-mono text-slate-600">31/12/2026</td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <button onclick="openBenefitModal()" class="text-amber-600 hover:text-amber-700 font-bold">Editar</button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">
+                      <i class="fa-solid fa-tags"></i>
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Cupón $50.000 en MusicPro Store</span>
+                      <span class="text-[11px] text-slate-500">Válido en guitarras, teclados y audio profesional</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">MusicPro Store Oficial</td>
+                <td class="py-4 px-6 font-extrabold text-amber-600 font-mono text-sm">10.000 pts</td>
+                <td class="py-4 px-6">
+                  <span class="font-bold text-slate-900 font-mono">140 / 300</span>
+                  <span class="block text-[10px] text-slate-400">160 canjeados</span>
+                </td>
+                <td class="py-4 px-6 font-mono text-slate-600">Permanente</td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <button onclick="openBenefitModal()" class="text-amber-600 hover:text-amber-700 font-bold">Editar</button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold text-sm">
+                      <i class="fa-solid fa-microphone-lines"></i>
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Pack 4 Horas Ensayo Estudio Pro</span>
+                      <span class="text-[11px] text-slate-500">Salas equipadas con amplificación Mesa Boogie & Marshall</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Salas Rockaxis Providencia</td>
+                <td class="py-4 px-6 font-extrabold text-amber-600 font-mono text-sm">6.500 pts</td>
+                <td class="py-4 px-6">
+                  <span class="font-bold text-slate-900 font-mono">35 / 80</span>
+                  <span class="block text-[10px] text-slate-400">45 canjeados</span>
+                </td>
+                <td class="py-4 px-6 font-mono text-slate-600">30/11/2026</td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <button onclick="openBenefitModal()" class="text-amber-600 hover:text-amber-700 font-bold">Editar</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL BENEFICIO -->
+  <div id="modalBenefit" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <h3 class="font-heading font-bold text-slate-900 text-base">Crear / Editar Beneficio de Lealtad</h3>
+        <button onclick="closeBenefitModal()" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-600 transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="py-4 space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Nombre del Beneficio</label>
+          <input type="text" value="Pase VIP Concierto Internacional" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Aliado / Proveedor</label>
+            <input type="text" value="Puntoticket" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Puntos Requeridos</label>
+            <input type="number" value="15000" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400 font-mono">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Stock de Cupones</label>
+            <input type="number" value="50" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400 font-mono">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Fecha de Expiración</label>
+            <input type="date" value="2026-12-31" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400">
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+        <button onclick="closeBenefitModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">Cancelar</button>
+        <button onclick="alert('Beneficio guardado.'); closeBenefitModal();" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-xl text-xs font-bold transition">Guardar Beneficio</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openBenefitModal() { document.getElementById('modalBenefit').classList.remove('hidden'); }
+    function closeBenefitModal() { document.getElementById('modalBenefit').classList.add('hidden'); }
+  </script>
+
+</body>
+</html>

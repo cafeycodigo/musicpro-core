@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transporte Admin | Nueva Hoja de Ruta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-cyan-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-cyan-500/20">
+            <i class="fa-solid fa-route"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">Torre Logística</span>
+            <span class="text-[10px] text-cyan-400 font-medium uppercase tracking-wider">Flota & Despacho</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-tower-broadcast w-4 text-center"></i>
+          <span>Torre de Control</span>
+        </a>
+        <a href="vehiculos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-truck w-4 text-center"></i>
+          <span>Flota & Vehículos</span>
+        </a>
+        <a href="conductores-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
+          <span>Conductores</span>
+        </a>
+        <a href="rutas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold text-xs border border-cyan-500/20">
+          <i class="fa-solid fa-clipboard-list w-4 text-center"></i>
+          <span>Planificador de Rutas</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="rutas-list.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-arrow-left text-cyan-400"></i>
+        <span>Volver al Listado</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <!-- Top Header -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Logística</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="rutas-list.html" class="hover:text-slate-800">Rutas</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">Nueva Hoja de Ruta</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-700 border border-cyan-200">
+          <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+          Planificador Activo
+        </span>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="flex-1 overflow-y-auto p-6 bg-slate-50/50">
+      <div class="max-w-7xl mx-auto space-y-6">
+        
+        <!-- Header banner -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div>
+            <h1 class="text-2xl font-bold font-heading text-slate-900">Planificador de Asignación y Carga</h1>
+            <p class="text-xs text-slate-500 mt-1">Arrastra o transfiere encomiendas pendientes según zona geográfica hacia la unidad vehicular.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <a href="rutas-list.html" class="px-4 py-2 border border-slate-300 hover:bg-slate-100 rounded-xl text-xs font-semibold text-slate-700 transition">
+              Cancelar
+            </a>
+            <button id="btnSaveRoute" onclick="saveRoute()" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-semibold shadow-sm transition flex items-center gap-2">
+              <i class="fa-solid fa-check"></i>
+              <span>Emitir Hoja de Ruta</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Parametros de Ruta: Móvil y Chofer -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+          <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-sliders text-cyan-600"></i>
+            1. Asignación de Recursos & Zona
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Zona Primaria de Entrega</label>
+              <select id="zoneSelect" onchange="filterPackagesByZone()" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <option value="ALL">Todas las Zonas</option>
+                <option value="NORTE" selected>Sector Norte (Huechuraba, Recoleta, Quilicura)</option>
+                <option value="ORIENTE">Sector Oriente (Las Condes, Providencia, Vitacura)</option>
+                <option value="SUR">Sector Sur (San Bernardo, La Florida, Maipú)</option>
+                <option value="CENTRO">Santiago Centro & Estación Central</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Vehículo Asignado</label>
+              <select id="vehicleSelect" onchange="updateVehicleCapacity()" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <option value="KLY-901" data-maxkg="1750" data-maxm3="12.0" data-driver="Esteban Morales">Camión 3/4 - KLY-901 (1,750 kg / 12 m³)</option>
+                <option value="HGP-442" data-maxkg="850" data-maxm3="5.5" data-driver="Carlos Valenzuela">Furgón Van - HGP-442 (850 kg / 5.5 m³)</option>
+                <option value="PRT-118" data-maxkg="2800" data-maxm3="18.0" data-driver="Miguel Ángel Soto">Camión Pesado - PRT-118 (2,800 kg / 18 m³)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Conductor Titular</label>
+              <input type="text" id="driverInput" value="Esteban Morales (A4 Profesional)" readonly class="w-full text-xs bg-slate-100 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-600 font-medium">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Turno / Horario Salida</label>
+              <input type="time" value="08:30" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tablero de Asignación: 2 Columnas -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          <!-- Columna Izquierda: Encomiendas Pendientes (7 cols) -->
+          <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col h-[640px]">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+              <div>
+                <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-boxes-stacked text-amber-500"></i>
+                  Encomiendas Pendientes en Andén
+                  <span id="pendingCountBadge" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200">5 paquetes</span>
+                </h3>
+                <p class="text-[11px] text-slate-400 mt-0.5">Haz clic en el botón (+) para transferir a la hoja de ruta.</p>
+              </div>
+              <button onclick="transferAllToRoute()" class="text-xs text-cyan-600 font-semibold hover:text-cyan-700 hover:underline">
+                Transferir Todas
+              </button>
+            </div>
+
+            <!-- Package list -->
+            <div id="pendingPackagesList" class="flex-1 overflow-y-auto space-y-2.5 pr-1">
+              <!-- Item 1 -->
+              <div class="package-card p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-cyan-50/40 hover:border-cyan-200 transition flex items-center justify-between group" data-id="ENV-8821" data-zone="NORTE" data-kg="14.5" data-m3="0.12" data-dest="Av. Pedro Fontova 7800, Huechuraba" data-client="Fender Center Chile">
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs flex-shrink-0 shadow-sm">
+                    <i class="fa-solid fa-box text-cyan-600"></i>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-slate-900">#ENV-8821</span>
+                      <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700">NORTE</span>
+                      <span class="text-[10px] font-medium text-slate-500">14.5 kg • 0.12 m³</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-0.5 font-medium">Fender Center Chile</p>
+                    <p class="text-[11px] text-slate-400 truncate max-w-sm"><i class="fa-solid fa-location-dot text-[10px] mr-1 text-slate-400"></i>Av. Pedro Fontova 7800, Huechuraba</p>
+                  </div>
+                </div>
+                <button onclick="transferPackage(this, 'toRoute')" class="w-8 h-8 rounded-lg bg-white group-hover:bg-cyan-600 group-hover:text-white border border-slate-200 group-hover:border-cyan-600 text-slate-700 flex items-center justify-center text-xs transition shadow-sm" title="Agregar a la ruta">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="package-card p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-cyan-50/40 hover:border-cyan-200 transition flex items-center justify-between group" data-id="ENV-8824" data-zone="NORTE" data-kg="32.0" data-m3="0.35" data-dest="Calle El Guanaco 1420, Recoleta" data-client="Estudio Acústico El Sol">
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs flex-shrink-0 shadow-sm">
+                    <i class="fa-solid fa-drum text-cyan-600"></i>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-slate-900">#ENV-8824</span>
+                      <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700">NORTE</span>
+                      <span class="text-[10px] font-medium text-slate-500">32.0 kg • 0.35 m³</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-0.5 font-medium">Estudio Acústico El Sol</p>
+                    <p class="text-[11px] text-slate-400 truncate max-w-sm"><i class="fa-solid fa-location-dot text-[10px] mr-1 text-slate-400"></i>Calle El Guanaco 1420, Recoleta</p>
+                  </div>
+                </div>
+                <button onclick="transferPackage(this, 'toRoute')" class="w-8 h-8 rounded-lg bg-white group-hover:bg-cyan-600 group-hover:text-white border border-slate-200 group-hover:border-cyan-600 text-slate-700 flex items-center justify-center text-xs transition shadow-sm" title="Agregar a la ruta">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="package-card p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-cyan-50/40 hover:border-cyan-200 transition flex items-center justify-between group" data-id="ENV-8829" data-zone="NORTE" data-kg="8.2" data-m3="0.08" data-dest="Av. San Martín 450, Quilicura" data-client="Academia Musical Sinfonía">
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs flex-shrink-0 shadow-sm">
+                    <i class="fa-solid fa-guitar text-cyan-600"></i>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-slate-900">#ENV-8829</span>
+                      <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700">NORTE</span>
+                      <span class="text-[10px] font-medium text-slate-500">8.2 kg • 0.08 m³</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-0.5 font-medium">Academia Musical Sinfonía</p>
+                    <p class="text-[11px] text-slate-400 truncate max-w-sm"><i class="fa-solid fa-location-dot text-[10px] mr-1 text-slate-400"></i>Av. San Martín 450, Quilicura</p>
+                  </div>
+                </div>
+                <button onclick="transferPackage(this, 'toRoute')" class="w-8 h-8 rounded-lg bg-white group-hover:bg-cyan-600 group-hover:text-white border border-slate-200 group-hover:border-cyan-600 text-slate-700 flex items-center justify-center text-xs transition shadow-sm" title="Agregar a la ruta">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+
+              <!-- Item 4 (Oriente) -->
+              <div class="package-card p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-cyan-50/40 hover:border-cyan-200 transition flex items-center justify-between group" data-id="ENV-8833" data-zone="ORIENTE" data-kg="45.0" data-m3="0.48" data-dest="Av. Apoquindo 4800, Las Condes" data-client="Conservatorio Moderno">
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs flex-shrink-0 shadow-sm">
+                    <i class="fa-solid fa-volume-high text-cyan-600"></i>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-slate-900">#ENV-8833</span>
+                      <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-purple-50 text-purple-700">ORIENTE</span>
+                      <span class="text-[10px] font-medium text-slate-500">45.0 kg • 0.48 m³</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-0.5 font-medium">Conservatorio Moderno</p>
+                    <p class="text-[11px] text-slate-400 truncate max-w-sm"><i class="fa-solid fa-location-dot text-[10px] mr-1 text-slate-400"></i>Av. Apoquindo 4800, Las Condes</p>
+                  </div>
+                </div>
+                <button onclick="transferPackage(this, 'toRoute')" class="w-8 h-8 rounded-lg bg-white group-hover:bg-cyan-600 group-hover:text-white border border-slate-200 group-hover:border-cyan-600 text-slate-700 flex items-center justify-center text-xs transition shadow-sm" title="Agregar a la ruta">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+
+              <!-- Item 5 (Sur) -->
+              <div class="package-card p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-cyan-50/40 hover:border-cyan-200 transition flex items-center justify-between group" data-id="ENV-8839" data-zone="SUR" data-kg="18.0" data-m3="0.20" data-dest="Gran Avenida 8900, La Cisterna" data-client="Banda Los Andes">
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs flex-shrink-0 shadow-sm">
+                    <i class="fa-solid fa-box text-cyan-600"></i>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-slate-900">#ENV-8839</span>
+                      <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700">SUR</span>
+                      <span class="text-[10px] font-medium text-slate-500">18.0 kg • 0.20 m³</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-0.5 font-medium">Banda Los Andes</p>
+                    <p class="text-[11px] text-slate-400 truncate max-w-sm"><i class="fa-solid fa-location-dot text-[10px] mr-1 text-slate-400"></i>Gran Avenida 8900, La Cisterna</p>
+                  </div>
+                </div>
+                <button onclick="transferPackage(this, 'toRoute')" class="w-8 h-8 rounded-lg bg-white group-hover:bg-cyan-600 group-hover:text-white border border-slate-200 group-hover:border-cyan-600 text-slate-700 flex items-center justify-center text-xs transition shadow-sm" title="Agregar a la ruta">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Carga de la Unidad Seleccionada (5 cols) -->
+          <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col h-[640px]">
+            <div class="pb-3 border-b border-slate-100 mb-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-truck-ramp-box text-cyan-600"></i>
+                  Carga Asignada al Móvil
+                </h3>
+                <span id="routeCountBadge" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-cyan-50 text-cyan-700 border border-cyan-200">0 paquetes</span>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-0.5">Monitoreo de ocupación volumétrica y límite de masa.</p>
+            </div>
+
+            <!-- Indicadores de Capacidad (Meters) -->
+            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 mb-4 space-y-3">
+              <!-- Barra de Peso (Kg) -->
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="font-semibold text-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-weight-scale text-slate-400"></i> Peso Total:
+                  </span>
+                  <span class="font-bold text-slate-900" id="weightStats">0 kg / 1,750 kg (0%)</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                  <div id="weightBar" class="bg-cyan-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <!-- Barra de Volumen (m3) -->
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="font-semibold text-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-cube text-slate-400"></i> Volumen Cúbico:
+                  </span>
+                  <span class="font-bold text-slate-900" id="volumeStats">0 m³ / 12.0 m³ (0%)</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                  <div id="volumeBar" class="bg-indigo-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contenedor de paquetes asignados a la ruta -->
+            <div id="routePackagesList" class="flex-1 overflow-y-auto space-y-2 pr-1">
+              <div id="emptyRoutePlaceholder" class="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
+                <i class="fa-solid fa-dolly text-4xl mb-2 text-slate-300"></i>
+                <p class="text-xs font-semibold text-slate-600">No hay bultos asignados a esta ruta</p>
+                <p class="text-[11px] text-slate-400 mt-1 max-w-xs">Selecciona paquetes de la columna izquierda para balancear la carga vehicular.</p>
+              </div>
+            </div>
+
+            <!-- Footer con resumen y alerta -->
+            <div class="pt-3 border-t border-slate-100 mt-3 flex items-center justify-between">
+              <span class="text-xs text-slate-500">Paradas estimadas: <strong id="stopCount" class="text-slate-800">0</strong></span>
+              <button onclick="emptyRoute()" class="text-xs text-rose-600 hover:text-rose-700 font-semibold hover:underline">
+                Vaciar Carga
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Éxito Emisión de Ruta -->
+  <div id="successModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 text-center animate-in fade-in zoom-in-95 duration-150">
+      <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg shadow-emerald-500/10">
+        <i class="fa-solid fa-route"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-1">¡Hoja de Ruta Emitida!</h3>
+      <p class="text-xs text-slate-500 mb-4">Se ha generado exitosamente la hoja de ruta <strong class="text-slate-800">#RUT-2026-089</strong> y despachado las instrucciones al terminal del chofer.</p>
+      
+      <div class="bg-slate-50 rounded-xl p-3 text-left text-xs space-y-1.5 mb-5 border border-slate-200">
+        <div class="flex justify-between">
+          <span class="text-slate-500">Vehículo Asignado:</span>
+          <span class="font-semibold text-slate-800" id="modalVehicle">Camión 3/4 KLY-901</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Conductor:</span>
+          <span class="font-semibold text-slate-800" id="modalDriver">Esteban Morales</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Total Bultos:</span>
+          <span class="font-semibold text-slate-800" id="modalCount">3 paquetes</span>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <a href="rutas-detail.html" class="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-semibold shadow-sm transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-eye"></i>
+          <span>Ver Hoja de Ruta</span>
+        </a>
+        <a href="rutas-list.html" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition flex items-center justify-center">
+          Ir al Listado
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let assignedPackages = [];
+    let vehicleCapacity = {
+      maxKg: 1750,
+      maxM3: 12.0
+    };
+
+    function updateVehicleCapacity() {
+      const select = document.getElementById('vehicleSelect');
+      const option = select.options[select.selectedIndex];
+      vehicleCapacity.maxKg = parseFloat(option.dataset.maxkg);
+      vehicleCapacity.maxM3 = parseFloat(option.dataset.maxm3);
+      document.getElementById('driverInput').value = option.dataset.driver + " (A4 Profesional)";
+      renderMeters();
+    }
+
+    function transferPackage(btn, direction) {
+      const card = btn.closest('.package-card');
+      const id = card.dataset.id;
+      const zone = card.dataset.zone;
+      const kg = parseFloat(card.dataset.kg);
+      const m3 = parseFloat(card.dataset.m3);
+      const dest = card.dataset.dest;
+      const client = card.dataset.client;
+
+      if (direction === 'toRoute') {
+        // Remove from left
+        card.remove();
+        // Add to right
+        assignedPackages.push({ id, zone, kg, m3, dest, client });
+        renderRouteList();
+      } else {
+        // Remove from right
+        assignedPackages = assignedPackages.filter(p => p.id !== id);
+        renderRouteList();
+        // Return to left
+        returnToPending({ id, zone, kg, m3, dest, client });
+      }
+      updateCounts();
+      renderMeters();
+    }
+
+    function returnToPending(p) {
+      const list = document.getElementById('pendingPackagesList');
+      const div = document.createElement('div');
+      div.className = "package-card p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-cyan-50/40 hover:border-cyan-200 transition flex items-center justify-between group";
+      div.dataset.id = p.id;
+      div.dataset.zone = p.zone;
+      div.dataset.kg = p.kg;
+      div.dataset.m3 = p.m3;
+      div.dataset.dest = p.dest;
+      div.dataset.client = p.client;
+      div.innerHTML = `
+        <div class="flex items-start gap-3">
+          <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs flex-shrink-0 shadow-sm">
+            <i class="fa-solid fa-box text-cyan-600"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-slate-900">#${p.id}</span>
+              <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700">${p.zone}</span>
+              <span class="text-[10px] font-medium text-slate-500">${p.kg} kg • ${p.m3} m³</span>
+            </div>
+            <p class="text-xs text-slate-600 mt-0.5 font-medium">${p.client}</p>
+            <p class="text-[11px] text-slate-400 truncate max-w-sm"><i class="fa-solid fa-location-dot text-[10px] mr-1 text-slate-400"></i>${p.dest}</p>
+          </div>
+        </div>
+        <button onclick="transferPackage(this, 'toRoute')" class="w-8 h-8 rounded-lg bg-white group-hover:bg-cyan-600 group-hover:text-white border border-slate-200 group-hover:border-cyan-600 text-slate-700 flex items-center justify-center text-xs transition shadow-sm" title="Agregar a la ruta">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      `;
+      list.appendChild(div);
+      filterPackagesByZone();
+    }
+
+    function renderRouteList() {
+      const container = document.getElementById('routePackagesList');
+      if (assignedPackages.length === 0) {
+        container.innerHTML = `
+          <div id="emptyRoutePlaceholder" class="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
+            <i class="fa-solid fa-dolly text-4xl mb-2 text-slate-300"></i>
+            <p class="text-xs font-semibold text-slate-600">No hay bultos asignados a esta ruta</p>
+            <p class="text-[11px] text-slate-400 mt-1 max-w-xs">Selecciona paquetes de la columna izquierda para balancear la carga vehicular.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = assignedPackages.map((p, idx) => `
+        <div class="package-card p-3 rounded-xl border border-cyan-100 bg-cyan-50/30 hover:bg-cyan-50/60 transition flex items-center justify-between" data-id="${p.id}" data-zone="${p.zone}" data-kg="${p.kg}" data-m3="${p.m3}" data-dest="${p.dest}" data-client="${p.client}">
+          <div class="flex items-start gap-3">
+            <div class="w-7 h-7 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm">
+              ${idx + 1}
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-slate-900">#${p.id}</span>
+                <span class="text-[10px] font-medium text-slate-500">${p.kg} kg • ${p.m3} m³</span>
+              </div>
+              <p class="text-[11px] font-medium text-slate-700 truncate max-w-xs">${p.client}</p>
+              <p class="text-[10px] text-slate-400 truncate max-w-xs">${p.dest}</p>
+            </div>
+          </div>
+          <button onclick="transferPackage(this, 'toPending')" class="w-7 h-7 rounded-lg bg-white hover:bg-rose-50 border border-slate-200 hover:border-rose-200 text-slate-400 hover:text-rose-600 flex items-center justify-center text-xs transition" title="Remover de la ruta">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function renderMeters() {
+      const totalKg = assignedPackages.reduce((acc, p) => acc + p.kg, 0);
+      const totalM3 = assignedPackages.reduce((acc, p) => acc + p.m3, 0);
+
+      const kgPct = Math.min(100, Math.round((totalKg / vehicleCapacity.maxKg) * 100));
+      const m3Pct = Math.min(100, Math.round((totalM3 / vehicleCapacity.maxM3) * 100));
+
+      document.getElementById('weightStats').textContent = `${totalKg.toFixed(1)} kg / ${vehicleCapacity.maxKg} kg (${kgPct}%)`;
+      document.getElementById('volumeStats').textContent = `${totalM3.toFixed(2)} m³ / ${vehicleCapacity.maxM3.toFixed(1)} m³ (${m3Pct}%)`;
+
+      const wBar = document.getElementById('weightBar');
+      wBar.style.width = `${kgPct}%`;
+      wBar.className = kgPct > 90 ? 'bg-rose-500 h-2 rounded-full transition-all duration-300' : 'bg-cyan-500 h-2 rounded-full transition-all duration-300';
+
+      const vBar = document.getElementById('volumeBar');
+      vBar.style.width = `${m3Pct}%`;
+      vBar.className = m3Pct > 90 ? 'bg-rose-500 h-2 rounded-full transition-all duration-300' : 'bg-indigo-500 h-2 rounded-full transition-all duration-300';
+
+      document.getElementById('stopCount').textContent = assignedPackages.length;
+    }
+
+    function updateCounts() {
+      const leftCount = document.querySelectorAll('#pendingPackagesList .package-card').length;
+      document.getElementById('pendingCountBadge').textContent = `${leftCount} paquetes`;
+      document.getElementById('routeCountBadge').textContent = `${assignedPackages.length} paquetes`;
+    }
+
+    function filterPackagesByZone() {
+      const zone = document.getElementById('zoneSelect').value;
+      const cards = document.querySelectorAll('#pendingPackagesList .package-card');
+      cards.forEach(c => {
+        if (zone === 'ALL' || c.dataset.zone === zone) {
+          c.classList.remove('hidden');
+        } else {
+          c.classList.add('hidden');
+        }
+      });
+    }
+
+    function transferAllToRoute() {
+      const buttons = document.querySelectorAll('#pendingPackagesList .package-card:not(.hidden) button');
+      buttons.forEach(btn => transferPackage(btn, 'toRoute'));
+    }
+
+    function emptyRoute() {
+      while (assignedPackages.length > 0) {
+        const p = assignedPackages[0];
+        assignedPackages.splice(0, 1);
+        returnToPending(p);
+      }
+      renderRouteList();
+      updateCounts();
+      renderMeters();
+    }
+
+    function saveRoute() {
+      if (assignedPackages.length === 0) {
+        alert('Debes asignar al menos 1 paquete a la hoja de ruta.');
+        return;
+      }
+      const select = document.getElementById('vehicleSelect');
+      document.getElementById('modalVehicle').textContent = select.options[select.selectedIndex].text;
+      document.getElementById('modalDriver').textContent = document.getElementById('driverInput').value;
+      document.getElementById('modalCount').textContent = `${assignedPackages.length} paquetes`;
+      document.getElementById('successModal').classList.remove('hidden');
+    }
+
+    // Initialize
+    updateVehicleCapacity();
+    updateCounts();
+  </script>
+</body>
+</html>

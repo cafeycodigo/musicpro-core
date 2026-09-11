@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full scroll-smooth bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Card | La Tarjeta Diseñada para Músicos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+            mono: ['"Share Tech Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Promo Top Strip -->
+  <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 text-slate-950 text-xs py-2 px-4 text-center font-bold">
+    <span>✨ BENEFICIO EXCLUSIVO: Solicita tu tarjeta MusicPro Black hoy y recibe 5.000 Puntos Pro de bienvenida de regalo.</span>
+  </div>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+      
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-500 flex items-center justify-center text-slate-950 font-bold text-xl shadow-lg shadow-amber-400/20 group-hover:rotate-6 transition-transform">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <div>
+            <span class="font-heading font-extrabold text-white text-lg leading-tight tracking-tight block">MusicPro <span class="text-amber-400">Card</span></span>
+            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Banca & Fidelización</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
+          <a href="#tarjetas" class="hover:text-amber-400 transition">Planes & Plásticos</a>
+          <a href="#beneficios" class="hover:text-amber-400 transition">Beneficios VIP</a>
+          <a href="#calculadora" class="hover:text-amber-400 transition">Calculadora Puntos</a>
+          <a href="#club" class="hover:text-amber-400 transition">Club de Canjes</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="login.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition">
+          <i class="fa-solid fa-lock text-amber-400"></i>
+          <span>Banca en Línea</span>
+        </a>
+
+        <a href="registro.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-bold text-xs shadow-md shadow-amber-400/20 transition flex items-center gap-2 hover:scale-[1.02]">
+          <span>Solicitar Tarjeta</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-16 pb-24 overflow-hidden border-b border-slate-800/80">
+    <div class="absolute -right-40 -top-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-40 -bottom-40 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-xs font-bold">
+            <i class="fa-solid fa-gem text-amber-400"></i> Edición Black • Cupos hasta $8.000.000
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl font-extrabold font-heading text-white tracking-tight leading-tight">
+            La Tarjeta de Crédito <br>
+            <span class="bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">que Toca a tu Ritmo.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Paga en hasta 12 cuotas sin interés en tiendas de música, acumula Puntos Pro con cada compra nacional o internacional y disfruta de accesos VIP en festivales y conciertos.
+          </p>
+
+          <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <a href="registro.html" class="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 rounded-2xl font-bold text-sm shadow-xl shadow-amber-500/20 transition flex items-center justify-center gap-2 hover:scale-[1.02]">
+              <i class="fa-solid fa-credit-card"></i>
+              <span>Solicitar Mi Tarjeta Online</span>
+            </a>
+            <a href="login.html" class="w-full sm:w-auto px-7 py-3.5 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 rounded-2xl font-semibold text-sm transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-user-check text-amber-400"></i>
+              <span>Ya soy titular • Iniciar Sesión</span>
+            </a>
+          </div>
+
+          <!-- Highlight Perks -->
+          <div class="pt-6 grid grid-cols-3 gap-4 border-t border-slate-800 text-center sm:text-left">
+            <div>
+              <span class="font-bold text-white block text-lg font-heading">0% Interés</span>
+              <span class="text-xs text-slate-400">Hasta 12 cuotas precio contado</span>
+            </div>
+            <div>
+              <span class="font-bold text-amber-400 block text-lg font-heading">5% Cashback</span>
+              <span class="text-xs text-slate-400">En MusicPro Retail & Audio</span>
+            </div>
+            <div>
+              <span class="font-bold text-white block text-lg font-heading">VIP Lounge</span>
+              <span class="text-xs text-slate-400">Festivales de música en Chile</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 3D-Like Physical CSS Card Preview -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="w-full max-w-[380px] aspect-[1.586/1] rounded-3xl p-6 bg-gradient-to-tr from-slate-950 via-indigo-950 to-slate-900 border-2 border-amber-500/40 shadow-2xl relative overflow-hidden flex flex-col justify-between text-white select-none transition-transform duration-500 hover:scale-105 hover:rotate-1">
+            
+            <div class="flex items-center justify-between relative z-10">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-wave-square text-amber-400 text-xl"></i>
+                <span class="font-heading font-extrabold text-lg tracking-wider">MusicPro</span>
+              </div>
+              <span class="font-heading font-extrabold text-xs uppercase tracking-widest text-amber-400 px-2 py-0.5 rounded border border-amber-500/30 bg-amber-500/10">
+                Black Metal
+              </span>
+            </div>
+
+            <div class="flex items-center gap-4 relative z-10 my-auto">
+              <div class="w-12 h-9 rounded-md bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-500 border border-amber-600 shadow-inner flex flex-col justify-around p-1">
+                <div class="w-full h-px bg-amber-700/50"></div>
+                <div class="w-full h-px bg-amber-700/50"></div>
+              </div>
+              <i class="fa-solid fa-wifi rotate-90 text-slate-400 text-lg"></i>
+            </div>
+
+            <div class="relative z-10">
+              <p class="font-mono text-xl font-bold tracking-[0.2em] text-slate-100">
+                4589  ••••  ••••  8902
+              </p>
+            </div>
+
+            <div class="flex items-end justify-between relative z-10 pt-2 text-xs">
+              <div>
+                <span class="text-[9px] uppercase tracking-wider text-slate-400 block">Titular Exclusivo</span>
+                <span class="font-bold tracking-wide text-slate-100 uppercase">BENJAMÍN MORALES</span>
+              </div>
+              <div class="text-right">
+                <span class="text-[9px] uppercase tracking-wider text-slate-400 block">Vence</span>
+                <span class="font-mono font-bold text-slate-200">08/30</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans Showcase Section -->
+  <section id="tarjetas" class="py-20 bg-slate-900/60 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-extrabold text-amber-400 uppercase tracking-wider">Elige tu Nivel</span>
+        <h2 class="text-3xl font-bold font-heading text-white mt-1">Planes Diseñados para Cada Etapa</h2>
+        <p class="text-xs text-slate-400 mt-1">Desde aficionados hasta productores de estudio de clase mundial.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Plan 1: Gold -->
+        <div class="p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-400/50 transition space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-yellow-400/10 text-yellow-300 border border-yellow-400/20 inline-block">
+              MusicPro Gold
+            </span>
+            <h3 class="text-2xl font-bold font-heading text-white">Cupo hasta $1.800.000</h3>
+            <p class="text-xs text-slate-400">Ideal para bandas jóvenes y músicos que buscan equipar su sala de ensayo.</p>
+            <ul class="space-y-2.5 text-xs text-slate-300 pt-2 border-t border-slate-800">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Hasta 6 cuotas sin interés</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> 1 Punto por cada $2.000 gastados</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Mantención 0.07 UF (Costo 0 con 3 compras)</li>
+            </ul>
+          </div>
+          <a href="registro.html" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition text-center block">
+            Solicitar Gold
+          </a>
+        </div>
+
+        <!-- Plan 2: Platinum -->
+        <div class="p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-400/50 transition space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-400/10 text-amber-300 border border-amber-400/20 inline-block">
+              MusicPro Platinum
+            </span>
+            <h3 class="text-2xl font-bold font-heading text-white">Cupo hasta $3.500.000</h3>
+            <p class="text-xs text-slate-400">Para músicos profesionales y academias que exigen mayor capacidad de compra.</p>
+            <ul class="space-y-2.5 text-xs text-slate-300 pt-2 border-t border-slate-800">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Hasta 12 cuotas sin interés</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> 1 Punto por cada $1.500 gastados</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Seguro de equipaje de instrumentos gratis</li>
+            </ul>
+          </div>
+          <a href="registro.html" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition text-center block">
+            Solicitar Platinum
+          </a>
+        </div>
+
+        <!-- Plan 3: Black (Featured) -->
+        <div class="p-8 rounded-3xl bg-gradient-to-b from-slate-900 to-indigo-950/60 border-2 border-amber-500 shadow-2xl relative space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-400 text-slate-950 inline-block">
+                MÁXIMA EXPERIENCIA
+              </span>
+              <i class="fa-solid fa-crown text-amber-400"></i>
+            </div>
+            <h3 class="text-2xl font-bold font-heading text-white">Cupo hasta $8.000.000</h3>
+            <p class="text-xs text-slate-300">Edición en metal con beneficios VIP ilimitados en compras y conciertos.</p>
+            <ul class="space-y-2.5 text-xs text-slate-200 pt-2 border-t border-slate-800">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> 12 cuotas sin interés permanente</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> 1 Punto por cada $1.000 gastados</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Acceso Lounge VIP en conciertos y festivales</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Tarjeta física de metal grabada con láser</li>
+            </ul>
+          </div>
+          <a href="registro.html" class="w-full py-3.5 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 rounded-xl text-xs font-extrabold shadow-lg shadow-amber-400/20 transition text-center block hover:scale-[1.02]">
+            Solicitar Black Edition
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Points Calculator Section -->
+  <section id="calculadora" class="py-20 bg-slate-950 border-b border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+      <div>
+        <span class="text-xs font-extrabold text-amber-400 uppercase tracking-wider">Simulador de Recompensas</span>
+        <h2 class="text-3xl font-bold font-heading text-white mt-1">¿Cuántos Puntos Pro acumularías?</h2>
+        <p class="text-xs text-slate-400 mt-1">Calcula tu retorno en instrumentos y cupones según tu gasto mensual estimado.</p>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-6 text-left">
+        <div>
+          <div class="flex justify-between items-center text-xs font-semibold mb-2">
+            <span class="text-slate-300">Gasto mensual con tu tarjeta MusicPro:</span>
+            <span class="font-mono text-base font-bold text-amber-400" id="calcAmountDisplay">$600.000 CLP / mes</span>
+          </div>
+          <input type="range" id="spendSlider" min="100000" max="2500000" step="50000" value="600000" oninput="updateCalculator()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500">
+          <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+            <span>$100.000</span>
+            <span>$1.200.000</span>
+            <span>$2.500.000</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-800">
+          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[11px] text-slate-400 uppercase tracking-wider block font-semibold">Puntos Acumulados al Año</span>
+            <strong class="text-3xl font-extrabold font-heading text-amber-400 mt-1 block" id="calcPointsDisplay">7.200 pts</strong>
+            <span class="text-[10px] text-slate-500">Equivalente a un pedal Boss o $36.000 CLP</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[11px] text-slate-400 uppercase tracking-wider block font-semibold">Beneficio de Canje Canjeable</span>
+            <strong class="text-3xl font-extrabold font-heading text-white mt-1 block" id="calcGiftDisplay">Gift Card $35.000</strong>
+            <span class="text-[10px] text-emerald-400">+ Acceso a 2 Masterclasses VIP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="py-16 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950">
+    <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
+      <h2 class="text-3xl sm:text-4xl font-extrabold font-heading">
+        Comienza a disfrutar de tu tarjeta en menos de 5 minutos
+      </h2>
+      <p class="text-slate-900/80 text-sm max-w-xl mx-auto font-medium">
+        Evaluación crediticia 100% digital sin papeleo. Recibe tu tarjeta virtual de forma inmediata para comprar por internet.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4 pt-2">
+        <a href="registro.html" class="px-8 py-3.5 bg-slate-950 hover:bg-slate-900 text-white rounded-xl font-bold text-sm shadow-xl transition flex items-center justify-center gap-2 hover:scale-105">
+          <i class="fa-solid fa-credit-card"></i>
+          <span>Solicitar Tarjeta Ahora</span>
+        </a>
+        <a href="login.html" class="px-8 py-3.5 bg-white/30 hover:bg-white/40 text-slate-950 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2">
+          <span>Ingresar a Mi Tarjeta</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-slate-900 text-slate-500 text-xs py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-6 h-6 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xs">
+          <i class="fa-solid fa-credit-card"></i>
+        </div>
+        <span>MusicPro Servicios Financieros S.A. © 2026 • Emisor No Bancario Regulado</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="../../index.html" class="hover:text-slate-300 transition">Hub Central</a>
+        <a href="login.html" class="hover:text-slate-300 transition">Banca en Línea</a>
+        <a href="registro.html" class="hover:text-slate-300 transition">Solicitud</a>
+        <a href="../admin/index.html" class="hover:text-slate-300 transition">Admin Riesgo</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateCalculator() {
+      const spend = parseInt(document.getElementById('spendSlider').value);
+      document.getElementById('calcAmountDisplay').textContent = `$${spend.toLocaleString('es-CL')} CLP / mes`;
+
+      // 1 point per $1.000 spent per month * 12 months
+      const annualPoints = Math.round((spend / 1000) * 12);
+      document.getElementById('calcPointsDisplay').textContent = `${annualPoints.toLocaleString('es-CL')} pts`;
+
+      const gift = document.getElementById('calcGiftDisplay');
+      if (annualPoints >= 15000) {
+        gift.textContent = "Pedal Boss + Gift $50.000";
+      } else if (annualPoints >= 8000) {
+        gift.textContent = "Masterclass VIP + $30.000";
+      } else {
+        gift.textContent = "Gift Card $20.000";
+      }
+    }
+  </script>
+</body>
+</html>

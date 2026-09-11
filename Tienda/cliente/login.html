@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Store | Iniciar Sesión</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col justify-between font-sans text-slate-800 bg-slate-50 antialiased">
+
+  <!-- Header -->
+  <header class="p-4 sm:p-6 flex items-center justify-between max-w-7xl mx-auto w-full">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-2xl bg-rose-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-rose-500/25 group-hover:rotate-6 transition-transform">
+        <i class="fa-solid fa-guitar"></i>
+      </div>
+      <div>
+        <span class="font-heading font-extrabold text-slate-900 text-lg leading-tight tracking-tight block">MusicPro <span class="text-rose-500">Store</span></span>
+        <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Mega Tienda Musical</span>
+      </div>
+    </a>
+
+    <a href="index.html" class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-600 text-xs font-semibold border border-slate-200 transition flex items-center gap-1.5 shadow-xs">
+      <i class="fa-solid fa-arrow-left text-slate-400"></i>
+      <span>Volver a la Tienda</span>
+    </a>
+  </header>
+
+  <!-- Login Card Center -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6">
+    <div class="w-full max-w-md bg-white rounded-3xl p-8 border border-slate-200 shadow-xl space-y-6">
+      
+      <!-- Header -->
+      <div class="text-center space-y-1.5">
+        <h1 class="text-2xl font-bold font-heading text-slate-900">¡Hola de nuevo!</h1>
+        <p class="text-xs text-slate-500">Ingresa a tu cuenta para continuar con tus compras y pedidos</p>
+      </div>
+
+      <!-- Social Logins -->
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="mockSocialLogin('Google')" class="py-2.5 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition flex items-center justify-center gap-2">
+          <i class="fa-brands fa-google text-rose-500"></i>
+          <span>Google</span>
+        </button>
+        <button onclick="mockSocialLogin('Apple')" class="py-2.5 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition flex items-center justify-center gap-2">
+          <i class="fa-brands fa-apple text-slate-900"></i>
+          <span>Apple ID</span>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="flex-1 h-px bg-slate-200"></div>
+        <span class="text-[11px] text-slate-400 font-medium uppercase">o con tu correo</span>
+        <div class="flex-1 h-px bg-slate-200"></div>
+      </div>
+
+      <!-- Form -->
+      <form onsubmit="event.preventDefault(); handleLogin();" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1.5">Correo Electrónico</label>
+          <div class="relative">
+            <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="email" id="emailInput" required value="benjamin.morales@musicpro.cl" placeholder="tu@correo.cl" class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rose-500">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1.5">
+            <label class="font-semibold text-slate-700">Contraseña</label>
+            <button type="button" onclick="alert('Te hemos enviado un enlace de recuperación a tu correo electrónico.')" class="text-[11px] text-rose-600 hover:underline">
+              ¿Olvidaste tu contraseña?
+            </button>
+          </div>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="password" id="passInput" required value="••••••••" placeholder="Contraseña de acceso" class="w-full pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rose-500">
+            <button type="button" onclick="togglePassVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <i class="fa-solid fa-eye text-xs" id="eyeIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-1">
+          <label class="flex items-center gap-2 cursor-pointer text-slate-600">
+            <input type="checkbox" checked class="rounded border-slate-300 text-rose-500 focus:ring-rose-500">
+            <span>Recordarme en este equipo</span>
+          </label>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl text-xs shadow-lg shadow-rose-500/25 transition flex items-center justify-center gap-2 hover:scale-[1.01]">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span>Ingresar a Mi Cuenta</span>
+        </button>
+      </form>
+
+      <!-- Register prompt -->
+      <div class="pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
+        <span>¿Aún no tienes una cuenta? </span>
+        <a href="registro.html" class="font-bold text-rose-600 hover:underline">Regístrate gratis aquí</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="p-4 text-center text-xs text-slate-400 border-t border-slate-200">
+    <span>MusicPro Retail Online © 2026 • Acceso Seguro SSL 256-bit</span>
+  </footer>
+
+  <script>
+    function togglePassVisibility() {
+      const input = document.getElementById('passInput');
+      const icon = document.getElementById('eyeIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fa-solid fa-eye-slash text-xs';
+      } else {
+        input.type = 'password';
+        icon.className = 'fa-solid fa-eye text-xs';
+      }
+    }
+
+    function handleLogin() {
+      window.location.href = "tienda-catalog.html";
+    }
+
+    function mockSocialLogin(provider) {
+      alert(`Autenticación simulada con ${provider}. Redirigiendo a tu catálogo...`);
+      window.location.href = "tienda-catalog.html";
+    }
+  </script>
+</body>
+</html>

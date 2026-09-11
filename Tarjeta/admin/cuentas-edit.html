@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta Admin | Modificar Cuenta #CTA-10042</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-500/20">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">Tarjeta Admin</span>
+            <span class="text-[10px] text-amber-400 font-medium uppercase tracking-wider">Riesgo & Emisión</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-chart-line w-4 text-center"></i>
+          <span>Métricas Globales</span>
+        </a>
+        <a href="cuentas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-semibold text-xs border border-amber-500/20">
+          <i class="fa-solid fa-users-gear w-4 text-center"></i>
+          <span>Clientes & Cuentas</span>
+        </a>
+        <a href="productos-tarjetas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-layer-group w-4 text-center"></i>
+          <span>Planes de Tarjeta</span>
+        </a>
+        <a href="transacciones-audit-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-shield-halved w-4 text-center"></i>
+          <span>Auditoría & Fraude</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="cuentas-list.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-arrow-left text-amber-400"></i>
+        <span>Volver a Cuentas</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <!-- Top Header -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Financiero</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="cuentas-list.html" class="hover:text-slate-800">Cuentas</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">Editar Cuenta #CTA-10042</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          Cuenta Vigente
+        </span>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="flex-1 overflow-y-auto p-6 bg-slate-50/50">
+      <div class="max-w-4xl mx-auto space-y-6">
+
+        <!-- Title Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div>
+            <h1 class="text-2xl font-bold font-heading text-slate-900">Modificar Parámetros de Cuenta</h1>
+            <p class="text-xs text-slate-500 mt-1">Ajusta límites de crédito en pesos/dólares, cambia de categoría o actualiza el estado de riesgo.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <a href="cuentas-detail.html" class="px-4 py-2 border border-slate-300 hover:bg-slate-100 rounded-xl text-xs font-semibold text-slate-700 transition">
+              Ver Ficha Detallada
+            </a>
+          </div>
+        </div>
+
+        <!-- Preloaded Account Card -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+          <form id="editAccountForm" onsubmit="event.preventDefault(); saveAccountChanges();" class="space-y-6">
+
+            <!-- Readonly Client Header -->
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+              <div>
+                <span class="text-slate-400 block uppercase tracking-wider text-[10px] font-bold">Titular</span>
+                <strong class="text-slate-900 text-sm">Benjamín Morales Bravo</strong>
+                <span class="text-slate-500 block">RUT: 18.940.122-3</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block uppercase tracking-wider text-[10px] font-bold">Contrato Vigente</span>
+                <strong class="text-slate-900 font-mono text-sm">#CTA-10042</strong>
+                <span class="text-slate-500 block">Emisión: 14 Ene 2025</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block uppercase tracking-wider text-[10px] font-bold">Tarjeta Activa</span>
+                <strong class="text-slate-900 font-mono text-sm">**** **** **** 4589</strong>
+                <span class="text-slate-500 block">Expiración actual: 08/30</span>
+              </div>
+            </div>
+
+            <!-- Modifiable Section 1: Cupos y Límites -->
+            <div>
+              <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-arrow-trend-up text-amber-500"></i>
+                1. Modificación de Cupos de Crédito
+              </h2>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Cupo Nacional Total ($ CLP)</label>
+                  <input type="number" id="editCreditClp" value="3500000" step="100000" required class="w-full text-xs font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                  <span class="text-[11px] text-slate-400 mt-1 block">Cupo utilizado actualmente: $1.050.000 CLP</span>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Cupo Internacional (USD)</label>
+                  <input type="number" id="editCreditUsd" value="3500" step="100" required class="w-full text-xs font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                  <span class="text-[11px] text-slate-400 mt-1 block">Gasto internacional actual: USD $220.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modifiable Section 2: Plan y Estado -->
+            <div class="pt-6 border-t border-slate-100">
+              <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-tags text-amber-500"></i>
+                2. Categoría de Cliente & Estado Operativo
+              </h2>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Categoría del Plan</label>
+                  <select id="editPlan" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 font-semibold">
+                    <option value="Classic">MusicPro Classic</option>
+                    <option value="Gold">MusicPro Gold</option>
+                    <option value="Platinum">MusicPro Platinum</option>
+                    <option value="Black" selected>MusicPro Black</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Estado de la Cuenta</label>
+                  <select id="editStatus" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 font-semibold">
+                    <option value="Al Día" selected>Al Día (Operación Normal)</option>
+                    <option value="Mora">En Mora (Bloqueo de Avances)</option>
+                    <option value="Bloqueada">Bloqueada por Riesgo</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Tasa de Interés Mensual Pactada</label>
+                  <input type="text" value="1.50% mensual (CAE 20.8%)" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Nueva Fecha de Expiración (Renovación)</label>
+                  <input type="month" value="2030-08" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+
+                <div class="sm:col-span-2">
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Justificación del Cambio (Auditoría Financiera)</label>
+                  <textarea rows="2" placeholder="Motivo de la ampliación de cupo o modificación de plan..." class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl p-3 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">Excelente comportamiento de pago en los últimos 12 meses. Aumento de cupo autorizado por gerencia de riesgo.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 flex items-center justify-end gap-3">
+              <a href="cuentas-list.html" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+                Cancelar
+              </a>
+              <button type="submit" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl shadow-md shadow-amber-500/20 transition flex items-center gap-2">
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>Guardar Cambios</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function saveAccountChanges() {
+      const clp = document.getElementById('editCreditClp').value;
+      alert(`¡Parámetros de cuenta guardados con éxito! El nuevo cupo de $${parseInt(clp).toLocaleString('es-CL')} CLP ha sido registrado en el sistema central.`);
+      window.location.href = "cuentas-list.html";
+    }
+  </script>
+</body>
+</html>

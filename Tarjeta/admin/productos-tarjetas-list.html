@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta Admin | Planes y Productos Financieros</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-500/20">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">Tarjeta Admin</span>
+            <span class="text-[10px] text-amber-400 font-medium uppercase tracking-wider">Riesgo & Emisión</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-chart-line w-4 text-center"></i>
+          <span>Métricas Globales</span>
+        </a>
+        <a href="cuentas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-users-gear w-4 text-center"></i>
+          <span>Clientes & Cuentas</span>
+        </a>
+        <a href="productos-tarjetas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-semibold text-xs border border-amber-500/20">
+          <i class="fa-solid fa-layer-group w-4 text-center"></i>
+          <span>Planes de Tarjeta</span>
+        </a>
+        <a href="transacciones-audit-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-shield-halved w-4 text-center"></i>
+          <span>Auditoría & Fraude</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="../cliente/tarjeta-dashboard.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-wallet text-amber-400"></i>
+        <span>Ir a Portal Titular</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <!-- Top Header -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Financiero</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">Planes de Tarjetas</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="productos-tarjetas-create.html" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl shadow-sm transition flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i>
+          <span>Crear Nuevo Plan</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="flex-1 overflow-y-auto p-6 bg-slate-50/50">
+      <div class="max-w-7xl mx-auto space-y-6">
+
+        <!-- Title Banner -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div>
+            <h1 class="text-2xl font-bold font-heading text-slate-900">Planes y Productos Financieros</h1>
+            <p class="text-xs text-slate-500 mt-1">Configuración de reglas de negocio, acumulación de Puntos Pro, costos de mantención y tasas de colocación.</p>
+          </div>
+          <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
+            4 Planes Comerciales Activos
+          </span>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" id="planSearchInput" oninput="handlePlanSearch()" placeholder="Buscar plan por nombre o categoría..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+        </div>
+
+        <!-- Plans Table -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-600" id="plansTable">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-semibold">
+                <tr>
+                  <th class="px-6 py-3.5">Plan / Categoría</th>
+                  <th class="px-6 py-3.5">Segmento Objetivo</th>
+                  <th class="px-6 py-3.5">Rango de Cupo Aprobado</th>
+                  <th class="px-6 py-3.5">Mantención Mensual</th>
+                  <th class="px-6 py-3.5">Tasa Mensual (CAE)</th>
+                  <th class="px-6 py-3.5">Factor Puntos Pro</th>
+                  <th class="px-6 py-3.5">Plásticos Activos</th>
+                  <th class="px-6 py-3.5 text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100" id="plansTableBody">
+                
+                <!-- Plan 1: Black -->
+                <tr class="hover:bg-slate-50/80 transition plan-row" data-name="musicpro black premium vip alta renta">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-6 rounded bg-slate-900 border border-amber-400/40 text-amber-400 text-[10px] font-bold flex items-center justify-center font-mono shadow-sm">
+                        BLACK
+                      </div>
+                      <div>
+                        <span class="font-bold text-slate-900 block text-sm">MusicPro Black</span>
+                        <span class="text-[10px] text-amber-600 font-semibold">Edición Limitada Metal</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 font-medium text-slate-700">Renta &gt; $2.500.000 (VIP / Músicos Pro)</td>
+                  <td class="px-6 py-4 font-mono font-bold text-slate-900">$3.000.000 - $8.000.000</td>
+                  <td class="px-6 py-4 font-medium text-slate-700">0.15 UF / mes ($5.800)</td>
+                  <td class="px-6 py-4 font-semibold text-emerald-600">1.50% (CAE 20.8%)</td>
+                  <td class="px-6 py-4">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                      1 pt x $1.000 CLP
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 font-bold text-slate-900">2.140 plásticos</td>
+                  <td class="px-6 py-4 text-center">
+                    <div class="flex items-center justify-center gap-2">
+                      <a href="productos-tarjetas-edit.html" class="p-1.5 hover:bg-slate-100 rounded-lg text-slate-600 hover:text-slate-900 transition" title="Editar Reglas">
+                        <i class="fa-solid fa-pen-to-square text-xs"></i>
+                      </a>
+                      <button onclick="openArchiveModal('MusicPro Black')" class="p-1.5 hover:bg-rose-50 rounded-lg text-slate-400 hover:text-rose-600 transition" title="Desactivar Plan">
+                        <i class="fa-solid fa-box-archive text-xs"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Plan 2: Platinum -->
+                <tr class="hover:bg-slate-50/80 transition plan-row" data-name="musicpro platinum intermedio semi pro">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-6 rounded bg-amber-50 border border-amber-300 text-amber-700 text-[10px] font-bold flex items-center justify-center font-mono shadow-sm">
+                        PLAT
+                      </div>
+                      <div>
+                        <span class="font-bold text-slate-900 block text-sm">MusicPro Platinum</span>
+                        <span class="text-[10px] text-slate-400 font-medium">Plástico Reciclado Ocean</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 font-medium text-slate-700">Renta &gt; $1.500.000 (Semiprofesionales)</td>
+                  <td class="px-6 py-4 font-mono font-bold text-slate-900">$1.500.000 - $3.500.000</td>
+                  <td class="px-6 py-4 font-medium text-slate-700">0.10 UF / mes ($3.900)</td>
+                  <td class="px-6 py-4 font-semibold text-slate-700">1.75% (CAE 24.2%)</td>
+                  <td class="px-6 py-4">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                      1 pt x $1.500 CLP
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 font-bold text-slate-900">4.890 plásticos</td>
+                  <td class="px-6 py-4 text-center">
+                    <div class="flex items-center justify-center gap-2">
+                      <a href="productos-tarjetas-edit.html" class="p-1.5 hover:bg-slate-100 rounded-lg text-slate-600 hover:text-slate-900 transition" title="Editar Reglas">
+                        <i class="fa-solid fa-pen-to-square text-xs"></i>
+                      </a>
+                      <button onclick="openArchiveModal('MusicPro Platinum')" class="p-1.5 hover:bg-rose-50 rounded-lg text-slate-400 hover:text-rose-600 transition" title="Desactivar Plan">
+                        <i class="fa-solid fa-box-archive text-xs"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Plan 3: Gold -->
+                <tr class="hover:bg-slate-50/80 transition plan-row" data-name="musicpro gold estandar bandas jovenes">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-6 rounded bg-yellow-50 border border-yellow-300 text-yellow-700 text-[10px] font-bold flex items-center justify-center font-mono shadow-sm">
+                        GOLD
+                      </div>
+                      <div>
+                        <span class="font-bold text-slate-900 block text-sm">MusicPro Gold</span>
+                        <span class="text-[10px] text-slate-400 font-medium">Tarjeta Contactless EMV</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 font-medium text-slate-700">Renta &gt; $800.000 (Bandas & Aficionados)</td>
+                  <td class="px-6 py-4 font-mono font-bold text-slate-900">$800.000 - $1.800.000</td>
+                  <td class="px-6 py-4 font-medium text-slate-700">0.07 UF / mes ($2.700)</td>
+                  <td class="px-6 py-4 font-semibold text-slate-700">1.89% (CAE 26.5%)</td>
+                  <td class="px-6 py-4">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                      1 pt x $2.000 CLP
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 font-bold text-slate-900">3.620 plásticos</td>
+                  <td class="px-6 py-4 text-center">
+                    <div class="flex items-center justify-center gap-2">
+                      <a href="productos-tarjetas-edit.html" class="p-1.5 hover:bg-slate-100 rounded-lg text-slate-600 hover:text-slate-900 transition" title="Editar Reglas">
+                        <i class="fa-solid fa-pen-to-square text-xs"></i>
+                      </a>
+                      <button onclick="openArchiveModal('MusicPro Gold')" class="p-1.5 hover:bg-rose-50 rounded-lg text-slate-400 hover:text-rose-600 transition" title="Desactivar Plan">
+                        <i class="fa-solid fa-box-archive text-xs"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Plan 4: Classic -->
+                <tr class="hover:bg-slate-50/80 transition plan-row" data-name="musicpro classic basico estudiantes">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-6 rounded bg-slate-100 border border-slate-300 text-slate-700 text-[10px] font-bold flex items-center justify-center font-mono shadow-sm">
+                        CLASS
+                      </div>
+                      <div>
+                        <span class="font-bold text-slate-900 block text-sm">MusicPro Classic</span>
+                        <span class="text-[10px] text-slate-400 font-medium">Entrada a la Banca Joven</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 font-medium text-slate-700">Renta &gt; $400.000 / Universitarios</td>
+                  <td class="px-6 py-4 font-mono font-bold text-slate-900">$200.000 - $800.000</td>
+                  <td class="px-6 py-4 font-medium text-slate-700">0.05 UF / mes ($1.900)</td>
+                  <td class="px-6 py-4 font-semibold text-slate-700">2.10% (CAE 29.8%)</td>
+                  <td class="px-6 py-4">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                      1 pt x $3.000 CLP
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 font-bold text-slate-900">1.800 plásticos</td>
+                  <td class="px-6 py-4 text-center">
+                    <div class="flex items-center justify-center gap-2">
+                      <a href="productos-tarjetas-edit.html" class="p-1.5 hover:bg-slate-100 rounded-lg text-slate-600 hover:text-slate-900 transition" title="Editar Reglas">
+                        <i class="fa-solid fa-pen-to-square text-xs"></i>
+                      </a>
+                      <button onclick="openArchiveModal('MusicPro Classic')" class="p-1.5 hover:bg-rose-50 rounded-lg text-slate-400 hover:text-rose-600 transition" title="Desactivar Plan">
+                        <i class="fa-solid fa-box-archive text-xs"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Archivar / Desactivar Plan -->
+  <div id="archiveModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 text-center animate-in fade-in zoom-in-95 duration-150">
+      <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl">
+        <i class="fa-solid fa-box-archive"></i>
+      </div>
+      <h3 class="text-base font-bold text-slate-900 mb-1">¿Desactivar Plan Comercial?</h3>
+      <p class="text-xs text-slate-500 mb-4">El plan <strong class="text-slate-800" id="modalPlanName">MusicPro Black</strong> dejará de estar disponible para nuevas emisiones. Los tarjetahabientes vigentes mantendrán sus condiciones.</p>
+
+      <div class="flex gap-2">
+        <button onclick="closeArchiveModal()" class="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+          Cancelar
+        </button>
+        <button onclick="confirmArchive()" class="flex-1 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-semibold transition">
+          Desactivar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let searchDebounceTimer;
+    let targetPlan = '';
+
+    function handlePlanSearch() {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        const q = document.getElementById('planSearchInput').value.toLowerCase().trim();
+        const rows = document.querySelectorAll('#plansTableBody .plan-row');
+        rows.forEach(r => {
+          if (q === '' || r.dataset.name.includes(q)) {
+            r.classList.remove('hidden');
+          } else {
+            r.classList.add('hidden');
+          }
+        });
+      }, 200);
+    }
+
+    function openArchiveModal(planName) {
+      targetPlan = planName;
+      document.getElementById('modalPlanName').textContent = planName;
+      document.getElementById('archiveModal').classList.remove('hidden');
+    }
+
+    function closeArchiveModal() {
+      document.getElementById('archiveModal').classList.add('hidden');
+    }
+
+    function confirmArchive() {
+      closeArchiveModal();
+      alert(`El plan ${targetPlan} ha sido archivado del catálogo de emisiones.`);
+    }
+  </script>
+</body>
+</html>

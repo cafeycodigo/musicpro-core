@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Card | Transferir Saldo y Puntos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800 antialiased">
+
+  <!-- Navbar -->
+  <header class="bg-slate-900 text-white sticky top-0 z-40 border-b border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-400/20">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base tracking-wide flex items-center gap-1.5">
+              MusicPro <span class="text-amber-400 font-extrabold text-xs uppercase px-1.5 py-0.5 rounded bg-amber-400/10 border border-amber-400/30">Black</span>
+            </span>
+            <span class="text-[10px] text-slate-400 block -mt-0.5">Banca y Fidelización Digital</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1 text-xs font-semibold">
+          <a href="tarjeta-dashboard.html" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Mi Tarjeta</a>
+          <a href="movimientos-list.html" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Movimientos</a>
+          <a href="transferencias-create.html" class="px-3 py-2 rounded-lg bg-slate-800 text-amber-400 border border-slate-700">Transferencias</a>
+          <a href="canjes-catalog.html" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Club de Puntos</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="canjes-catalog.html" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 hover:bg-amber-500/20 transition text-xs font-semibold">
+          <i class="fa-solid fa-gem text-amber-400"></i>
+          <span>14,850 Puntos Pro</span>
+        </a>
+
+        <div class="flex items-center gap-3 pl-3 border-l border-slate-800">
+          <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center font-bold text-xs border border-slate-600">
+            BM
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-6">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2 text-xs text-slate-500 mb-1">
+          <a href="tarjeta-dashboard.html" class="hover:text-slate-800">Mi Tarjeta</a>
+          <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+          <span class="text-slate-800 font-semibold">Nueva Transferencia</span>
+        </div>
+        <h1 class="text-2xl font-bold font-heading text-slate-900">Transferir Saldo o Puntos Pro</h1>
+        <p class="text-xs text-slate-500 mt-0.5">Realiza un avance en efectivo directo a tu cuenta bancaria o cede puntos a otros socios.</p>
+      </div>
+
+      <a href="tarjeta-dashboard.html" class="px-4 py-2 border border-slate-300 hover:bg-slate-100 rounded-xl text-xs font-semibold text-slate-700 transition flex items-center gap-2 self-start sm:self-auto">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Volver a Mi Tarjeta</span>
+      </a>
+    </div>
+
+    <!-- Mode Selector Tabs -->
+    <div class="grid grid-cols-2 gap-4">
+      <button onclick="setTransferMode('CASH')" id="tabCash" class="p-4 rounded-2xl border-2 border-amber-500 bg-amber-50/50 text-left transition flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl font-bold flex-shrink-0 shadow-md shadow-amber-500/20">
+          <i class="fa-solid fa-money-bill-transfer"></i>
+        </div>
+        <div>
+          <span class="font-bold text-slate-900 text-sm block">Avance en Efectivo (Saldo)</span>
+          <span class="text-xs text-slate-500">Abono inmediato a cuenta bancaria con cargo al cupo.</span>
+        </div>
+      </button>
+
+      <button onclick="setTransferMode('POINTS')" id="tabPoints" class="p-4 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xl font-bold flex-shrink-0">
+          <i class="fa-solid fa-gem"></i>
+        </div>
+        <div>
+          <span class="font-bold text-slate-900 text-sm block">Ceder Puntos Pro</span>
+          <span class="text-xs text-slate-500">Transfiere de tu bolsa de 14.850 pts a otro titular.</span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Main Transfer Form Card -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+      <form id="transferForm" onsubmit="event.preventDefault(); openSecurityModal();" class="space-y-6">
+
+        <!-- Destinatario Section -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-user-check text-amber-500"></i>
+              1. Datos del Destinatario
+            </h3>
+            <button type="button" onclick="fillSavedRecipient()" class="text-xs text-amber-600 hover:text-amber-700 font-semibold hover:underline">
+              Cargar mi Cuenta Corriente Guardada
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Nombre Completo</label>
+              <input type="text" id="destName" required placeholder="Ej: Benjamín Morales Bravo" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">RUT o Cédula de Identidad</label>
+              <input type="text" id="destRut" required placeholder="Ej: 18.940.122-3" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+            </div>
+
+            <div id="bankFields" class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Banco o Institución Financiera</label>
+                <select id="destBank" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                  <option value="santander">Banco Santander Chile</option>
+                  <option value="chile">Banco de Chile / Edwards</option>
+                  <option value="bci">Banco BCI</option>
+                  <option value="estado">Banco Estado (CuentaRUT)</option>
+                  <option value="scotiabank">Scotiabank Azul</option>
+                  <option value="itau">Banco Itaú</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Tipo & Número de Cuenta</label>
+                <div class="grid grid-cols-3 gap-2">
+                  <select id="destAccountType" class="text-xs bg-slate-50 border border-slate-200 rounded-xl px-2 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <option>Cta. Corriente</option>
+                    <option>Cta. Vista</option>
+                    <option>CuentaRUT</option>
+                  </select>
+                  <input type="text" id="destAccountNum" placeholder="Número" class="col-span-2 text-xs bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Correo Electrónico de Notificación</label>
+              <input type="email" id="destEmail" placeholder="destinatario@correo.cl" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Monto Section -->
+        <div class="pt-6 border-t border-slate-100">
+          <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-calculator text-amber-500"></i>
+            2. Monto & Modalidad de Cuotas
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="lblAmount">Monto a Transferir ($ CLP)</label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs" id="amountPrefix">$</span>
+                <input type="number" id="inputAmount" oninput="calculateCommission()" min="10000" max="2450000" value="300000" class="w-full pl-8 pr-4 py-2.5 text-sm font-bold font-mono bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1" id="amountHelpText">Cupo disponible máximo: $2.450.000 CLP</p>
+            </div>
+
+            <div id="cuotasContainer">
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Número de Cuotas de Pago</label>
+              <select id="selectCuotas" onchange="calculateCommission()" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                <option value="1">1 Cuota (Facturada el próximo mes)</option>
+                <option value="3" selected>3 Cuotas Mensuales</option>
+                <option value="6">6 Cuotas Mensuales</option>
+                <option value="12">12 Cuotas Mensuales</option>
+                <option value="24">24 Cuotas Mensuales</option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Mensaje / Glosa Opcional</label>
+              <input type="text" placeholder="Ej: Avance de efectivo para compras personales" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+            </div>
+          </div>
+
+          <!-- Dynamic Financial Simulation Box -->
+          <div id="simBox" class="mt-4 p-4 rounded-2xl bg-amber-50/60 border border-amber-200/80 text-xs space-y-2">
+            <div class="flex justify-between">
+              <span class="text-slate-600">Monto del Avance a Depositar:</span>
+              <strong class="text-slate-900" id="simAmount">$300.000 CLP</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-600">Comisión fija por operación de avance:</span>
+              <strong class="text-slate-900">$1.990 CLP</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-600">Cuota mensual estimada (3 cuotas):</span>
+              <strong class="text-amber-700 font-bold" id="simCuota">$101.450 CLP / mes</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end gap-3">
+          <a href="tarjeta-dashboard.html" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+            Cancelar
+          </a>
+          <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl text-xs font-bold shadow-md shadow-amber-500/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Continuar a Validación de Seguridad</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </main>
+
+  <!-- Modal Seguridad Clave Dinámica / Token -->
+  <div id="securityModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 text-center animate-in fade-in zoom-in-95 duration-150">
+      <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg shadow-amber-500/10">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-1">Autorización de Seguridad</h3>
+      <p class="text-xs text-slate-500 mb-4">Ingresa la clave de 6 dígitos enviada a tu teléfono terminado en <strong class="text-slate-800">••• 233</strong> para confirmar la transferencia.</p>
+      
+      <div class="flex justify-center gap-2 mb-4">
+        <input type="text" maxlength="1" value="8" class="w-10 h-12 text-center text-lg font-bold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
+        <input type="text" maxlength="1" value="4" class="w-10 h-12 text-center text-lg font-bold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
+        <input type="text" maxlength="1" value="9" class="w-10 h-12 text-center text-lg font-bold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
+        <input type="text" maxlength="1" value="1" class="w-10 h-12 text-center text-lg font-bold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
+        <input type="text" maxlength="1" value="0" class="w-10 h-12 text-center text-lg font-bold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
+        <input type="text" maxlength="1" value="2" class="w-10 h-12 text-center text-lg font-bold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
+      </div>
+
+      <div class="flex gap-3">
+        <button onclick="closeSecurityModal()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+          Cancelar
+        </button>
+        <button onclick="executeTransfer()" class="flex-1 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-bold shadow-md shadow-amber-500/20 transition">
+          Confirmar Transferencia
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let mode = 'CASH';
+
+    function setTransferMode(newMode) {
+      mode = newMode;
+      const tabCash = document.getElementById('tabCash');
+      const tabPoints = document.getElementById('tabPoints');
+      const bankFields = document.getElementById('bankFields');
+      const cuotasContainer = document.getElementById('cuotasContainer');
+      const lblAmount = document.getElementById('lblAmount');
+      const amountPrefix = document.getElementById('amountPrefix');
+      const amountHelpText = document.getElementById('amountHelpText');
+      const simBox = document.getElementById('simBox');
+
+      if (mode === 'CASH') {
+        tabCash.className = "p-4 rounded-2xl border-2 border-amber-500 bg-amber-50/50 text-left transition flex items-center gap-4";
+        tabPoints.className = "p-4 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center gap-4";
+        bankFields.classList.remove('hidden');
+        cuotasContainer.classList.remove('hidden');
+        lblAmount.textContent = "Monto a Transferir ($ CLP)";
+        amountPrefix.textContent = "$";
+        amountHelpText.textContent = "Cupo disponible máximo: $2.450.000 CLP";
+        simBox.classList.remove('hidden');
+      } else {
+        tabPoints.className = "p-4 rounded-2xl border-2 border-amber-500 bg-amber-50/50 text-left transition flex items-center gap-4";
+        tabCash.className = "p-4 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center gap-4";
+        bankFields.classList.add('hidden');
+        cuotasContainer.classList.add('hidden');
+        lblAmount.textContent = "Cantidad de Puntos Pro a Ceder";
+        amountPrefix.textContent = "pts";
+        amountHelpText.textContent = "Puntos disponibles: 14.850 pts";
+        simBox.classList.add('hidden');
+      }
+      calculateCommission();
+    }
+
+    function calculateCommission() {
+      if (mode !== 'CASH') return;
+      const amount = parseFloat(document.getElementById('inputAmount').value) || 0;
+      const cuotas = parseInt(document.getElementById('selectCuotas').value) || 1;
+      document.getElementById('simAmount').textContent = `$${amount.toLocaleString('es-CL')} CLP`;
+      const cuotaEst = Math.round((amount + 1990) / cuotas);
+      document.getElementById('simCuota').textContent = `$${cuotaEst.toLocaleString('es-CL')} CLP / mes`;
+    }
+
+    function fillSavedRecipient() {
+      document.getElementById('destName').value = "Benjamín Morales Bravo";
+      document.getElementById('destRut').value = "18.940.122-3";
+      document.getElementById('destBank').value = "santander";
+      document.getElementById('destAccountType').value = "Cta. Corriente";
+      document.getElementById('destAccountNum').value = "74819203";
+      document.getElementById('destEmail').value = "benjamin.morales@musicpro.cl";
+    }
+
+    function openSecurityModal() {
+      document.getElementById('securityModal').classList.remove('hidden');
+    }
+
+    function closeSecurityModal() {
+      document.getElementById('securityModal').classList.add('hidden');
+    }
+
+    function executeTransfer() {
+      closeSecurityModal();
+      alert('¡Transferencia procesada con éxito! Los fondos han sido transferidos de manera inmediata con comprobante digital.');
+      window.location.href = "movimientos-list.html";
+    }
+  </script>
+</body>
+</html>

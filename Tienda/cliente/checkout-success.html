@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Store | ¡Compra Confirmada!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm print:hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="tienda-catalog.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white text-xl shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-guitar"></i>
+        </div>
+        <div>
+          <span class="font-heading font-extrabold text-xl text-slate-900 leading-tight block">MusicPro<span class="text-emerald-500">Store</span></span>
+          <span class="text-[10px] text-slate-400 font-medium">Pedido Exitoso</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <button onclick="window.print()" class="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl shadow-sm transition flex items-center gap-2">
+          <i class="fa-solid fa-print text-emerald-600"></i>
+          <span>Descargar Boleta Electrónica</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-3xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <!-- Success Card -->
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden p-8 sm:p-10 space-y-8">
+      
+      <!-- Top Success Icon & Heading -->
+      <div class="text-center space-y-3">
+        <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto shadow-lg shadow-emerald-500/10">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900">¡Muchas Gracias por tu Compra!</h1>
+        <p class="text-slate-500 text-xs sm:text-sm max-w-md mx-auto">
+          Tu pago ha sido procesado de forma exitosa. Hemos enviado el comprobante a <strong class="text-slate-800">benjamin@musicpro.cl</strong>.
+        </p>
+      </div>
+
+      <!-- Order ID and Tracking Pill -->
+      <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <div>
+          <span class="text-slate-400 block text-[11px]">Número de Orden:</span>
+          <span class="font-mono font-extrabold text-lg text-slate-900">#ORD-2026-9812</span>
+        </div>
+
+        <div>
+          <span class="text-slate-400 block text-[11px]">Código Tracking Transporte:</span>
+          <a href="../../Transporte/cliente/tracking-detail.html" class="font-mono font-bold text-sm text-cyan-600 hover:text-cyan-700 flex items-center gap-1">
+            <span>TRK-2026-0042</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
+        </div>
+
+        <div>
+          <span class="text-slate-400 block text-[11px]">Estado:</span>
+          <span class="px-2.5 py-1 rounded-full font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px]">
+            Pagado & Confirmado
+          </span>
+        </div>
+      </div>
+
+      <!-- Breakdown of purchased items -->
+      <div>
+        <h2 class="font-heading font-bold text-sm text-slate-900 mb-3">Detalle de Productos</h2>
+        <div class="border border-slate-200 rounded-2xl divide-y divide-slate-100 overflow-hidden text-xs">
+          
+          <div class="p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <img src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=80&auto=format&fit=crop&q=80" alt="Fender" class="w-12 h-12 object-contain bg-slate-50 rounded-lg p-1 border">
+              <div>
+                <strong class="text-slate-900 block font-semibold">Guitarra Eléctrica Fender Player Stratocaster</strong>
+                <span class="text-slate-400">Color Polar White • Cantidad: 1</span>
+              </div>
+            </div>
+            <span class="font-mono font-bold text-slate-900">$789.000</span>
+          </div>
+
+          <div class="p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <img src="https://images.unsplash.com/photo-1525410886566-646ef8586c75?w=80&auto=format&fit=crop&q=80" alt="Marshall" class="w-12 h-12 object-contain bg-slate-50 rounded-lg p-1 border">
+              <div>
+                <strong class="text-slate-900 block font-semibold">Amplificador Marshall DSL40CR a Tubos</strong>
+                <span class="text-slate-400">Combo 40W 1x12 • Cantidad: 1</span>
+              </div>
+            </div>
+            <span class="font-mono font-bold text-slate-900">$699.000</span>
+          </div>
+
+          <div class="p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=80&auto=format&fit=crop&q=80" alt="Cable" class="w-12 h-12 object-contain bg-slate-50 rounded-lg p-1 border">
+              <div>
+                <strong class="text-slate-900 block font-semibold">Cables Ernie Ball Braided 3m</strong>
+                <span class="text-slate-400">Jack 1/4 • Cantidad: 2</span>
+              </div>
+            </div>
+            <span class="font-mono font-bold text-slate-900">$50.000</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Shipping & Total Summary -->
+      <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 text-xs text-slate-600">
+        <div class="flex justify-between">
+          <span>Dirección de Despacho:</span>
+          <strong class="text-slate-800">Av. Providencia 1240, Depto 504, Providencia</strong>
+        </div>
+        <div class="flex justify-between">
+          <span>Medio de Pago Utilizado:</span>
+          <strong class="text-slate-800">Webpay Plus (Débito Visa •••• 4589)</strong>
+        </div>
+        <div class="pt-2 border-t border-slate-200 flex justify-between text-sm font-bold text-slate-900">
+          <span>Total Facturado:</span>
+          <span class="font-mono text-base text-emerald-700 font-extrabold">$1.538.000 CLP</span>
+        </div>
+      </div>
+
+      <!-- Navigation buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 print:hidden">
+        <a href="compras-list.html" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-50 text-center transition">
+          Ver Mi Historial de Compras
+        </a>
+
+        <a href="tienda-catalog.html" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-md text-center transition">
+          Volver a la Tienda
+        </a>
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

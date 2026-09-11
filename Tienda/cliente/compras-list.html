@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Store | Mis Compras</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Header Comercial -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="tienda-catalog.html" class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white text-xl shadow-lg shadow-emerald-500/20">
+            <i class="fa-solid fa-guitar"></i>
+          </div>
+          <div>
+            <span class="font-heading font-extrabold text-xl text-slate-900 leading-tight block">MusicPro<span class="text-emerald-500">Store</span></span>
+            <span class="text-[10px] text-slate-400 font-medium">Historial de Compras</span>
+          </div>
+        </a>
+
+        <div class="flex items-center gap-4">
+          <a href="tienda-catalog.html" class="text-xs font-semibold text-emerald-700 hover:text-emerald-800 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span>Ir al Catálogo</span>
+          </a>
+          <a href="carrito-view.html" class="p-2 text-slate-500 hover:text-slate-800 transition" title="Ver Carrito">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">Mis Órdenes de Compra</h1>
+        <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Revisa el estado de entrega y descarga los comprobantes fiscales de tus adquisiciones.</p>
+      </div>
+      <a href="tienda-catalog.html" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition flex items-center gap-2">
+        <i class="fa-solid fa-plus"></i>
+        <span>Nueva Compra</span>
+      </a>
+    </div>
+
+    <!-- Orders Table Container -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      
+      <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="relative flex-1 max-w-md">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input type="text" id="orderSearch" oninput="filterOrders()" placeholder="Buscar por # Pedido o método de pago..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500">
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-500">Estado:</span>
+          <select id="statusFilter" onchange="filterOrders()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-700">
+            <option value="all">Todos los Estados</option>
+            <option value="Pagado">Pagado</option>
+            <option value="En Preparación">En Preparación</option>
+            <option value="En Tránsito">En Tránsito</option>
+            <option value="Entregado">Entregado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-600">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
+            <tr>
+              <th class="py-3.5 px-6"># Pedido</th>
+              <th class="py-3.5 px-4">Fecha de Compra</th>
+              <th class="py-3.5 px-4">Método de Pago</th>
+              <th class="py-3.5 px-4">Monto Total</th>
+              <th class="py-3.5 px-4">Estado de Envío</th>
+              <th class="py-3.5 px-6 text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody" class="divide-y divide-slate-200">
+            
+            <!-- Order 1 -->
+            <tr class="hover:bg-slate-50 transition order-row" data-status="En Tránsito">
+              <td class="py-4 px-6 font-mono font-bold text-slate-900">
+                <a href="compras-detail.html" class="hover:text-emerald-600 transition flex items-center gap-2">
+                  <i class="fa-solid fa-box text-emerald-500"></i>
+                  <span>ORD-2026-9812</span>
+                </a>
+              </td>
+              <td class="py-4 px-4 text-slate-500 font-medium">10 Sep, 2026</td>
+              <td class="py-4 px-4">
+                <span class="px-2 py-0.5 rounded text-[11px] bg-slate-100 font-medium text-slate-700">Webpay Plus (Débito)</span>
+              </td>
+              <td class="py-4 px-4 font-mono font-bold text-slate-900 text-sm">$1.538.000</td>
+              <td class="py-4 px-4">
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-cyan-50 text-cyan-700 border border-cyan-200 inline-flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span> En Tránsito
+                </span>
+              </td>
+              <td class="py-4 px-6 text-right space-x-1">
+                <a href="compras-detail.html" class="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold text-[11px] transition inline-flex items-center gap-1">
+                  <i class="fa-regular fa-eye"></i>
+                  <span>Ver Detalle</span>
+                </a>
+                <a href="../../Transporte/cliente/tracking-detail.html" class="px-3 py-1.5 rounded-lg bg-cyan-50 hover:bg-cyan-100 text-cyan-700 font-semibold text-[11px] transition inline-flex items-center gap-1" title="Rastrear Paquete">
+                  <i class="fa-solid fa-truck-fast"></i>
+                  <span>Tracking</span>
+                </a>
+              </td>
+            </tr>
+
+            <!-- Order 2 -->
+            <tr class="hover:bg-slate-50 transition order-row" data-status="Entregado">
+              <td class="py-4 px-6 font-mono font-bold text-slate-900">
+                <a href="compras-detail.html" class="hover:text-emerald-600 transition flex items-center gap-2">
+                  <i class="fa-solid fa-box text-slate-400"></i>
+                  <span>ORD-2026-9104</span>
+                </a>
+              </td>
+              <td class="py-4 px-4 text-slate-500 font-medium">18 Ago, 2026</td>
+              <td class="py-4 px-4">
+                <span class="px-2 py-0.5 rounded text-[11px] bg-violet-50 text-violet-700 font-medium">Tarjeta MusicPro Black</span>
+              </td>
+              <td class="py-4 px-4 font-mono font-bold text-slate-900 text-sm">$299.000</td>
+              <td class="py-4 px-4">
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 inline-flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Entregado
+                </span>
+              </td>
+              <td class="py-4 px-6 text-right space-x-1">
+                <a href="compras-detail.html" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-[11px] transition inline-flex items-center gap-1">
+                  <i class="fa-regular fa-eye"></i>
+                  <span>Ver Detalle</span>
+                </a>
+                <a href="checkout-success.html" class="p-1.5 text-slate-400 hover:text-slate-700 inline-block" title="Descargar Boleta">
+                  <i class="fa-solid fa-file-invoice"></i>
+                </a>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    function filterOrders() {
+      const status = document.getElementById('statusFilter').value;
+      const query = document.getElementById('orderSearch').value.toLowerCase();
+      const rows = document.querySelectorAll('.order-row');
+
+      rows.forEach(row => {
+        const rowStatus = row.getAttribute('data-status');
+        const text = row.innerText.toLowerCase();
+
+        const matchStatus = (status === 'all' || rowStatus === status);
+        const matchQuery = text.includes(query);
+
+        row.style.display = (matchStatus && matchQuery) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transporte Admin | Flota de Vehículos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-cyan-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-cyan-500/20">
+            <i class="fa-solid fa-route"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">Torre Logística</span>
+            <span class="text-[10px] text-cyan-400 font-medium uppercase tracking-wider">Flota & Despacho</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-tower-broadcast w-4 text-center"></i>
+          <span>Torre de Control</span>
+        </a>
+        <a href="vehiculos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold text-xs border border-cyan-500/20">
+          <i class="fa-solid fa-truck w-4 text-center"></i>
+          <span>Flota & Vehículos</span>
+        </a>
+        <a href="conductores-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
+          <span>Conductores</span>
+        </a>
+        <a href="rutas-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-clipboard-list w-4 text-center"></i>
+          <span>Planificador de Rutas</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="../cliente/envios-list.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-truck-fast text-cyan-400"></i>
+        <span>Ver Portal Remitentes</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Logística</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Flota de Vehículos</span>
+      </div>
+      <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Directorio de Flota Vehicular</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Control de patentes, capacidad volumétrica en m³, carga en kg y estado mecánico.</p>
+        </div>
+        <a href="vehiculos-create.html" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-semibold shadow-sm transition flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i>
+          <span>Registrar Nuevo Móvil</span>
+        </a>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" id="vehicleSearch" oninput="filterVehicles()" placeholder="Buscar por patente, modelo o chofer..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-500">Tipo:</span>
+            <select id="vehicleTypeFilter" onchange="filterVehicles()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-700">
+              <option value="all">Todos los Tipos</option>
+              <option value="Van">Furgón / Van</option>
+              <option value="Camión">Camión 3/4</option>
+              <option value="Moto">Moto Express</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 uppercase font-semibold text-[11px]">
+              <tr>
+                <th class="py-3.5 px-6">Patente / Placa</th>
+                <th class="py-3.5 px-4">Tipo & Modelo</th>
+                <th class="py-3.5 px-4 text-center">Capacidad Máx</th>
+                <th class="py-3.5 px-4">Ocupación Actual (%)</th>
+                <th class="py-3.5 px-4">Conductor Asignado</th>
+                <th class="py-3.5 px-4">Estado</th>
+                <th class="py-3.5 px-6 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="vehiclesTableBody" class="divide-y divide-slate-200">
+              
+              <!-- Vehicle 1 -->
+              <tr class="hover:bg-slate-50 transition vehicle-row" data-type="Van" data-plate="JW-89-21">
+                <td class="py-4 px-6 font-mono font-bold text-slate-900">
+                  <span class="px-2.5 py-1 bg-slate-100 rounded border border-slate-300">JW-89-21</span>
+                </td>
+                <td class="py-4 px-4">
+                  <strong class="text-slate-800 block">Peugeot Partner L2 (Van F-04)</strong>
+                  <span class="text-[11px] text-slate-400">Año 2024 • Diesel</span>
+                </td>
+                <td class="py-4 px-4 text-center font-bold text-slate-800">
+                  850 kg / 4.4 m³
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-2">
+                    <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-cyan-600 rounded-full" style="width: 70%"></div>
+                    </div>
+                    <span class="font-mono font-bold text-slate-700 text-[11px]">70%</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 font-semibold text-slate-800">Patricio Silva</td>
+                <td class="py-4 px-4">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-cyan-50 text-cyan-700 border border-cyan-200">En Operación</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-1">
+                  <a href="vehiculos-edit.html" class="p-1.5 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 inline-block" title="Editar">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="openDeleteVehModal('JW-89-21', 'Peugeot Partner')" class="p-1.5 text-rose-500 hover:text-rose-700 rounded-lg hover:bg-rose-50 inline-block" title="Dar de Baja">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Vehicle 2 -->
+              <tr class="hover:bg-slate-50 transition vehicle-row" data-type="Camión" data-plate="RD-44-12">
+                <td class="py-4 px-6 font-mono font-bold text-slate-900">
+                  <span class="px-2.5 py-1 bg-slate-100 rounded border border-slate-300">RD-44-12</span>
+                </td>
+                <td class="py-4 px-4">
+                  <strong class="text-slate-800 block">Hyundai HD78 (Camión 3/4 C-02)</strong>
+                  <span class="text-[11px] text-slate-400">Año 2022 • Plataforma hidráulica</span>
+                </td>
+                <td class="py-4 px-4 text-center font-bold text-slate-800">
+                  4.500 kg / 18 m³
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-2">
+                    <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-amber-500 rounded-full" style="width: 45%"></div>
+                    </div>
+                    <span class="font-mono font-bold text-slate-700 text-[11px]">45%</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 font-semibold text-slate-800">Rodrigo Fuentes</td>
+                <td class="py-4 px-4">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-cyan-50 text-cyan-700 border border-cyan-200">En Operación</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-1">
+                  <a href="vehiculos-edit.html" class="p-1.5 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 inline-block" title="Editar">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="openDeleteVehModal('RD-44-12', 'Hyundai HD78')" class="p-1.5 text-rose-500 hover:text-rose-700 rounded-lg hover:bg-rose-50 inline-block" title="Dar de Baja">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Vehicle 3 -->
+              <tr class="hover:bg-slate-50 transition vehicle-row" data-type="Moto" data-plate="MT-09-54">
+                <td class="py-4 px-6 font-mono font-bold text-slate-900">
+                  <span class="px-2.5 py-1 bg-slate-100 rounded border border-slate-300">MT-09-54</span>
+                </td>
+                <td class="py-4 px-4">
+                  <strong class="text-slate-800 block">Honda CB190R (Moto M-01)</strong>
+                  <span class="text-[11px] text-slate-400">Caja térmica trasera 80L</span>
+                </td>
+                <td class="py-4 px-4 text-center font-bold text-slate-800">
+                  40 kg / 0.1 m³
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-2">
+                    <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-emerald-500 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <span class="font-mono font-bold text-emerald-600 text-[11px]">Disponible</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 font-semibold text-slate-500">Sin asignar</td>
+                <td class="py-4 px-4">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Disponible</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-1">
+                  <a href="vehiculos-edit.html" class="p-1.5 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 inline-block" title="Editar">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="openDeleteVehModal('MT-09-54', 'Honda CB190R')" class="p-1.5 text-rose-500 hover:text-rose-700 rounded-lg hover:bg-rose-50 inline-block" title="Dar de Baja">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Delete Vehículo -->
+  <div id="deleteVehModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
+      <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl mb-4">
+        <i class="fa-solid fa-truck"></i>
+      </div>
+      <h3 class="font-heading font-bold text-lg text-slate-900 mb-1">¿Dar de Baja Vehículo de la Flota?</h3>
+      <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+        Vas a dar de baja la unidad <strong id="deleteVehName" class="text-slate-800"></strong> (<span id="deleteVehPlate" class="font-mono font-bold"></span>). No se le podrán asignar nuevas rutas.
+      </p>
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button onclick="closeDeleteVehModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
+        <button onclick="confirmDeleteVeh()" class="px-4 py-2 text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 rounded-lg shadow-sm">Sí, Dar de Baja</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activePlate = null;
+
+    function filterVehicles() {
+      const type = document.getElementById('vehicleTypeFilter').value;
+      const query = document.getElementById('vehicleSearch').value.toLowerCase();
+      const rows = document.querySelectorAll('.vehicle-row');
+
+      rows.forEach(row => {
+        const rowType = row.getAttribute('data-type');
+        const text = row.innerText.toLowerCase();
+
+        const matchType = (type === 'all' || rowType === type);
+        const matchQuery = text.includes(query);
+
+        row.style.display = (matchType && matchQuery) ? '' : 'none';
+      });
+    }
+
+    function openDeleteVehModal(plate, name) {
+      activePlate = plate;
+      document.getElementById('deleteVehPlate').innerText = plate;
+      document.getElementById('deleteVehName').innerText = name;
+      document.getElementById('deleteVehModal').classList.remove('hidden');
+    }
+
+    function closeDeleteVehModal() {
+      document.getElementById('deleteVehModal').classList.add('hidden');
+      activePlate = null;
+    }
+
+    function confirmDeleteVeh() {
+      if (activePlate) {
+        const row = document.querySelector(`tr[data-plate="${activePlate}"]`);
+        if (row) row.remove();
+        alert(`Móvil ${activePlate} dado de baja de la flota activa.`);
+      }
+      closeDeleteVehModal();
+    }
+  </script>
+</body>
+</html>

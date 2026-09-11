@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Bodega | Portal de Abastecimiento para Sucursales</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800 bg-slate-50 antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Fixed Header / Navbar -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-slate-900 text-base leading-tight block">MusicPro WMS</span>
+            <span class="text-[10px] text-amber-600 font-semibold uppercase tracking-wider">Red de Sucursales</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600">
+          <a href="#flujo" class="hover:text-amber-600 transition">Flujo de Reposición</a>
+          <a href="#catalogo" class="hover:text-amber-600 transition">Control de Stock</a>
+          <a href="#sucursales" class="hover:text-amber-600 transition">Sucursales Conectadas</a>
+          <a href="#soporte" class="hover:text-amber-600 transition">SLA de Despacho</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="../../index.html" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition">
+          <i class="fa-solid fa-house text-slate-400"></i>
+          <span>Hub Central</span>
+        </a>
+        <a href="login.html" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 transition flex items-center gap-2 hover:scale-[1.02]">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span>Ingreso Sucursales</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-16 pb-20 overflow-hidden bg-gradient-to-b from-amber-500/10 via-slate-50 to-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold">
+            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+            Portal Oficial de Solicitudes WMS
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl font-extrabold font-heading text-slate-900 tracking-tight leading-tight">
+            Abastecimiento Centralizado para Sucursales y Tiendas
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            Plataforma interna para jefes de local y encargados de tienda. Emite pedidos de reposición, monitorea el proceso de picking en bodega matriz y consulta disponibilidad física en tiempo real.
+          </p>
+
+          <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <a href="login.html" class="w-full sm:w-auto px-6 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl font-bold text-sm shadow-lg shadow-amber-500/20 transition flex items-center justify-center gap-2 hover:scale-[1.02]">
+              <i class="fa-solid fa-right-to-bracket"></i>
+              <span>Iniciar Sesión de Sucursal</span>
+            </a>
+            <a href="stock-catalog.html" class="w-full sm:w-auto px-6 py-3.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-xl font-semibold text-sm transition flex items-center justify-center gap-2 shadow-xs">
+              <i class="fa-solid fa-layer-group text-amber-500"></i>
+              <span>Consultar Stock Disponible</span>
+            </a>
+          </div>
+
+          <!-- Trust KPIs -->
+          <div class="pt-6 border-t border-slate-200/80 grid grid-cols-3 gap-4 text-center sm:text-left">
+            <div>
+              <strong class="text-2xl font-bold font-heading text-slate-900 block">&lt; 4 hrs</strong>
+              <span class="text-xs text-slate-500">Picking y embalaje express</span>
+            </div>
+            <div>
+              <strong class="text-2xl font-bold font-heading text-slate-900 block">18 Locales</strong>
+              <span class="text-xs text-slate-500">Conectados a nivel nacional</span>
+            </div>
+            <div>
+              <strong class="text-2xl font-bold font-heading text-emerald-600 block">99.8%</strong>
+              <span class="text-xs text-slate-500">Precisión de inventario físico</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Visual Mockup -->
+        <div class="lg:col-span-5 relative">
+          <div class="bg-white rounded-3xl p-6 shadow-2xl border border-slate-200 relative z-10 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+              </div>
+              <span class="text-[11px] font-mono font-bold text-slate-400">PEDIDO #PED-2026-0042</span>
+            </div>
+
+            <!-- Visual Stepper Preview -->
+            <div class="p-3 bg-amber-50/60 rounded-2xl border border-amber-200/60 text-xs">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-bold text-slate-900">Sucursal Providencia</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">En Picking Activo</span>
+              </div>
+              <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                <div class="bg-amber-500 h-2 rounded-full" style="width: 65%"></div>
+              </div>
+              <span class="text-[10px] text-slate-500 block mt-1">Operador WMS en Pasillo B - Rack 04</span>
+            </div>
+
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between items-center p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                <span class="font-medium text-slate-700">Fender Stratocaster Sunburst (x3)</span>
+                <span class="font-bold text-slate-900 font-mono">UBIC: P01-R02</span>
+              </div>
+              <div class="flex justify-between items-center p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                <span class="font-medium text-slate-700">Amplificador Fender 40W (x2)</span>
+                <span class="font-bold text-slate-900 font-mono">UBIC: P02-R01</span>
+              </div>
+              <div class="flex justify-between items-center p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                <span class="font-medium text-slate-700">Cuerdas D'Addario 0.10 (x20)</span>
+                <span class="font-bold text-slate-900 font-mono">UBIC: P04-R03</span>
+              </div>
+            </div>
+
+            <div class="pt-2 text-center">
+              <a href="login.html" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-lock text-amber-400"></i>
+                <span>Ingresar para emitir solicitudes</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Step-by-Step Flow Section -->
+  <section id="flujo" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-extrabold text-amber-600 uppercase tracking-wider">Flujo Logístico Interno</span>
+        <h2 class="text-3xl font-bold font-heading text-slate-900 mt-2">Cómo funciona la reposición de tu tienda</h2>
+        <p class="text-sm text-slate-500 mt-2">Circuito automatizado desde que detectas quiebre de existencias hasta la recepción física del bulto.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 hover:border-amber-400 transition space-y-4 relative group">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-xl font-bold font-heading">
+            1
+          </div>
+          <h3 class="text-lg font-bold font-heading text-slate-900">Emisión en Borrador</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            El jefe de local ingresa con su RUT institucional, busca artículos por SKU, verifica stock central y arma la solicitud con los bultos requeridos.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 hover:border-amber-400 transition space-y-4 relative group">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-xl font-bold font-heading">
+            2
+          </div>
+          <h3 class="text-lg font-bold font-heading text-slate-900">Picking en Pasillos & Racks</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Los operarios del WMS reciben la orden, bloquean temporalmente el pedido para evitar cambios, recolectan los ítems por coordenadas y empaquetan.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 hover:border-amber-400 transition space-y-4 relative group">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-xl font-bold font-heading">
+            3
+          </div>
+          <h3 class="text-lg font-bold font-heading text-slate-900">Despacho & Vale Oficial</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Se genera la guía de despacho y el vale firmado digitalmente con código QR. El camión de reparto traslada la carga directo a la sucursal.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stock Preview Traffic Light Section -->
+  <section id="catalogo" class="py-20 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <span class="text-xs font-extrabold text-amber-600 uppercase tracking-wider">Visibilidad de Existencias</span>
+          <h2 class="text-3xl font-bold font-heading text-slate-900 mt-1">Semáforo de Disponibilidad Central</h2>
+          <p class="text-xs text-slate-500 mt-1">Información transparente para que tu equipo conozca qué instrumentos pueden solicitar de inmediato.</p>
+        </div>
+        <a href="stock-catalog.html" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl shadow-sm transition flex items-center gap-2 self-start md:self-auto">
+          <span>Abrir Catálogo Completo</span>
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="p-6 bg-white rounded-3xl border border-slate-200 shadow-sm space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">Disponibilidad Óptima</h4>
+              <span class="text-[11px] text-emerald-700 font-semibold">Stock &gt; 50 unidades</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500">Despacho garantizado en el primer turno logístico del día siguiente.</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-3xl border border-slate-200 shadow-sm space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">Stock Crítico</h4>
+              <span class="text-[11px] text-amber-700 font-semibold">Stock &lt; 20 unidades</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500">Asignación prioritaria sujeta a confirmación por jefe de almacén.</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-3xl border border-slate-200 shadow-sm space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">Agotado Temporal</h4>
+              <span class="text-[11px] text-rose-700 font-semibold">0 unidades</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500">En tránsito desde fábrica o aduana internacional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section id="soporte" class="py-16 bg-slate-900 text-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-400/10 text-amber-300 border border-amber-400/20 uppercase tracking-wider inline-block">
+        Acceso Exclusivo para Colaboradores
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white">
+        ¿Eres Encargado de Local o Jefe de Turno?
+      </h2>
+      <p class="text-slate-400 text-sm max-w-xl mx-auto">
+        Accede con tu cuenta institucional para gestionar tus pedidos pendientes, revisar números de bultos y descargar comprobantes de entrega.
+      </p>
+      <div class="flex justify-center gap-4 pt-2">
+        <a href="login.html" class="px-8 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl font-bold text-sm shadow-xl shadow-amber-500/20 transition flex items-center gap-2 hover:scale-105">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span>Ingresar al Portal de Sucursales</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-slate-900 text-slate-500 text-xs py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-6 h-6 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xs">
+          <i class="fa-solid fa-boxes-stacked"></i>
+        </div>
+        <span>MusicPro WMS & Solicitudes © 2026 • Sistema Interno de Red de Sucursales</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="../../index.html" class="hover:text-slate-300 transition">Hub Central</a>
+        <a href="../admin/index.html" class="hover:text-slate-300 transition">Admin Bodega</a>
+        <a href="login.html" class="hover:text-slate-300 transition">Login</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

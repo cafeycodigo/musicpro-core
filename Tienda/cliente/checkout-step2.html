@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Store | Checkout - Paso 2: Método de Pago</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="tienda-catalog.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white text-xl shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-guitar"></i>
+        </div>
+        <div>
+          <span class="font-heading font-extrabold text-xl text-slate-900 leading-tight block">MusicPro<span class="text-emerald-500">Store</span></span>
+          <span class="text-[10px] text-slate-400 font-medium">Checkout Seguro</span>
+        </div>
+      </a>
+
+      <!-- Steps Indicator -->
+      <div class="flex items-center gap-3 text-xs font-semibold">
+        <span class="flex items-center gap-1.5 text-emerald-600">
+          <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">✓</span>
+          <span>Despacho</span>
+        </span>
+        <span class="text-slate-300">&rarr;</span>
+        <span class="flex items-center gap-1.5 text-emerald-600">
+          <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs">2</span>
+          <span>Pago</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <div class="mb-8">
+      <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">Selecciona tu Método de Pago</h1>
+      <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Monto total a facturar: <strong class="text-slate-900 font-mono text-base font-bold">$1.538.000 CLP</strong></p>
+    </div>
+
+    <form action="checkout-success.html" method="GET" class="space-y-6">
+
+      <!-- Payment Options Grid -->
+      <div class="space-y-4">
+        
+        <!-- Option 1: Webpay Plus -->
+        <label class="relative flex items-start gap-4 p-5 rounded-2xl bg-white border-2 border-emerald-500 shadow-sm cursor-pointer transition hover:border-emerald-600">
+          <input type="radio" name="paymentMethod" value="webpay" checked class="mt-1 text-emerald-600 focus:ring-emerald-500">
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="font-heading font-bold text-base text-slate-900">Webpay Plus (Débito y Crédito Bancario)</span>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">Hasta 12 cuotas sin interés</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Paga de forma cifrada a través de Transbank con Redcompra, Visa, Mastercard o American Express.</p>
+          </div>
+        </label>
+
+        <!-- Option 2: Tarjeta MusicPro -->
+        <label class="relative flex items-start gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm cursor-pointer transition hover:border-violet-500">
+          <input type="radio" name="paymentMethod" value="musicpro-card" class="mt-1 text-violet-600 focus:ring-violet-500">
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="font-heading font-bold text-base text-slate-900 flex items-center gap-2">
+                <span>Tarjeta MusicPro Black / Gold</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-violet-50 text-violet-700 border border-violet-200">5% Cashback Puntos</span>
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Usa tu cupo disponible del Sistema de Tarjetas MusicPro con acumulación de puntos dobles.</p>
+          </div>
+        </label>
+
+        <!-- Option 3: Transferencia Bancaria Directa -->
+        <label class="relative flex items-start gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm cursor-pointer transition hover:border-slate-400">
+          <input type="radio" name="paymentMethod" value="transfer" class="mt-1 text-slate-700 focus:ring-slate-500">
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="font-heading font-bold text-base text-slate-900">Transferencia Bancaria Electrónica (Khipu / Banco)</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Realiza una transferencia directa a nuestra cuenta corriente Banco de Chile. Validación instantánea.</p>
+          </div>
+        </label>
+
+      </div>
+
+      <!-- Security Guarantee Box -->
+      <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-900 flex items-center gap-3">
+        <i class="fa-solid fa-shield-check text-emerald-600 text-lg"></i>
+        <span>Garantía de Satisfacción MusicPro: 30 días de cambio o devolución y 2 años de garantía oficial en todos los instrumentos.</span>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="flex items-center justify-between pt-4">
+        <a href="checkout-step1.html" class="text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Volver a Dirección</span>
+        </a>
+
+        <button type="submit" class="px-8 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-heading font-bold text-sm shadow-md transition flex items-center gap-2">
+          <i class="fa-solid fa-lock"></i>
+          <span>Pagar $1.538.000 y Finalizar Pedido</span>
+        </button>
+      </div>
+
+    </form>
+
+  </main>
+
+</body>
+</html>

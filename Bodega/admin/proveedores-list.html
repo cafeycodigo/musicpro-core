@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega WMS | Directorio de Proveedores</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- SIDEBAR WMS -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-500/20">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">WMS Bodega</span>
+            <span class="text-[10px] text-amber-400 font-medium uppercase tracking-wider">Back-Office Admin</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-gauge-high w-4 text-center"></i>
+          <span>Dashboard WMS</span>
+        </a>
+        <a href="articulos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-barcode w-4 text-center"></i>
+          <span>Maestro de Artículos</span>
+        </a>
+        <a href="ubicaciones-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-table-cells-large w-4 text-center"></i>
+          <span>Ubicaciones & Racks</span>
+        </a>
+        <a href="categorias-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-tags w-4 text-center"></i>
+          <span>Categorías & Familias</span>
+        </a>
+        <a href="proveedores-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-semibold text-xs border border-amber-500/20">
+          <i class="fa-solid fa-truck-ramp-box w-4 text-center"></i>
+          <span>Proveedores</span>
+        </a>
+        <a href="motivos-ajuste.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-clipboard-check w-4 text-center"></i>
+          <span>Motivos de Ajuste</span>
+        </a>
+        <a href="zonas-almacen.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-warehouse w-4 text-center"></i>
+          <span>Gestión de Pasillos</span>
+        </a>
+        <a href="movimientos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-arrows-rotate w-4 text-center"></i>
+          <span>Movimientos & Kardex</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="../cliente/index.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-box-open text-amber-400"></i>
+        <span>Portal Receptores B2B</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">WMS</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Directorio de Proveedores</span>
+      </div>
+      <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Proveedores & Origen de Abastecimiento</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Control de distribuidores oficiales, plazos de pago y registro de recepciones en muelle.</p>
+        </div>
+        <button onclick="openProviderModal()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold shadow-sm transition flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i>
+          <span>Nuevo Proveedor</span>
+        </button>
+      </div>
+
+      <!-- KPIS -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Proveedores Homologados</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">24 Marcas</span>
+            <span class="text-xs font-semibold text-emerald-600">Certificadas</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Recepciones este Mes</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-amber-600">38 Embarques</span>
+            <span class="text-xs text-slate-500 font-mono">En muelle 1 y 2</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Cumplimiento OTIF</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-emerald-600">94.8%</span>
+            <span class="text-xs font-semibold text-emerald-600">A Tiempo</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Plazo Promedio Pago</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">45 Días</span>
+            <span class="text-xs text-slate-500 font-mono">Crédito B2B</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLA DE PROVEEDORES -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Buscar por razón social, RUT o contacto..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-400">
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-6">Proveedor / Marca</th>
+                <th class="py-3.5 px-6">Identificación Fiscal</th>
+                <th class="py-3.5 px-6">Contacto Comercial</th>
+                <th class="py-3.5 px-6">Días Crédito</th>
+                <th class="py-3.5 px-6">Última Entrada</th>
+                <th class="py-3.5 px-6">Estado</th>
+                <th class="py-3.5 px-6 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <span class="font-bold text-slate-900 text-sm block">Fender Musical Instruments Corp</span>
+                  <span class="text-[11px] text-slate-400">Importación Directa USA</span>
+                </td>
+                <td class="py-4 px-6 font-mono text-slate-600 font-semibold">TAX-US-95210492</td>
+                <td class="py-4 px-6">
+                  <div class="font-semibold text-slate-800">John Miller</div>
+                  <span class="text-[11px] text-slate-400">orders@fender.com</span>
+                </td>
+                <td class="py-4 px-6 font-bold text-slate-900 font-mono">60 Días</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">08/09/2026</span>
+                  <span class="block text-[10px] text-emerald-600 font-bold">120 Guitarras (Conforme)</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <button onclick="openProviderModal()" class="text-amber-600 hover:text-amber-700 font-bold">Editar</button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <span class="font-bold text-slate-900 text-sm block">Marshall Amplification PLC</span>
+                  <span class="text-[11px] text-slate-400">Bletchley, Reino Unido</span>
+                </td>
+                <td class="py-4 px-6 font-mono text-slate-600 font-semibold">GB-849102441</td>
+                <td class="py-4 px-6">
+                  <div class="font-semibold text-slate-800">Sarah Jenkins</div>
+                  <span class="text-[11px] text-slate-400">export@marshall.co.uk</span>
+                </td>
+                <td class="py-4 px-6 font-bold text-slate-900 font-mono">45 Días</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">01/09/2026</span>
+                  <span class="block text-[10px] text-slate-400">40 Amplificadores</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <button onclick="openProviderModal()" class="text-amber-600 hover:text-amber-700 font-bold">Editar</button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <span class="font-bold text-slate-900 text-sm block">Distribuidora Musical del Sur SpA</span>
+                  <span class="text-[11px] text-slate-400">Accesorios y cables nacionales</span>
+                </td>
+                <td class="py-4 px-6 font-mono text-slate-600 font-semibold">76.849.210-4</td>
+                <td class="py-4 px-6">
+                  <div class="font-semibold text-slate-800">Rodrigo Fuentes</div>
+                  <span class="text-[11px] text-slate-400">ventas@distmusical.cl</span>
+                </td>
+                <td class="py-4 px-6 font-bold text-slate-900 font-mono">30 Días</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">09/09/2026</span>
+                  <span class="block text-[10px] text-emerald-600 font-bold">500 Cables & Correas</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <button onclick="openProviderModal()" class="text-amber-600 hover:text-amber-700 font-bold">Editar</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL PROVEEDOR -->
+  <div id="modalProvider" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <h3 class="font-heading font-bold text-slate-900 text-base">Ficha de Proveedor</h3>
+        <button onclick="closeProviderModal()" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-600 transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="py-4 space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Razón Social</label>
+          <input type="text" value="Fender Musical Instruments Corp" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">RUT / Tax ID</label>
+            <input type="text" value="TAX-US-95210492" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400 font-mono">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Días de Crédito</label>
+            <input type="number" value="60" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400 font-mono">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Contacto Comercial</label>
+            <input type="text" value="John Miller" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Correo Electrónico</label>
+            <input type="email" value="orders@fender.com" class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-400">
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+        <button onclick="closeProviderModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">Cancelar</button>
+        <button onclick="alert('Proveedor guardado correctamente.'); closeProviderModal();" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-xl text-xs font-bold transition">Guardar Proveedor</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openProviderModal() { document.getElementById('modalProvider').classList.remove('hidden'); }
+    function closeProviderModal() { document.getElementById('modalProvider').classList.add('hidden'); }
+  </script>
+
+</body>
+</html>

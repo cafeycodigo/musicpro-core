@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Card | Solicitud y Registro de Tarjeta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col justify-between font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Header -->
+  <header class="p-4 sm:p-6 flex items-center justify-between max-w-7xl mx-auto w-full">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-500 flex items-center justify-center text-slate-950 font-bold text-xl shadow-lg shadow-amber-400/20 group-hover:rotate-6 transition-transform">
+        <i class="fa-solid fa-credit-card"></i>
+      </div>
+      <div>
+        <span class="font-heading font-extrabold text-white text-lg leading-tight tracking-tight block">MusicPro <span class="text-amber-400">Card</span></span>
+        <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Solicitud Digital Inmediata</span>
+      </div>
+    </a>
+
+    <a href="login.html" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold border border-slate-800 transition flex items-center gap-1.5">
+      <i class="fa-solid fa-user text-amber-400"></i>
+      <span>Iniciar Sesión</span>
+    </a>
+  </header>
+
+  <!-- Registration Card Center -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6">
+    <div class="w-full max-w-lg bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-2xl space-y-6 relative overflow-hidden">
+      
+      <div class="absolute -right-20 -top-20 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+      <!-- Header -->
+      <div class="text-center space-y-1.5 relative z-10">
+        <span class="px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-400/10 text-amber-400 border border-amber-400/20 inline-block mb-1">
+          Evaluación Digital en 1 Minuto
+        </span>
+        <h1 class="text-2xl font-bold font-heading text-white">Solicita tu Tarjeta MusicPro</h1>
+        <p class="text-xs text-slate-400">Sin papeleos ni trámites presenciales. Recibe tu tarjeta virtual de inmediato.</p>
+      </div>
+
+      <!-- Form -->
+      <form onsubmit="event.preventDefault(); handleCardRegister();" class="space-y-4 text-xs relative z-10">
+        
+        <!-- Card Plan Selection -->
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Plan de Tarjeta Preferido</label>
+          <select id="cardPlanSelect" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-amber-400 font-semibold focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <option value="black" selected>MusicPro Black (Cupo hasta $8.000.000 • VIP Conciertos)</option>
+            <option value="platinum">MusicPro Platinum (Cupo hasta $3.500.000 • 12 cuotas)</option>
+            <option value="gold">MusicPro Gold (Cupo hasta $1.800.000 • Bandas jóvenes)</option>
+            <option value="classic">MusicPro Classic (Cupo hasta $800.000 • Universitarios)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Nombre Completo</label>
+            <input type="text" id="solName" required placeholder="Ej: Benjamín Morales Bravo" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">RUT o Cédula</label>
+            <input type="text" id="solRut" required placeholder="Ej: 18.940.122-3" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white font-mono focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Correo Electrónico</label>
+            <input type="email" id="solEmail" required placeholder="tu@correo.cl" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Teléfono Móvil (Tokens)</label>
+            <input type="tel" id="solPhone" required placeholder="+56 9 8811 2233" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Renta Líquida Mensual Estimada ($ CLP)</label>
+          <input type="number" id="solIncome" required min="300000" step="50000" value="1800000" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-amber-400 font-mono font-bold focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <span class="text-[10px] text-slate-500 mt-0.5 block">Permite aprobar de forma automática tu cupo máximo inicial.</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Clave de Internet (6 dígitos)</label>
+            <input type="password" id="solPin" required maxlength="6" placeholder="Clave numérica" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white font-mono focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Confirmar Clave (6 dígitos)</label>
+            <input type="password" id="solPinConfirm" required maxlength="6" placeholder="Repite tu clave" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white font-mono focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-1">
+          <label class="flex items-start gap-2 cursor-pointer text-slate-400">
+            <input type="checkbox" required class="mt-0.5 rounded border-slate-700 bg-slate-950 text-amber-500 focus:ring-amber-500">
+            <span>Autorizo la consulta y evaluación en bases de datos financieras y acepto el Contrato de Apertura de Línea de Crédito MusicPro.</span>
+          </label>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-extrabold rounded-xl text-xs shadow-lg shadow-amber-400/20 transition flex items-center justify-center gap-2 hover:scale-[1.01]">
+          <i class="fa-solid fa-credit-card"></i>
+          <span>Aprobar Solicitud & Emitir Mi Tarjeta</span>
+        </button>
+      </form>
+
+      <!-- Login prompt -->
+      <div class="pt-4 border-t border-slate-800 text-center text-xs text-slate-400 relative z-10">
+        <span>¿Ya eres titular de una tarjeta MusicPro? </span>
+        <a href="login.html" class="font-bold text-amber-400 hover:underline">Inicia sesión en Banca en Línea</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="p-4 text-center text-xs text-slate-500 border-t border-slate-900">
+    <span>MusicPro Servicios Financieros S.A. © 2026 • Evaluación protegida bajo secreto financiero</span>
+  </footer>
+
+  <script>
+    function handleCardRegister() {
+      const pin1 = document.getElementById('solPin').value;
+      const pin2 = document.getElementById('solPinConfirm').value;
+      if (pin1 !== pin2) {
+        alert('Las claves numéricas no coinciden. Por favor verifícalas.');
+        return;
+      }
+      if (pin1.length < 6) {
+        alert('La clave debe tener exactamente 6 dígitos numéricos.');
+        return;
+      }
+      const name = document.getElementById('solName').value;
+      alert(`¡Felicitaciones ${name}! Tu solicitud ha sido aprobada de forma instantánea. Se ha generado tu tarjeta virtual activa y hemos acreditado 5.000 Puntos Pro de bienvenida.`);
+      window.location.href = "tarjeta-dashboard.html";
+    }
+  </script>
+</body>
+</html>

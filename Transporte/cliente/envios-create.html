@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transporte Express | Cotizador y Solicitud de Flete</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Topbar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-6">
+          <a href="envios-list.html" class="flex items-center gap-2 group text-slate-500 hover:text-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-600 group-hover:bg-cyan-500 group-hover:text-white transition">
+              <i class="fa-solid fa-truck-fast"></i>
+            </div>
+            <div>
+              <span class="font-heading font-bold text-base text-slate-900 leading-none block">Transporte<span class="text-cyan-500">Express</span></span>
+              <span class="text-[10px] text-slate-400 font-medium tracking-wide">Cotizador y Despacho</span>
+            </div>
+          </a>
+
+          <nav class="hidden md:flex items-center space-x-1">
+            <a href="envios-list.html" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-boxes-packing"></i>
+              <span>Mis Envíos</span>
+            </a>
+            <a href="envios-create.html" class="px-3 py-2 rounded-lg text-xs font-semibold bg-cyan-50 text-cyan-700 border border-cyan-200/60 flex items-center gap-1.5">
+              <i class="fa-solid fa-calculator"></i>
+              <span>Cotizar & Enviar</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="envios-list.html" class="text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Volver</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <div class="mb-8">
+      <div class="flex items-center gap-2 text-xs font-semibold text-cyan-700 uppercase tracking-wider mb-1">
+        <i class="fa-solid fa-file-invoice"></i>
+        <span>Tarifador Dinámico en 3 Pasos</span>
+      </div>
+      <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">Cotizador y Solicitud de Flete</h1>
+      <p class="text-slate-500 text-sm mt-0.5">Ingresa dimensiones y rutas para calcular el valor exacto del flete y emitir la orden de retiro.</p>
+    </div>
+
+    <!-- Stepper Visual -->
+    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm mb-8">
+      <div class="grid grid-cols-3 text-center text-xs font-bold">
+        <div id="stepIndicator1" class="text-cyan-700 flex items-center justify-center gap-2 border-b-2 border-cyan-600 pb-2">
+          <span class="w-5 h-5 rounded-full bg-cyan-600 text-white flex items-center justify-center text-[10px]">1</span>
+          <span>Ruta (Origen & Destino)</span>
+        </div>
+        <div id="stepIndicator2" class="text-slate-400 flex items-center justify-center gap-2 border-b-2 border-transparent pb-2">
+          <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px]">2</span>
+          <span>Bulto y Dimensiones</span>
+        </div>
+        <div id="stepIndicator3" class="text-slate-400 flex items-center justify-center gap-2 border-b-2 border-transparent pb-2">
+          <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px]">3</span>
+          <span>Tarifa y Confirmación</span>
+        </div>
+      </div>
+    </div>
+
+    <form id="shippingForm" onsubmit="handleShippingSubmit(event)" class="space-y-6">
+
+      <!-- PASO 1: Origen y Destino -->
+      <div id="stepSection1" class="step-card bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5">
+        <h2 class="font-heading font-bold text-base text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-map-location-dot text-cyan-600"></i>
+          <span>Paso 1: Direcciones de Retiro y Entrega</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div class="space-y-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
+            <span class="text-xs font-bold text-cyan-800 uppercase tracking-wider block">Punto de Origen (Retiro)</span>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Dirección de Retiro</label>
+              <input type="text" id="dirOrigen" value="Bodega Central Lampa, Sector Industrial Panamericana 1420" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:ring-2 focus:ring-cyan-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Comuna / Ciudad</label>
+              <select id="comunaOrigen" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800">
+                <option value="Lampa">Lampa (Santiago Norte)</option>
+                <option value="Santiago">Santiago Centro</option>
+                <option value="Pudahuel">Pudahuel (Aeropuerto)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="space-y-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
+            <span class="text-xs font-bold text-cyan-800 uppercase tracking-wider block">Punto de Destino (Entrega)</span>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Nombre Destinatario</label>
+              <input type="text" id="destinatarioNombre" required value="Benjamín Valenzuela" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:ring-2 focus:ring-cyan-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Dirección y Comuna de Entrega</label>
+              <input type="text" id="dirDestino" required value="Av. Providencia 1240, Depto 504" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:ring-2 focus:ring-cyan-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Ciudad Destino</label>
+              <select id="comunaDestino" onchange="calcShippingRate()" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800">
+                <option value="RM-Urbana">Santiago Urbano (Providencia, Las Condes, etc.)</option>
+                <option value="RM-Periferica">Santiago Rural / Periferia (Colina, Buin)</option>
+                <option value="Valparaiso">Región de Valparaíso (Viña, Valparaíso)</option>
+                <option value="Interurbano">Otras Regiones del País</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end pt-2">
+          <button type="button" onclick="goToStep(2)" class="px-5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-semibold shadow-sm transition">
+            Continuar a Especificaciones de Carga &rarr;
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 2: Bulto y Dimensiones -->
+      <div id="stepSection2" class="step-card hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5">
+        <h2 class="font-heading font-bold text-base text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-box-archive text-cyan-600"></i>
+          <span>Paso 2: Especificaciones del Bulto y Peso</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Tipo de Carga</label>
+            <select id="tipoCargaSelect" onchange="calcShippingRate()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-cyan-500">
+              <option value="Paquete">Paquete Estándar / Caja</option>
+              <option value="Fragil">Instrumento Frágil (Guitarras, Tubos)</option>
+              <option value="Pallet">Pallet Pesado (Baterías, Gabinetes)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Peso Estimado (kg) <span class="text-rose-500">*</span></label>
+            <input type="number" id="pesoInput" min="0.5" step="0.5" value="6.5" oninput="calcShippingRate()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 font-bold focus:bg-white focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Largo x Ancho (cm)</label>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="number" id="dimLargo" value="110" oninput="calcShippingRate()" placeholder="Largo" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2 py-2 text-xs text-slate-800">
+              <input type="number" id="dimAncho" value="45" oninput="calcShippingRate()" placeholder="Ancho" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2 py-2 text-xs text-slate-800">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Alto / Profundidad (cm)</label>
+            <input type="number" id="dimAlto" value="18" oninput="calcShippingRate()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800">
+          </div>
+
+          <div class="sm:col-span-4 p-4 rounded-xl bg-cyan-50 border border-cyan-200 flex items-center justify-between text-xs text-cyan-900">
+            <span class="flex items-center gap-2">
+              <i class="fa-solid fa-cube text-cyan-600"></i>
+              <span>Peso Volumétrico Calculado: <strong id="volWeightDisplay" class="font-mono font-bold">17.8 kg/vol</strong></span>
+            </span>
+            <span class="text-[11px] text-cyan-700 font-medium">Factor IATA 1:5000</span>
+          </div>
+        </div>
+
+        <div class="flex justify-between pt-2">
+          <button type="button" onclick="goToStep(1)" class="px-5 py-2 rounded-xl border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-100">
+            &larr; Volver a Rutas
+          </button>
+          <button type="button" onclick="goToStep(3)" class="px-5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-semibold shadow-sm transition">
+            Calcular Tarifa en Tiempo Real &rarr;
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Tarifa Calculada y Confirmación -->
+      <div id="stepSection3" class="step-card hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        <h2 class="font-heading font-bold text-base text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-receipt text-cyan-600"></i>
+          <span>Paso 3: Tarifa Calculada y Generación de Flete</span>
+        </h2>
+
+        <!-- Calculated Rate Big Box -->
+        <div class="p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-cyan-950 to-slate-900 text-white shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <span class="text-xs text-cyan-400 font-semibold uppercase tracking-wider block mb-1">Tarifa Flete Inmediata</span>
+            <div class="font-heading font-extrabold text-3xl sm:text-4xl text-white font-mono" id="finalRateDisplay">$8.900 CLP</div>
+            <span class="text-xs text-slate-300 mt-1 block">Tiempo de entrega estimado: <strong>Mismo Día (Express 4 horas)</strong></span>
+          </div>
+
+          <div class="text-right sm:border-l sm:border-slate-800 sm:pl-6 space-y-1 text-xs text-slate-300">
+            <div>Servicio: <strong class="text-white">Transporte Directo Flota Van</strong></div>
+            <div>Seguro de Carga: <strong class="text-emerald-400">Incluido hasta $2.000.000</strong></div>
+            <div>Conductor sugerido: <strong class="text-cyan-300">Patricio Silva (Móvil F-04)</strong></div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+          <button type="button" onclick="goToStep(2)" class="px-5 py-2 rounded-xl border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-100">
+            &larr; Modificar Bulto
+          </button>
+
+          <button type="submit" class="px-8 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-heading font-bold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Confirmar y Generar Orden de Retiro</span>
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </main>
+
+  <script>
+    function goToStep(step) {
+      document.querySelectorAll('.step-card').forEach(c => c.classList.add('hidden'));
+      document.getElementById('stepSection' + step).classList.remove('hidden');
+
+      for (let i = 1; i <= 3; i++) {
+        const ind = document.getElementById('stepIndicator' + i);
+        if (i === step) {
+          ind.className = 'text-cyan-700 flex items-center justify-center gap-2 border-b-2 border-cyan-600 pb-2';
+          ind.querySelector('span:first-child').className = 'w-5 h-5 rounded-full bg-cyan-600 text-white flex items-center justify-center text-[10px]';
+        } else if (i < step) {
+          ind.className = 'text-emerald-700 flex items-center justify-center gap-2 border-b-2 border-emerald-500 pb-2';
+          ind.querySelector('span:first-child').className = 'w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]';
+        } else {
+          ind.className = 'text-slate-400 flex items-center justify-center gap-2 border-b-2 border-transparent pb-2';
+          ind.querySelector('span:first-child').className = 'w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px]';
+        }
+      }
+
+      calcShippingRate();
+    }
+
+    function calcShippingRate() {
+      const peso = parseFloat(document.getElementById('pesoInput').value) || 1;
+      const largo = parseFloat(document.getElementById('dimLargo').value) || 10;
+      const ancho = parseFloat(document.getElementById('dimAncho').value) || 10;
+      const alto = parseFloat(document.getElementById('dimAlto').value) || 10;
+
+      const volWeight = (largo * ancho * alto) / 5000;
+      document.getElementById('volWeightDisplay').innerText = volWeight.toFixed(1) + ' kg/vol';
+
+      const chargeableWeight = Math.max(peso, volWeight);
+      const zone = document.getElementById('comunaDestino').value;
+      const carga = document.getElementById('tipoCargaSelect').value;
+
+      let basePrice = 5000;
+      if (zone === 'RM-Periferica') basePrice = 7500;
+      if (zone === 'Valparaiso') basePrice = 12000;
+      if (zone === 'Interurbano') basePrice = 18000;
+
+      let extraRate = chargeableWeight * 450;
+      if (carga === 'Fragil') extraRate += 3000;
+      if (carga === 'Pallet') extraRate += 15000;
+
+      const totalRate = Math.round(basePrice + extraRate);
+      document.getElementById('finalRateDisplay').innerText = '$' + totalRate.toLocaleString('es-CL') + ' CLP';
+    }
+
+    function handleShippingSubmit(e) {
+      e.preventDefault();
+      alert('¡Orden de flete TRK-2026-0050 generada exitosamente! El conductor ha sido notificado para retiro.');
+      window.location.href = 'envios-list.html';
+    }
+
+    calcShippingRate();
+  </script>
+</body>
+</html>

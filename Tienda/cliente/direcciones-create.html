@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nueva Dirección - MusicPro Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3, .font-heading { font-family: 'Outfit', sans-serif; }
+  </style>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="direcciones-list.html" class="flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-indigo-600 transition">
+          <i class="fa-solid fa-arrow-left"></i> Volver a Mis Direcciones
+        </a>
+      </div>
+      <a href="index.html" class="font-heading font-extrabold text-lg text-slate-900 tracking-tight">MusicPro <span class="text-indigo-600">Store</span></a>
+      <div></div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-xl w-full mx-auto px-4 py-8">
+    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
+      <h1 class="text-2xl font-extrabold text-slate-900 mb-1">Nueva Dirección de Entrega</h1>
+      <p class="text-xs text-slate-500 mb-6">Completa los datos para habilitar despacho a domicilio express.</p>
+
+      <form onsubmit="event.preventDefault(); alert('Dirección guardada exitosamente'); window.location.href='direcciones-list.html';" class="space-y-4 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Nombre o Alias del Lugar (ej. Casa, Estudio, Sala de Ensayo)</label>
+          <input type="text" required placeholder="Casa / Estudio" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Nombre Completo del Receptor</label>
+          <input type="text" required value="Camila Soto Morales" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Región</label>
+            <select class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 bg-white">
+              <option>Región Metropolitana</option>
+              <option>Valparaíso</option>
+              <option>Biobío</option>
+            </select>
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Comuna</label>
+            <input type="text" required placeholder="Las Condes" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Calle y Número</label>
+          <input type="text" required placeholder="Av. Las Condes 1234" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Depto / Casa / Oficina (Opcional)</label>
+            <input type="text" placeholder="Dpto 502" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Teléfono Móvil de Contacto</label>
+            <input type="tel" required value="+56 9 8765 4321" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Instrucciones de Entrega (Opcional)</label>
+          <textarea rows="2" placeholder="Dejar en conserjería si no hay moradores..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500">
+            <span class="font-semibold text-slate-700">Guardar como mi dirección de despacho predeterminada</span>
+          </label>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end gap-3">
+          <a href="direcciones-list.html" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 font-semibold">Cancelar</a>
+          <button type="submit" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-md shadow-indigo-600/20 transition">
+            Guardar Dirección
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puntos Pick-up & Drop-off - MusicPro Express</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3, .font-heading { font-family: 'Outfit', sans-serif; }
+  </style>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- NAVBAR CLIENTE -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-6">
+        <a href="index.html" class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-white shadow-md shadow-orange-500/20 font-heading font-black text-xl">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <div>
+            <span class="font-heading font-extrabold text-lg text-slate-900 tracking-tight">MusicPro <span class="text-orange-500">Express</span></span>
+            <span class="block text-[10px] uppercase tracking-wider font-bold text-slate-600">Portal Clientes</span>
+          </div>
+        </a>
+        <nav class="hidden md:flex items-center space-x-1">
+          <a href="envios-list.html" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-orange-600 hover:bg-orange-50 transition">Mis Envíos</a>
+          <a href="envios-create.html" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-orange-600 hover:bg-orange-50 transition">Cotizar & Enviar</a>
+          <a href="puntos-red.html" class="px-3 py-2 rounded-lg text-sm font-semibold text-orange-600 bg-orange-50 transition">Puntos Pick-up</a>
+          <a href="direcciones-list.html" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-orange-600 hover:bg-orange-50 transition">Mis Direcciones</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <a href="../../index.html" class="px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 border border-slate-200 rounded-lg hover:bg-slate-100 transition">
+          <i class="fa-solid fa-network-wired mr-1.5 text-orange-500"></i> Hub Central
+        </a>
+        <div class="h-6 w-px bg-slate-200"></div>
+        <div class="flex items-center space-x-2">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="w-8 h-8 rounded-full ring-2 ring-orange-400" alt="Avatar">
+          <span class="text-xs font-bold text-slate-700 hidden sm:inline">Camila Soto</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- ENCABEZADO Y BUSCADOR -->
+    <div class="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold mb-2">
+          <i class="fa-solid fa-location-dot"></i> Red Nacional de Entrega y Retiro
+        </div>
+        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Puntos Pick-up & Lockers Inteligentes</h1>
+        <p class="text-slate-500 text-sm mt-1">Encuentra más de 450 puntos habilitados en Chile para enviar y retirar tus instrumentos y paquetes.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="envios-create.html" class="px-4 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-sm font-bold shadow-md shadow-orange-500/20 transition flex items-center gap-2">
+          <i class="fa-solid fa-paper-plane"></i> Crear Envío a Punto
+        </a>
+      </div>
+    </div>
+
+    <!-- BARRA DE FILTROS -->
+    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm mb-6 flex flex-col md:flex-row items-center gap-3">
+      <div class="relative flex-1 w-full">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+        <input id="searchInput" type="text" placeholder="Buscar por comuna, calle o punto (ej. Providencia, Metro Tobalaba...)" 
+          class="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500">
+      </div>
+      <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+        <select id="regionSelect" class="border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500">
+          <option value="rm">Región Metropolitana</option>
+          <option value="valpo">Región de Valparaíso</option>
+          <option value="biobio">Región del Biobío</option>
+        </select>
+        <button onclick="filterPoints('all')" class="filter-btn active px-3 py-2 rounded-xl text-xs font-bold bg-orange-50 text-orange-700 border border-orange-200">
+          Todos (18)
+        </button>
+        <button onclick="filterPoints('lockers')" class="filter-btn px-3 py-2 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50">
+          <i class="fa-solid fa-box mr-1"></i> Lockers 24/7
+        </button>
+        <button onclick="filterPoints('express')" class="filter-btn px-3 py-2 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50">
+          <i class="fa-solid fa-store mr-1"></i> Puntos Aliados
+        </button>
+      </div>
+    </div>
+
+    <!-- GRID SPLIT: LISTA DE PUNTOS + MAPA SIMULADO -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- LISTA DE PUNTOS (COLUMNA IZQUIERDA - 5 COLS) -->
+      <div class="lg:col-span-5 space-y-3 max-h-[750px] overflow-y-auto pr-1" id="pointsList">
+        
+        <!-- CARD 1 -->
+        <div onclick="selectPoint(1)" id="point-card-1" class="point-card bg-white p-4 rounded-2xl border-2 border-orange-500 shadow-sm cursor-pointer transition hover:shadow-md">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-700 mb-1.5">
+                <i class="fa-solid fa-circle text-[6px]"></i> Abierto Ahora
+              </span>
+              <h3 class="font-bold text-slate-900 text-base">Locker Inteligente Metro Tobalaba</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Av. Providencia 2653, Nivel -1 (Línea 1)</p>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded-lg">A 850 m</span>
+            </div>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-600 pt-2 border-t border-slate-100">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-clock text-slate-400"></i> Lun - Dom: 06:00 - 23:00</span>
+            <span class="font-bold text-emerald-600"><i class="fa-solid fa-cube mr-1"></i> 12 casilleros disp.</span>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div onclick="selectPoint(2)" id="point-card-2" class="point-card bg-white p-4 rounded-2xl border border-slate-200 shadow-sm cursor-pointer transition hover:border-orange-300 hover:shadow-md">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-700 mb-1.5">
+                <i class="fa-solid fa-circle text-[6px]"></i> Abierto Ahora
+              </span>
+              <h3 class="font-bold text-slate-900 text-base">Punto Blue Express Providencia Centro</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Av. Pedro de Valdivia 180, Local 4</p>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-bold text-slate-600 bg-slate-100 px-2 py-1 rounded-lg">A 1.4 km</span>
+            </div>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-600 pt-2 border-t border-slate-100">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-clock text-slate-400"></i> Lun - Vie: 09:00 - 19:00</span>
+            <span class="text-slate-500"><i class="fa-solid fa-hand-holding-dollar mr-1"></i> Acepta devoluciones</span>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div onclick="selectPoint(3)" id="point-card-3" class="point-card bg-white p-4 rounded-2xl border border-slate-200 shadow-sm cursor-pointer transition hover:border-orange-300 hover:shadow-md">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-100 text-blue-700 mb-1.5">
+                <i class="fa-solid fa-store text-[8px]"></i> Sucursal MusicPro Central
+              </span>
+              <h3 class="font-bold text-slate-900 text-base">Pick-up MusicPro Las Condes</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Av. Las Condes 9420, Mall Open Plaza</p>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-bold text-slate-600 bg-slate-100 px-2 py-1 rounded-lg">A 3.1 km</span>
+            </div>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-600 pt-2 border-t border-slate-100">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-clock text-slate-400"></i> Lun - Sáb: 10:00 - 20:30</span>
+            <span class="font-bold text-orange-600"><i class="fa-solid fa-guitar mr-1"></i> Acepta paquetes grandes</span>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div onclick="selectPoint(4)" id="point-card-4" class="point-card bg-white p-4 rounded-2xl border border-slate-200 shadow-sm cursor-pointer transition hover:border-orange-300 hover:shadow-md">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-100 text-amber-700 mb-1.5">
+                <i class="fa-solid fa-clock text-[8px]"></i> Cierra Pronto
+              </span>
+              <h3 class="font-bold text-slate-900 text-base">Punto Starken Santiago Centro</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Moneda 1140, Galería Comercial</p>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-bold text-slate-600 bg-slate-100 px-2 py-1 rounded-lg">A 4.8 km</span>
+            </div>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-600 pt-2 border-t border-slate-100">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-clock text-slate-400"></i> Cierra a las 18:30 hrs</span>
+            <span class="text-slate-500"><i class="fa-solid fa-qrcode mr-1"></i> Check-in rápido QR</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MAPA INTERACTIVO SIMULADO (COLUMNA DERECHA - 7 COLS) -->
+      <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-[750px] relative">
+        
+        <!-- CABECERA DEL MAPA -->
+        <div class="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
+          <div class="bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-slate-200 shadow-md flex items-center gap-2 pointer-events-auto">
+            <i class="fa-solid fa-map-location-dot text-orange-500"></i>
+            <span class="text-xs font-bold text-slate-800">Mapa de Cobertura Santiago Oriente</span>
+          </div>
+          <div class="flex items-center gap-2 pointer-events-auto">
+            <button onclick="alert('Centrando en tu ubicación actual por GPS...')" class="w-9 h-9 rounded-xl bg-white border border-slate-200 shadow-md text-slate-700 hover:text-orange-600 flex items-center justify-center text-sm transition">
+              <i class="fa-solid fa-crosshairs"></i>
+            </button>
+            <div class="flex flex-col bg-white border border-slate-200 rounded-xl shadow-md overflow-hidden">
+              <button class="w-8 h-8 flex items-center justify-center text-slate-700 hover:bg-slate-50 border-b border-slate-100 text-xs font-bold">+</button>
+              <button class="w-8 h-8 flex items-center justify-center text-slate-700 hover:bg-slate-50 text-xs font-bold">-</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- VISTA GRÁFICA DEL MAPA -->
+        <div class="relative w-full h-full bg-slate-200 overflow-hidden flex items-center justify-center">
+          
+          <!-- Calles y manzanas vectoriales simuladas -->
+          <svg class="absolute inset-0 w-full h-full object-cover opacity-60" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-streets" width="120" height="120" patternUnits="userSpaceOnUse">
+                <rect width="120" height="120" fill="#f1f5f9" />
+                <path d="M 0 30 L 120 30 M 0 90 L 120 90 M 30 0 L 30 120 M 90 0 L 90 120" stroke="#cbd5e1" stroke-width="4" fill="none" />
+                <path d="M 0 60 L 120 60 M 60 0 L 60 120" stroke="#94a3b8" stroke-width="8" fill="none" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-streets)" />
+            <!-- Río o Costanera diagonal -->
+            <path d="M -50 450 Q 300 350 900 200" stroke="#38bdf8" stroke-width="24" fill="none" opacity="0.7"/>
+          </svg>
+
+          <!-- PIN 1: SELECCIONADO (Metro Tobalaba) -->
+          <div class="absolute top-[42%] left-[48%] -translate-x-1/2 -translate-y-full cursor-pointer group z-20">
+            <div class="animate-bounce">
+              <div class="w-10 h-10 rounded-full bg-orange-600 text-white flex items-center justify-center shadow-xl shadow-orange-500/50 border-2 border-white text-base">
+                <i class="fa-solid fa-box"></i>
+              </div>
+              <div class="w-3 h-3 bg-orange-600 rotate-45 mx-auto -mt-1.5 shadow-sm"></div>
+            </div>
+            <span class="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap bg-slate-900 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
+              Locker Tobalaba
+            </span>
+          </div>
+
+          <!-- PIN 2 (Providencia) -->
+          <div onclick="selectPoint(2)" class="absolute top-[52%] left-[34%] -translate-x-1/2 -translate-y-full cursor-pointer hover:scale-110 transition z-10">
+            <div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center shadow-lg border-2 border-white text-xs">
+              <i class="fa-solid fa-store"></i>
+            </div>
+            <div class="w-2 h-2 bg-slate-800 rotate-45 mx-auto -mt-1"></div>
+          </div>
+
+          <!-- PIN 3 (Las Condes) -->
+          <div onclick="selectPoint(3)" class="absolute top-[28%] left-[72%] -translate-x-1/2 -translate-y-full cursor-pointer hover:scale-110 transition z-10">
+            <div class="w-9 h-9 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg border-2 border-white text-xs">
+              <i class="fa-solid fa-guitar"></i>
+            </div>
+            <div class="w-2.5 h-2.5 bg-indigo-600 rotate-45 mx-auto -mt-1"></div>
+          </div>
+
+          <!-- PIN 4 (Santiago Centro) -->
+          <div onclick="selectPoint(4)" class="absolute top-[65%] left-[20%] -translate-x-1/2 -translate-y-full cursor-pointer hover:scale-110 transition z-10">
+            <div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center shadow-lg border-2 border-white text-xs">
+              <i class="fa-solid fa-truck"></i>
+            </div>
+            <div class="w-2 h-2 bg-slate-800 rotate-45 mx-auto -mt-1"></div>
+          </div>
+
+        </div>
+
+        <!-- TARJETA INFERIOR FLOTANTE DEL PUNTO ACTIVO -->
+        <div class="absolute bottom-4 left-4 right-4 z-20">
+          <div class="bg-white/95 backdrop-blur-md p-5 rounded-2xl border border-slate-200 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4" id="activePointDetail">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-orange-100 text-orange-700">Locker Inteligente 24/7</span>
+                <span class="text-xs text-slate-500"><i class="fa-solid fa-location-arrow mr-1 text-orange-500"></i> Providencia (Metro Tobalaba)</span>
+              </div>
+              <h2 class="text-lg font-extrabold text-slate-900" id="detailName">Locker Inteligente Metro Tobalaba</h2>
+              <p class="text-xs text-slate-600" id="detailAddress">Av. Providencia 2653, Nivel -1 • Retiro automático con código QR o PIN SMS</p>
+            </div>
+            <div class="flex items-center gap-2 w-full md:w-auto">
+              <a href="envios-create.html" class="flex-1 md:flex-initial px-4 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-md shadow-orange-500/20 transition text-center whitespace-nowrap">
+                <i class="fa-solid fa-check mr-1.5"></i> Seleccionar como Punto de Retiro
+              </a>
+              <button onclick="alert('Abriendo ruta en Google Maps...')" class="px-3 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+                <i class="fa-solid fa-directions"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- PASOS DE CÓMO FUNCIONA PICK-UP -->
+    <div class="mt-12 bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 text-white">
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <h2 class="text-2xl font-bold tracking-tight">¿Cómo funciona la entrega en Puntos y Lockers?</h2>
+        <p class="text-slate-400 text-xs mt-1">Olvídate de esperar al repartidor en casa. Retira a tu propio ritmo con total seguridad.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center mx-auto mb-3 text-xl font-bold">1</div>
+          <h3 class="font-bold text-sm">Elige el Punto más cercano</h3>
+          <p class="text-xs text-slate-400 mt-1">Al crear tu envío o comprar en la tienda, escoge uno de nuestros más de 450 puntos habilitados.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center mx-auto mb-3 text-xl font-bold">2</div>
+          <h3 class="font-bold text-sm">Recibe tu Código Secreto</h3>
+          <p class="text-xs text-slate-400 mt-1">Apenas el paquete es depositado, te enviamos un SMS y WhatsApp con tu PIN de apertura y código QR.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center mx-auto mb-3 text-xl font-bold">3</div>
+          <h3 class="font-bold text-sm">Retira en menos de 15 segundos</h3>
+          <p class="text-xs text-slate-400 mt-1">Escanea el código en la pantalla del locker o muestra tu RUT en el punto aliado. Tienes 5 días para retirar.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+      &copy; 2026 MusicPro Express Logistics SpA. Red Nacional de Puntos Pick-up & Lockers Automatizados.
+    </div>
+  </footer>
+
+  <script>
+    const pointsData = {
+      1: {
+        name: "Locker Inteligente Metro Tobalaba",
+        address: "Av. Providencia 2653, Nivel -1 (Línea 1) • Retiro 24/7 con código QR"
+      },
+      2: {
+        name: "Punto Blue Express Providencia Centro",
+        address: "Av. Pedro de Valdivia 180, Local 4 • Acepta devoluciones y envíos frágiles"
+      },
+      3: {
+        name: "Pick-up MusicPro Las Condes",
+        address: "Av. Las Condes 9420, Mall Open Plaza • Especializado en guitarras y audio"
+      },
+      4: {
+        name: "Punto Starken Santiago Centro",
+        address: "Moneda 1140, Galería Comercial • Cierre a las 18:30 hrs"
+      }
+    };
+
+    function selectPoint(id) {
+      document.querySelectorAll('.point-card').forEach(c => {
+        c.classList.remove('border-orange-500', 'border-2');
+        c.classList.add('border-slate-200', 'border');
+      });
+      const selected = document.getElementById('point-card-' + id);
+      if (selected) {
+        selected.classList.remove('border-slate-200', 'border');
+        selected.classList.add('border-orange-500', 'border-2');
+      }
+      const data = pointsData[id];
+      if (data) {
+        document.getElementById('detailName').textContent = data.name;
+        document.getElementById('detailAddress').textContent = data.address;
+      }
+    }
+
+    function filterPoints(type) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('bg-orange-50', 'text-orange-700', 'border-orange-200');
+        b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+      });
+      event.target.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+      event.target.classList.add('bg-orange-50', 'text-orange-700', 'border-orange-200');
+    }
+  </script>
+</body>
+</html>

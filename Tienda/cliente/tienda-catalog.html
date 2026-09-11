@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Store | Catálogo de Instrumentos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Header Comercial -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white text-xl shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition">
+            <i class="fa-solid fa-guitar"></i>
+          </div>
+          <div>
+            <span class="font-heading font-extrabold text-xl text-slate-900 leading-tight block">MusicPro<span class="text-emerald-500">Store</span></span>
+            <span class="text-[10px] text-slate-400 font-medium">Instrumentos & Audio Pro</span>
+          </div>
+        </a>
+
+        <!-- Search Bar Central -->
+        <div class="hidden md:flex flex-1 max-w-lg mx-8 relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input type="text" id="catalogSearchInput" oninput="filterStoreCatalog()" placeholder="Buscar guitarras, amplificadores, pedales, teclados..." class="w-full pl-10 pr-4 py-2.5 bg-slate-100 hover:bg-slate-50 focus:bg-white border border-slate-200 rounded-full text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition">
+        </div>
+
+        <!-- Navigation Actions -->
+        <div class="flex items-center gap-4">
+          <a href="compras-list.html" class="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition">
+            <i class="fa-solid fa-clock-rotate-left text-slate-400"></i>
+            <span>Mis Compras</span>
+          </a>
+
+          <!-- Cart Button with Counter -->
+          <a href="carrito-view.html" class="relative px-4 py-2 rounded-full bg-slate-900 hover:bg-emerald-600 text-white text-xs font-semibold shadow-md transition flex items-center gap-2.5">
+            <i class="fa-solid fa-cart-shopping text-sm"></i>
+            <span>Carrito</span>
+            <span id="headerCartCount" class="w-5 h-5 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-[10px]">3</span>
+          </a>
+
+          <!-- Admin Switch & Hub -->
+          <a href="../admin/index.html" class="p-2 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl transition" title="Ir a Administración de Ventas">
+            <i class="fa-solid fa-chart-line mr-1"></i>
+            <span class="hidden lg:inline">Admin Tienda</span>
+          </a>
+
+          <a href="../../index.html" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition" title="Hub Principal">
+            <i class="fa-solid fa-house text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Promotional Banner -->
+  <section class="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 text-white py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-2">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+          <i class="fa-solid fa-bolt mr-1.5"></i> Cyber Pro Days 2026
+        </span>
+        <h1 class="font-heading font-extrabold text-2xl sm:text-4xl tracking-tight">Hasta 35% OFF en Guitarras & Amplificadores</h1>
+        <p class="text-xs sm:text-sm text-slate-300">Despacho garantizado en 24h a todo el país o retiro inmediato en sucursal.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="bg-white/10 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/10 text-center">
+          <span class="text-xs text-slate-300 block">Cupón Cyber:</span>
+          <span class="font-mono font-bold text-emerald-400 text-sm tracking-widest">MUSICPRO20</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Store Body with Sidebar Filters -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
+    
+    <!-- Sidebar Filters -->
+    <aside class="w-full lg:w-64 flex-shrink-0 space-y-6">
+      
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <h2 class="font-heading font-bold text-sm text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-filter text-emerald-600"></i>
+            <span>Filtros Comerciales</span>
+          </h2>
+          <button onclick="resetFilters()" class="text-[11px] font-semibold text-emerald-600 hover:text-emerald-700">Limpiar</button>
+        </div>
+
+        <!-- Categorías -->
+        <div>
+          <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-2.5">Categorías</label>
+          <div class="space-y-2 text-xs text-slate-600">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="catRadio" value="all" checked onchange="filterStoreCatalog()" class="text-emerald-600 focus:ring-emerald-500">
+              <span>Todas las categorías</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="catRadio" value="Cuerdas" onchange="filterStoreCatalog()" class="text-emerald-600 focus:ring-emerald-500">
+              <span>Guitarras y Bajos</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="catRadio" value="Amplificación" onchange="filterStoreCatalog()" class="text-emerald-600 focus:ring-emerald-500">
+              <span>Amplificadores & Cabs</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="catRadio" value="Percusión" onchange="filterStoreCatalog()" class="text-emerald-600 focus:ring-emerald-500">
+              <span>Baterías & Percusión</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="catRadio" value="Teclados" onchange="filterStoreCatalog()" class="text-emerald-600 focus:ring-emerald-500">
+              <span>Teclados y Sintetizadores</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Slider de Rango de Precio -->
+        <div class="pt-3 border-t border-slate-100">
+          <div class="flex items-center justify-between mb-2">
+            <label class="text-xs font-bold text-slate-800 uppercase tracking-wider">Precio Máximo</label>
+            <span id="priceDisplay" class="text-xs font-mono font-bold text-emerald-700">$1.500.000</span>
+          </div>
+          <input type="range" id="priceSlider" min="20000" max="1500000" step="50000" value="1500000" oninput="updatePriceFilter(this.value)" class="w-full accent-emerald-600 cursor-pointer">
+          <div class="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
+            <span>$20.000</span>
+            <span>$1.500.000</span>
+          </div>
+        </div>
+
+        <!-- Ordenamiento -->
+        <div class="pt-3 border-t border-slate-100">
+          <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">Ordenar Por</label>
+          <select id="sortSelect" onchange="filterStoreCatalog()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700">
+            <option value="featured">Destacados / Ofertas</option>
+            <option value="price-asc">Precio: Menor a Mayor</option>
+            <option value="price-desc">Precio: Mayor a Menor</option>
+          </select>
+        </div>
+
+      </div>
+
+    </aside>
+
+    <!-- Product Grid Section -->
+    <div class="flex-1">
+      <div class="flex items-center justify-between mb-6">
+        <span class="text-xs text-slate-500">Mostrando <strong id="productCount" class="text-slate-800">4</strong> productos disponibles</span>
+      </div>
+
+      <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+
+        <!-- Card 1 -->
+        <div class="store-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between group" data-category="Cuerdas" data-price="789000" data-name="Guitarra Eléctrica Fender Player Stratocaster">
+          <div>
+            <a href="producto-detalle.html" class="block relative h-56 bg-slate-100 flex items-center justify-center p-6 overflow-hidden">
+              <span class="absolute top-3 left-3 bg-rose-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm z-10">
+                -20% OFF
+              </span>
+              <img src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=600&auto=format&fit=crop&q=80" alt="Fender" class="max-h-full object-contain group-hover:scale-105 transition duration-300">
+            </a>
+
+            <div class="p-5">
+              <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block mb-1">Cuerdas / Guitarras</span>
+              <h3 class="font-heading font-bold text-base text-slate-900 mb-2">
+                <a href="producto-detalle.html" class="hover:text-emerald-600 transition">Guitarra Eléctrica Fender Player Stratocaster</a>
+              </h3>
+              
+              <!-- Variantes -->
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-[11px] text-slate-500">Color:</span>
+                <span class="w-4 h-4 rounded-full bg-slate-100 border-2 border-emerald-600 inline-block" title="Polar White"></span>
+                <span class="w-4 h-4 rounded-full bg-amber-900 border border-slate-300 inline-block" title="Sunburst 3-Color"></span>
+                <span class="w-4 h-4 rounded-full bg-slate-950 border border-slate-300 inline-block" title="Black"></span>
+              </div>
+
+              <!-- Precios -->
+              <div class="flex items-baseline gap-2">
+                <span class="text-xs text-slate-400 line-through font-mono">$986.000</span>
+                <span class="font-heading font-extrabold text-xl text-slate-900 font-mono">$789.000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0">
+            <button onclick="addToCart('Fender Player Stratocaster', 789000)" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white text-xs font-semibold shadow-md transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-cart-plus"></i>
+              <span>Añadir al Carrito</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="store-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between group" data-category="Amplificación" data-price="699000" data-name="Amplificador Marshall DSL40CR a Tubos">
+          <div>
+            <div class="relative h-56 bg-slate-100 flex items-center justify-center p-6 overflow-hidden">
+              <span class="absolute top-3 left-3 bg-rose-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm z-10">
+                -15% OFF
+              </span>
+              <img src="https://images.unsplash.com/photo-1525410886566-646ef8586c75?w=600&auto=format&fit=crop&q=80" alt="Marshall" class="max-h-full object-contain group-hover:scale-105 transition duration-300">
+            </div>
+
+            <div class="p-5">
+              <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block mb-1">Amplificación</span>
+              <h3 class="font-heading font-bold text-base text-slate-900 mb-2">Amplificador Marshall DSL40CR a Tubos Celestion</h3>
+              
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-[11px] text-slate-500">Potencia:</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700">40W Combo 1x12</span>
+              </div>
+
+              <div class="flex items-baseline gap-2">
+                <span class="text-xs text-slate-400 line-through font-mono">$822.000</span>
+                <span class="font-heading font-extrabold text-xl text-slate-900 font-mono">$699.000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0">
+            <button onclick="addToCart('Marshall DSL40CR', 699000)" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white text-xs font-semibold shadow-md transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-cart-plus"></i>
+              <span>Añadir al Carrito</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="store-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between group" data-category="Teclados" data-price="549000" data-name="Sintetizador Híbrido Korg Minilogue XD">
+          <div>
+            <div class="relative h-56 bg-slate-100 flex items-center justify-center p-6 overflow-hidden">
+              <span class="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm z-10">
+                Nuevo
+              </span>
+              <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&auto=format&fit=crop&q=80" alt="Korg" class="max-h-full object-contain group-hover:scale-105 transition duration-300">
+            </div>
+
+            <div class="p-5">
+              <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block mb-1">Teclados & Pianos</span>
+              <h3 class="font-heading font-bold text-base text-slate-900 mb-2">Sintetizador Analógico Korg Minilogue XD</h3>
+              
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-[11px] text-slate-500">Voces:</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700">4 Voces Polifónico</span>
+              </div>
+
+              <div class="flex items-baseline gap-2">
+                <span class="font-heading font-extrabold text-xl text-slate-900 font-mono">$549.000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0">
+            <button onclick="addToCart('Korg Minilogue XD', 549000)" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white text-xs font-semibold shadow-md transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-cart-plus"></i>
+              <span>Añadir al Carrito</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="store-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between group" data-category="Cuerdas" data-price="299000" data-name="Bajo Eléctrico Yamaha TRBX304">
+          <div>
+            <div class="relative h-56 bg-slate-100 flex items-center justify-center p-6 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80" alt="Bajo Yamaha" class="max-h-full object-contain group-hover:scale-105 transition duration-300">
+            </div>
+
+            <div class="p-5">
+              <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block mb-1">Cuerdas / Bajos</span>
+              <h3 class="font-heading font-bold text-base text-slate-900 mb-2">Bajo Eléctrico Yamaha TRBX304 4 Cuerdas</h3>
+              
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-[11px] text-slate-500">Color:</span>
+                <span class="w-4 h-4 rounded-full bg-red-700 border border-slate-300 inline-block" title="Candy Apple Red"></span>
+                <span class="w-4 h-4 rounded-full bg-slate-900 border border-slate-300 inline-block" title="Black"></span>
+              </div>
+
+              <div class="flex items-baseline gap-2">
+                <span class="font-heading font-extrabold text-xl text-slate-900 font-mono">$299.000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0">
+            <button onclick="addToCart('Yamaha TRBX304', 299000)" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white text-xs font-semibold shadow-md transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-cart-plus"></i>
+              <span>Añadir al Carrito</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal / Off-canvas Toast -->
+  <div id="cartToast" class="hidden fixed bottom-6 right-6 z-50 bg-slate-900 text-white p-4 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-4 text-xs">
+    <div class="w-10 h-10 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center text-lg font-bold">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <div>
+      <strong class="block text-white text-sm" id="toastTitle">¡Producto Añadido!</strong>
+      <span class="text-slate-400" id="toastDesc">Se sumó al carrito de compras</span>
+    </div>
+    <a href="carrito-view.html" class="ml-2 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition">
+      Ver Carrito
+    </a>
+  </div>
+
+  <script>
+    let currentCart = 3;
+
+    function updatePriceFilter(val) {
+      document.getElementById('priceDisplay').innerText = '$' + parseInt(val).toLocaleString('es-CL');
+      filterStoreCatalog();
+    }
+
+    function filterStoreCatalog() {
+      const selectedCat = document.querySelector('input[name="catRadio"]:checked').value;
+      const maxPrice = parseInt(document.getElementById('priceSlider').value);
+      const query = document.getElementById('catalogSearchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.store-card');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        const price = parseInt(card.getAttribute('data-price'));
+        const name = card.getAttribute('data-name').toLowerCase();
+
+        const matchCat = (selectedCat === 'all' || cat === selectedCat);
+        const matchPrice = price <= maxPrice;
+        const matchQuery = name.includes(query);
+
+        if (matchCat && matchPrice && matchQuery) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('productCount').innerText = visible;
+    }
+
+    function resetFilters() {
+      document.querySelector('input[name="catRadio"][value="all"]').checked = true;
+      document.getElementById('priceSlider').value = 1500000;
+      document.getElementById('priceDisplay').innerText = '$1.500.000';
+      document.getElementById('catalogSearchInput').value = '';
+      filterStoreCatalog();
+    }
+
+    function addToCart(name, price) {
+      currentCart++;
+      document.getElementById('headerCartCount').innerText = currentCart;
+      
+      const toast = document.getElementById('cartToast');
+      document.getElementById('toastTitle').innerText = name;
+      document.getElementById('toastDesc').innerText = `$${price.toLocaleString('es-CL')} agregado exitosamente.`;
+      toast.classList.remove('hidden');
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

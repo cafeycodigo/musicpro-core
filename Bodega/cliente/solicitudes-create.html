@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega | Nueva Solicitud de Despacho</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800">
+
+  <!-- Topbar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-6">
+          <a href="../../index.html" class="flex items-center gap-2 group text-slate-500 hover:text-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition">
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+            <div>
+              <span class="font-heading font-bold text-base text-slate-900 leading-none block">Bodega<span class="text-amber-500">WMS</span></span>
+              <span class="text-[10px] text-slate-400 font-medium tracking-wide">Portal Sucursales</span>
+            </div>
+          </a>
+
+          <nav class="hidden md:flex items-center space-x-1">
+            <a href="solicitudes-list.html" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-clipboard-list"></i>
+              <span>Mis Solicitudes</span>
+            </a>
+            <a href="stock-catalog.html" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>Catálogo de Stock</span>
+            </a>
+            <a href="solicitudes-create.html" class="px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200/60 flex items-center gap-1.5">
+              <i class="fa-solid fa-cart-plus"></i>
+              <span>Nuevo Pedido</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="solicitudes-list.html" class="px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition flex items-center gap-1">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Volver al Listado</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 text-xs font-semibold text-amber-700 uppercase tracking-wider mb-1">
+        <i class="fa-solid fa-file-circle-plus"></i>
+        <span>Formulario Maestro-Detalle</span>
+      </div>
+      <h1 class="font-heading font-bold text-2xl sm:text-3xl text-slate-900 tracking-tight">Nueva Solicitud de Despacho</h1>
+      <p class="text-slate-500 text-sm mt-0.5">Ingresa los parámetros de entrega y selecciona los productos requeridos con validación en tiempo real de stock.</p>
+    </div>
+
+    <form id="solicitudForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+
+      <!-- Cabecera del Pedido -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <h2 class="font-heading font-bold text-base text-slate-900 mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-truck-ramp-box text-amber-600"></i>
+          <span>1. Parámetros Generales del Despacho</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Sucursal Solicitante / Destino <span class="text-rose-500">*</span></label>
+            <select required class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition">
+              <option value="Providencia Mall">Sucursal Providencia Mall (Av. Andrés Bello 2425)</option>
+              <option value="Las Condes Hub">Sucursal Las Condes Hub (Av. Apoquindo 4800)</option>
+              <option value="Santiago Centro">Sucursal Santiago Centro (Paseo Ahumada 132)</option>
+              <option value="Viña del Mar">Sucursal Viña del Mar (Mall Marina Arauco)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Fecha Requerida de Entrega <span class="text-rose-500">*</span></label>
+            <input type="date" required value="2026-09-14" min="2026-09-10" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Nivel de Prioridad <span class="text-rose-500">*</span></label>
+            <select required class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition">
+              <option value="Normal">Normal (3 a 5 días hábiles)</option>
+              <option value="Media">Media (48 horas)</option>
+              <option value="Alta">Alta / Urgencia Quiebre (24 horas)</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Notas y Observaciones de Entrega</label>
+            <textarea rows="2" placeholder="Ej: Recepción por rampa subterránea antes de las 11:00 AM..." class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detalle de Productos -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <h2 class="font-heading font-bold text-base text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-amber-600"></i>
+            <span>2. Selección de Artículos y Cantidades</span>
+          </h2>
+          <span class="text-xs text-slate-500">Valida contra el stock físico disponible en Bodega Central</span>
+        </div>
+
+        <!-- Selector Interactivo -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6">
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+            <div class="sm:col-span-6">
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Buscar Producto / SKU</label>
+              <select id="skuSelector" onchange="updateStockLimits()" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                <option value="SKU-GTR-001" data-name="Guitarra Eléctrica Fender Stratocaster Player" data-stock="42" data-cat="Cuerdas">Fender Stratocaster Player (SKU-GTR-001) - Disp: 42 uds</option>
+                <option value="SKU-AMP-004" data-name="Amplificador Marshall DSL40CR a Tubos" data-stock="18" data-cat="Amplificación">Marshall DSL40CR (SKU-AMP-004) - Disp: 18 uds</option>
+                <option value="SKU-DRM-012" data-name="Batería Acústica Pearl Export 5 Piezas" data-stock="9" data-cat="Percusión">Pearl Export 5 Piezas (SKU-DRM-012) - Disp: 9 uds</option>
+                <option value="SKU-KEY-007" data-name="Sintetizador Korg Minilogue XD Polifónico" data-stock="26" data-cat="Teclados">Korg Minilogue XD (SKU-KEY-007) - Disp: 26 uds</option>
+                <option value="SKU-ACC-033" data-name="Cables de Instrumento Ernie Ball 3m Braided" data-stock="115" data-cat="Accesorios">Cables Ernie Ball 3m (SKU-ACC-033) - Disp: 115 uds</option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">
+                Cantidad a Solicitar 
+                <span id="stockBadge" class="text-amber-600 font-bold">(Máx: 42)</span>
+              </label>
+              <input type="number" id="cantidadInput" min="1" max="42" value="2" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+            </div>
+
+            <div class="sm:col-span-3">
+              <button type="button" onclick="addItemToTable()" class="w-full py-2 px-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-semibold shadow-sm transition flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-plus"></i>
+                <span>Agregar Ítem</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla de Ítems Solicitados -->
+        <div class="overflow-x-auto border border-slate-200 rounded-xl mb-4">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-semibold text-[11px] uppercase">
+              <tr>
+                <th class="py-3 px-4">SKU</th>
+                <th class="py-3 px-4">Descripción del Artículo</th>
+                <th class="py-3 px-4">Categoría</th>
+                <th class="py-3 px-4 text-center">Unidades</th>
+                <th class="py-3 px-4 text-right">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="itemsTableBody" class="divide-y divide-slate-200">
+              <!-- Item precargado 1 -->
+              <tr data-sku="SKU-GTR-001">
+                <td class="py-3 px-4 font-mono font-medium text-slate-900">SKU-GTR-001</td>
+                <td class="py-3 px-4 font-semibold text-slate-800">Guitarra Eléctrica Fender Stratocaster Player</td>
+                <td class="py-3 px-4 text-slate-500">Cuerdas</td>
+                <td class="py-3 px-4 text-center font-bold text-slate-900 item-qty">4</td>
+                <td class="py-3 px-4 text-right">
+                  <button type="button" onclick="removeItemRow(this)" class="text-rose-500 hover:text-rose-700 p-1 rounded hover:bg-rose-50 transition">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+              <!-- Item precargado 2 -->
+              <tr data-sku="SKU-AMP-004">
+                <td class="py-3 px-4 font-mono font-medium text-slate-900">SKU-AMP-004</td>
+                <td class="py-3 px-4 font-semibold text-slate-800">Amplificador Marshall DSL40CR a Tubos</td>
+                <td class="py-3 px-4 text-slate-500">Amplificación</td>
+                <td class="py-3 px-4 text-center font-bold text-slate-900 item-qty">2</td>
+                <td class="py-3 px-4 text-right">
+                  <button type="button" onclick="removeItemRow(this)" class="text-rose-500 hover:text-rose-700 p-1 rounded hover:bg-rose-50 transition">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Totales / Resumen -->
+        <div class="flex items-center justify-between p-4 bg-amber-50/70 border border-amber-200/80 rounded-xl">
+          <div class="flex items-center gap-2 text-xs text-amber-800 font-medium">
+            <i class="fa-solid fa-circle-info text-amber-600"></i>
+            <span>Los bultos quedan en estado <strong class="font-bold">Borrador</strong> hasta su confirmación central.</span>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-slate-600">Total Bultos Solicitados: </span>
+            <span id="totalBultos" class="font-heading font-bold text-xl text-amber-700">6</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <a href="solicitudes-list.html" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-100 transition">
+          Cancelar
+        </a>
+        <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-md hover:shadow transition flex items-center gap-2">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Emitir Solicitud de Despacho</span>
+        </button>
+      </div>
+
+    </form>
+
+  </main>
+
+  <script>
+    function updateStockLimits() {
+      const select = document.getElementById('skuSelector');
+      const selectedOption = select.options[select.selectedIndex];
+      const stock = selectedOption.getAttribute('data-stock');
+      const input = document.getElementById('cantidadInput');
+      input.max = stock;
+      document.getElementById('stockBadge').innerText = `(Máx: ${stock})`;
+      if (parseInt(input.value) > parseInt(stock)) {
+        input.value = stock;
+      }
+    }
+
+    function calculateTotal() {
+      const quantities = document.querySelectorAll('.item-qty');
+      let total = 0;
+      quantities.forEach(q => total += parseInt(q.innerText || 0));
+      document.getElementById('totalBultos').innerText = total;
+    }
+
+    function addItemToTable() {
+      const select = document.getElementById('skuSelector');
+      const selectedOption = select.options[select.selectedIndex];
+      const sku = selectedOption.value;
+      const name = selectedOption.getAttribute('data-name');
+      const cat = selectedOption.getAttribute('data-cat');
+      const maxStock = parseInt(selectedOption.getAttribute('data-stock'));
+      const input = document.getElementById('cantidadInput');
+      const qty = parseInt(input.value);
+
+      if (!qty || qty <= 0) {
+        alert('Por favor indica una cantidad válida.');
+        return;
+      }
+
+      if (qty > maxStock) {
+        alert(`No puedes solicitar más de ${maxStock} unidades según el stock disponible.`);
+        return;
+      }
+
+      // Check if already in table
+      const existingRow = document.querySelector(`tr[data-sku="${sku}"]`);
+      if (existingRow) {
+        const qtyCell = existingRow.querySelector('.item-qty');
+        const newQty = parseInt(qtyCell.innerText) + qty;
+        if (newQty > maxStock) {
+          alert(`El total acumulado (${newQty}) supera el stock disponible (${maxStock}).`);
+          return;
+        }
+        qtyCell.innerText = newQty;
+      } else {
+        const tbody = document.getElementById('itemsTableBody');
+        const tr = document.createElement('tr');
+        tr.setAttribute('data-sku', sku);
+        tr.className = 'hover:bg-slate-50 transition';
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-mono font-medium text-slate-900">${sku}</td>
+          <td class="py-3 px-4 font-semibold text-slate-800">${name}</td>
+          <td class="py-3 px-4 text-slate-500">${cat}</td>
+          <td class="py-3 px-4 text-center font-bold text-slate-900 item-qty">${qty}</td>
+          <td class="py-3 px-4 text-right">
+            <button type="button" onclick="removeItemRow(this)" class="text-rose-500 hover:text-rose-700 p-1 rounded hover:bg-rose-50 transition">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      calculateTotal();
+      input.value = 1;
+    }
+
+    function removeItemRow(button) {
+      button.closest('tr').remove();
+      calculateTotal();
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const rows = document.querySelectorAll('#itemsTableBody tr');
+      if (rows.length === 0) {
+        alert('Debes incluir al menos un producto en la solicitud.');
+        return;
+      }
+      alert('¡Solicitud creada exitosamente con folio SOL-2026-090 en estado Borrador!');
+      window.location.href = 'solicitudes-list.html';
+    }
+
+    // Init
+    updateStockLimits();
+    calculateTotal();
+  </script>
+</body>
+</html>

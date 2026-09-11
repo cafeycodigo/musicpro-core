@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega WMS | Panel de Administración</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- Sidebar Fija (260px) -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <!-- Brand -->
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-500/20">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">WMS Bodega</span>
+            <span class="text-[10px] text-amber-400 font-medium uppercase tracking-wider">Back-Office Admin</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="px-3 py-5 space-y-1">
+        <div class="px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">Módulos Principales</div>
+        
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-semibold text-xs border border-amber-500/20">
+          <i class="fa-solid fa-gauge-high w-4 text-center"></i>
+          <span>Dashboard WMS</span>
+        </a>
+
+        <a href="articulos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-barcode w-4 text-center"></i>
+          <span>Maestro de Artículos</span>
+        </a>
+
+        <a href="ubicaciones-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-table-cells-large w-4 text-center"></i>
+          <span>Ubicaciones & Racks</span>
+        </a>
+
+        <a href="categorias-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-tags w-4 text-center"></i>
+          <span>Categorías & Familias</span>
+        </a>
+
+        <a href="proveedores-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-truck-ramp-box w-4 text-center"></i>
+          <span>Proveedores</span>
+        </a>
+
+        <a href="motivos-ajuste.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-clipboard-check w-4 text-center"></i>
+          <span>Motivos de Ajuste</span>
+        </a>
+
+        <a href="zonas-almacen.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-warehouse w-4 text-center"></i>
+          <span>Gestión de Pasillos</span>
+        </a>
+
+        <a href="movimientos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-arrows-rotate w-4 text-center"></i>
+          <span>Movimientos & Mermas</span>
+        </a>
+
+        <div class="pt-4 px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">Operaciones Rápidas</div>
+
+        <a href="articulos-create.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-plus-circle w-4 text-center text-amber-400"></i>
+          <span>Nuevo Artículo</span>
+        </a>
+
+        <a href="movimientos-create.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-file-circle-plus w-4 text-center text-amber-400"></i>
+          <span>Ingreso / Ajuste</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- User / Switch -->
+    <div class="p-4 border-t border-slate-800">
+      <a href="../cliente/solicitudes-list.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition mb-3">
+        <i class="fa-solid fa-store text-amber-400"></i>
+        <span>Ver Portal Sucursales</span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center font-bold text-xs text-amber-400 border border-slate-700">
+          JB
+        </div>
+        <div class="overflow-hidden">
+          <div class="text-xs font-semibold text-white truncate">Juan Bustamante</div>
+          <div class="text-[10px] text-slate-500">Jefe de Bodega Central</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Container -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    
+    <!-- Topbar -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-4">
+        <div class="text-xs text-slate-500">Centro de Distribución: <strong class="text-slate-800 font-semibold">Bodega Central Lampa (Sector B-1)</strong></div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Sincronización en línea</span>
+        </div>
+
+        <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition" title="Ir al Hub Central">
+          <i class="fa-solid fa-house"></i>
+        </a>
+      </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">Dashboard de Inventario WMS</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-1">Supervisión física de bodegas, control de quiebres y flujo de reposición a tiendas.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="movimientos-create.html" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-down"></i>
+            <span>Recepción de Carga</span>
+          </a>
+          <a href="articulos-create.html" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i>
+            <span>Crear SKU</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- KPI Cards (Requeridos por la especificación) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        
+        <!-- Total SKUs -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-xs font-medium text-slate-500 block mb-1">Total SKUs Activos</span>
+            <span class="font-heading font-extrabold text-2xl text-slate-900">1,480</span>
+            <span class="text-[11px] text-emerald-600 font-semibold block mt-1">
+              <i class="fa-solid fa-arrow-up"></i> +12 este mes
+            </span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-barcode"></i>
+          </div>
+        </div>
+
+        <!-- Valorizado de Inventario -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-xs font-medium text-slate-500 block mb-1">Valorizado de Stock</span>
+            <span class="font-heading font-extrabold text-2xl text-slate-900">$342.8M</span>
+            <span class="text-[11px] text-slate-400 block mt-1">Costo neto de reposición</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-dollar-sign"></i>
+          </div>
+        </div>
+
+        <!-- Alertas de Quiebre -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-xs font-medium text-slate-500 block mb-1">Quiebres / Stock Crítico</span>
+            <span class="font-heading font-extrabold text-2xl text-rose-600">8 Artículos</span>
+            <span class="text-[11px] text-rose-500 font-semibold block mt-1">
+              <i class="fa-solid fa-triangle-exclamation"></i> Requiere reabastecer
+            </span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+        </div>
+
+        <!-- Solicitudes Pendientes -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-xs font-medium text-slate-500 block mb-1">Órdenes Picking Pendientes</span>
+            <span class="font-heading font-extrabold text-2xl text-amber-600">5 Despachos</span>
+            <span class="text-[11px] text-amber-600 font-semibold block mt-1">
+              <i class="fa-solid fa-clock"></i> 32 bultos por recolectar
+            </span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-dolly"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Main Columns: Tabla Rápida de Quiebres y Ocupación de Racks -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+        <!-- Quiebres Urgentes (2 cols) -->
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-2.5 h-2.5 rounded-full bg-rose-500"></div>
+              <h2 class="font-heading font-bold text-base text-slate-900">Artículos en Umbral Crítico o Quiebre</h2>
+            </div>
+            <a href="articulos-list.html" class="text-xs font-semibold text-amber-600 hover:text-amber-700">Ver Catálogo Completo &rarr;</a>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-600">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 uppercase font-semibold text-[11px]">
+                <tr>
+                  <th class="py-3 px-5">SKU / Artículo</th>
+                  <th class="py-3 px-4">Categoría</th>
+                  <th class="py-3 px-4 text-center">Físico</th>
+                  <th class="py-3 px-4 text-center">Mínimo</th>
+                  <th class="py-3 px-4">Estado</th>
+                  <th class="py-3 px-5 text-right">Acción</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="py-3.5 px-5">
+                    <span class="font-mono font-bold text-slate-900 block">SKU-DRM-012</span>
+                    <span class="text-slate-600 font-medium">Batería Acústica Pearl Export 5 Cuerpos</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-slate-500">Percusión</td>
+                  <td class="py-3.5 px-4 text-center font-bold text-rose-600">0</td>
+                  <td class="py-3.5 px-4 text-center font-medium text-slate-600">5</td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-700 border border-rose-200">Agotado</span>
+                  </td>
+                  <td class="py-3.5 px-5 text-right">
+                    <a href="movimientos-create.html" class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 font-semibold text-[11px] transition">Reabastecer</a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="py-3.5 px-5">
+                    <span class="font-mono font-bold text-slate-900 block">SKU-AMP-004</span>
+                    <span class="text-slate-600 font-medium">Amplificador Marshall DSL40CR a Tubos</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-slate-500">Amplificación</td>
+                  <td class="py-3.5 px-4 text-center font-bold text-amber-600">14</td>
+                  <td class="py-3.5 px-4 text-center font-medium text-slate-600">20</td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">Crítico</span>
+                  </td>
+                  <td class="py-3.5 px-5 text-right">
+                    <a href="movimientos-create.html" class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 font-semibold text-[11px] transition">Reabastecer</a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="py-3.5 px-5">
+                    <span class="font-mono font-bold text-slate-900 block">SKU-KEY-021</span>
+                    <span class="text-slate-600 font-medium">Pedal de Sustain Universal Yamaha FC4A</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-slate-500">Accesorios</td>
+                  <td class="py-3.5 px-4 text-center font-bold text-amber-600">6</td>
+                  <td class="py-3.5 px-4 text-center font-medium text-slate-600">15</td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">Crítico</span>
+                  </td>
+                  <td class="py-3.5 px-5 text-right">
+                    <a href="movimientos-create.html" class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 font-semibold text-[11px] transition">Reabastecer</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Ocupación de Pasillos / Almacén -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col justify-between">
+          <div>
+            <h2 class="font-heading font-bold text-base text-slate-900 mb-1">Capacidad de Racks Físicos</h2>
+            <p class="text-xs text-slate-500 mb-5">Ocupación estimada en bodega central</p>
+
+            <div class="space-y-4 text-xs">
+              <div>
+                <div class="flex justify-between mb-1 text-slate-700 font-semibold">
+                  <span>Pasillo 01 (Guitarras & Cuerdas)</span>
+                  <span>88%</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-rose-500 rounded-full" style="width: 88%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1 text-slate-700 font-semibold">
+                  <span>Pasillo 02 (Amplificación & Audio)</span>
+                  <span>72%</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-amber-500 rounded-full" style="width: 72%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1 text-slate-700 font-semibold">
+                  <span>Pasillo 03 (Percusión & Baterías)</span>
+                  <span>45%</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-emerald-500 rounded-full" style="width: 45%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1 text-slate-700 font-semibold">
+                  <span>Pasillo 04 (Zona Alto Valor / Clásicos)</span>
+                  <span>91%</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-rose-500 rounded-full" style="width: 91%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-5 border-t border-slate-100">
+            <a href="ubicaciones-list.html" class="w-full block text-center py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-semibold text-slate-700 transition">
+              Administrar Ubicaciones & Racks
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

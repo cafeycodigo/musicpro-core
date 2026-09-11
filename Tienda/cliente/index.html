@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Retail | Tienda de Instrumentos Musicales & Audio Pro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800 bg-white antialiased selection:bg-rose-500 selection:text-white">
+
+  <!-- Promo Top Strip -->
+  <div class="bg-gradient-to-r from-rose-600 to-indigo-700 text-white text-xs py-2 px-4 text-center font-medium">
+    <span>🔥 <strong>CYBER MUSICPRO:</strong> Hasta 40% OFF + 12 cuotas sin interés. Usa el cupón <code class="bg-black/30 px-2 py-0.5 rounded font-mono font-bold">MUSICPRO20</code> en el carrito.</span>
+  </div>
+
+  <!-- Main Navbar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+      
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-2xl bg-rose-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-rose-500/25 group-hover:rotate-6 transition-transform">
+            <i class="fa-solid fa-guitar"></i>
+          </div>
+          <div>
+            <span class="font-heading font-extrabold text-slate-900 text-lg leading-tight tracking-tight block">MusicPro <span class="text-rose-500">Store</span></span>
+            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Mega Tienda Musical</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600">
+          <a href="tienda-catalog.html" class="hover:text-rose-600 transition">Catálogo Completo</a>
+          <a href="#categorias" class="hover:text-rose-600 transition">Categorías</a>
+          <a href="#ofertas" class="hover:text-rose-600 transition">Cyber Descuentos</a>
+          <a href="#beneficios" class="hover:text-rose-600 transition">Beneficios</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="carrito-view.html" class="relative p-2.5 rounded-xl hover:bg-slate-100 text-slate-700 transition" title="Ver Carrito">
+          <i class="fa-solid fa-cart-shopping text-base"></i>
+          <span class="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center">2</span>
+        </a>
+
+        <a href="login.html" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition">
+          <i class="fa-solid fa-user text-slate-400"></i>
+          <span>Iniciar Sesión</span>
+        </a>
+
+        <a href="registro.html" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-md transition flex items-center gap-2 hover:scale-[1.02]">
+          <span>Crear Cuenta</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-12 pb-20 overflow-hidden bg-gradient-to-b from-rose-50/40 via-white to-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-bold">
+            <i class="fa-solid fa-bolt"></i> Distribuidor Oficial Autorizado en Chile
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl font-extrabold font-heading text-slate-900 tracking-tight leading-tight">
+            El Sonido que Buscas, <br>
+            <span class="bg-gradient-to-r from-rose-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">al Mejor Precio.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Descubre más de 10.000 guitarras, amplificadores, sintetizadores, baterías y equipos de grabación profesional con envío express a todo el país.
+          </p>
+
+          <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <a href="tienda-catalog.html" class="w-full sm:w-auto px-7 py-3.5 bg-rose-600 hover:bg-rose-500 text-white rounded-2xl font-bold text-sm shadow-xl shadow-rose-600/25 transition flex items-center justify-center gap-2 hover:scale-[1.02]">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <span>Ver Catálogo Online</span>
+            </a>
+            <a href="registro.html" class="w-full sm:w-auto px-7 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-2xl font-semibold text-sm transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-sparkles text-rose-500"></i>
+              <span>Regístrate con 10% OFF</span>
+            </a>
+          </div>
+
+          <!-- Features pill badges -->
+          <div class="pt-6 grid grid-cols-3 gap-4 border-t border-slate-200/80 text-center sm:text-left">
+            <div>
+              <span class="font-bold text-slate-900 block text-lg font-heading">+10.000</span>
+              <span class="text-xs text-slate-500">Productos en stock</span>
+            </div>
+            <div>
+              <span class="font-bold text-slate-900 block text-lg font-heading">24/48 hrs</span>
+              <span class="text-xs text-slate-500">Despacho garantizado</span>
+            </div>
+            <div>
+              <span class="font-bold text-slate-900 block text-lg font-heading">2 Años</span>
+              <span class="text-xs text-slate-500">Garantía oficial directa</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Visual Grid -->
+        <div class="lg:col-span-5 relative">
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Card 1 -->
+            <div class="p-5 rounded-3xl bg-slate-900 text-white shadow-xl flex flex-col justify-between h-56 group hover:scale-[1.02] transition-transform">
+              <div class="flex justify-between items-start">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white">-20% CYBER</span>
+                <i class="fa-solid fa-guitar text-rose-400 text-xl"></i>
+              </div>
+              <div>
+                <span class="text-xs text-slate-400 uppercase tracking-wider block">Fender</span>
+                <h4 class="font-bold font-heading text-base leading-snug">Player Stratocaster</h4>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span class="text-base font-extrabold text-white font-mono">$689.990</span>
+                  <span class="text-xs text-slate-400 line-through font-mono">$859.990</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="p-5 rounded-3xl bg-gradient-to-tr from-amber-500 to-amber-600 text-slate-950 shadow-xl flex flex-col justify-between h-56 group hover:scale-[1.02] transition-transform">
+              <div class="flex justify-between items-start">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-900 text-amber-400">EXCLUSIVO</span>
+                <i class="fa-solid fa-drum text-slate-950 text-xl"></i>
+              </div>
+              <div>
+                <span class="text-xs text-slate-900/80 uppercase tracking-wider block font-semibold">Roland V-Drums</span>
+                <h4 class="font-bold font-heading text-base leading-snug">Batería Electrónica TD-07</h4>
+                <span class="text-base font-extrabold text-slate-950 font-mono mt-1 block">$1.199.990</span>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-span-2 p-5 rounded-3xl bg-slate-100 border border-slate-200 shadow-sm flex items-center justify-between group hover:bg-slate-50 transition">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl">
+                  <i class="fa-solid fa-headphones"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Monitores y Auriculares de Estudio</h4>
+                  <p class="text-xs text-slate-500">Audio Technica, Shure, Sennheiser y Yamaha</p>
+                </div>
+              </div>
+              <a href="tienda-catalog.html" class="p-2.5 rounded-xl bg-white text-slate-700 shadow-xs group-hover:bg-rose-500 group-hover:text-white transition">
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Grid -->
+  <section id="categorias" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-extrabold text-rose-600 uppercase tracking-wider">Explora por Rubro</span>
+        <h2 class="text-3xl font-bold font-heading text-slate-900 mt-2">Instrumentos para Cada Escenario</h2>
+        <p class="text-xs text-slate-500 mt-1">Filtra y encuentra exactamente lo que tu banda o estudio necesita.</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <a href="tienda-catalog.html" class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-rose-300 hover:bg-rose-50/30 transition text-center group space-y-3">
+          <div class="w-16 h-16 rounded-2xl bg-white shadow-xs mx-auto flex items-center justify-center text-2xl text-slate-700 group-hover:text-rose-600 group-hover:scale-110 transition">
+            <i class="fa-solid fa-guitar"></i>
+          </div>
+          <h3 class="font-bold font-heading text-slate-900 text-sm">Guitarras & Bajos</h3>
+          <span class="text-[11px] text-slate-400 block">Eléctricas, acústicas, bajos</span>
+        </a>
+
+        <a href="tienda-catalog.html" class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-rose-300 hover:bg-rose-50/30 transition text-center group space-y-3">
+          <div class="w-16 h-16 rounded-2xl bg-white shadow-xs mx-auto flex items-center justify-center text-2xl text-slate-700 group-hover:text-rose-600 group-hover:scale-110 transition">
+            <i class="fa-solid fa-drum"></i>
+          </div>
+          <h3 class="font-bold font-heading text-slate-900 text-sm">Baterías & Percusión</h3>
+          <span class="text-[11px] text-slate-400 block">Acústicas, electrónicas, platillos</span>
+        </a>
+
+        <a href="tienda-catalog.html" class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-rose-300 hover:bg-rose-50/30 transition text-center group space-y-3">
+          <div class="w-16 h-16 rounded-2xl bg-white shadow-xs mx-auto flex items-center justify-center text-2xl text-slate-700 group-hover:text-rose-600 group-hover:scale-110 transition">
+            <i class="fa-solid fa-sliders"></i>
+          </div>
+          <h3 class="font-bold font-heading text-slate-900 text-sm">Teclados & Sintes</h3>
+          <span class="text-[11px] text-slate-400 block">Pianos digitales, controladores</span>
+        </a>
+
+        <a href="tienda-catalog.html" class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-rose-300 hover:bg-rose-50/30 transition text-center group space-y-3">
+          <div class="w-16 h-16 rounded-2xl bg-white shadow-xs mx-auto flex items-center justify-center text-2xl text-slate-700 group-hover:text-rose-600 group-hover:scale-110 transition">
+            <i class="fa-solid fa-microphone-lines"></i>
+          </div>
+          <h3 class="font-bold font-heading text-slate-900 text-sm">Audio & Grabación</h3>
+          <span class="text-[11px] text-slate-400 block">Micrófonos, interfaces, consolas</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Propositions / Benefits -->
+  <section id="beneficios" class="py-16 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg flex-shrink-0">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Despacho Express</h4>
+            <p class="text-xs text-slate-500 mt-0.5">Envíos rápidos a todo Chile con seguimiento GPS en tiempo real.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg flex-shrink-0">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Hasta 12 Cuotas Sin Interés</h4>
+            <p class="text-xs text-slate-500 mt-0.5">Con tarjeta MusicPro Black, Webpay Plus o transferencias.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-lg flex-shrink-0">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Garantía Directa</h4>
+            <p class="text-xs text-slate-500 mt-0.5">2 años de respaldo técnico oficial en taller especializado.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg flex-shrink-0">
+            <i class="fa-solid fa-gem"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Acumula Puntos Pro</h4>
+            <p class="text-xs text-slate-500 mt-0.5">Canjea puntos por accesorios, cupones y masterclasses VIP.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Register Banner -->
+  <section class="py-16 bg-slate-900 text-white relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 text-center space-y-6 relative z-10">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30 uppercase tracking-wider inline-block">
+        Comunidad MusicPro
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white">
+        Únete hoy y obtén un 10% de descuento en tu primera compra
+      </h2>
+      <p class="text-slate-400 text-sm max-w-xl mx-auto">
+        Crea tu cuenta gratis en menos de un minuto, guarda tus direcciones de entrega y revisa el historial de tus pedidos.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4 pt-2">
+        <a href="registro.html" class="px-8 py-3.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl font-bold text-sm shadow-xl shadow-rose-600/30 transition flex items-center justify-center gap-2 hover:scale-105">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>Crear Cuenta Gratis</span>
+        </a>
+        <a href="login.html" class="px-8 py-3.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-semibold text-sm transition flex items-center justify-center gap-2">
+          <span>Ya tengo cuenta • Iniciar Sesión</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-slate-900 text-slate-500 text-xs py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-6 h-6 rounded-lg bg-rose-600 text-white flex items-center justify-center font-bold text-xs">
+          <i class="fa-solid fa-guitar"></i>
+        </div>
+        <span>MusicPro Retail Online S.A. © 2026 • Todos los derechos reservados</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="../../index.html" class="hover:text-slate-300 transition">Hub Central</a>
+        <a href="tienda-catalog.html" class="hover:text-slate-300 transition">Catálogo</a>
+        <a href="compras-list.html" class="hover:text-slate-300 transition">Mis Compras</a>
+        <a href="../admin/index.html" class="hover:text-slate-300 transition">Admin Tienda</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicPro Card | Portal Financiero & Saldo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+            mono: ['"Share Tech Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800 antialiased">
+
+  <!-- Navbar -->
+  <header class="bg-slate-900 text-white sticky top-0 z-40 border-b border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-400/20">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base tracking-wide flex items-center gap-1.5">
+              MusicPro <span class="text-amber-400 font-extrabold text-xs uppercase px-1.5 py-0.5 rounded bg-amber-400/10 border border-amber-400/30">Black</span>
+            </span>
+            <span class="text-[10px] text-slate-400 block -mt-0.5">Banca y Fidelización Digital</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1 text-xs font-semibold">
+          <a href="tarjeta-dashboard.html" class="px-3 py-2 rounded-lg bg-slate-800 text-amber-400 border border-slate-700">Mi Tarjeta</a>
+          <a href="movimientos-list.html" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Movimientos</a>
+          <a href="transferencias-create.html" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Transferencias</a>
+          <a href="canjes-catalog.html" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Club de Puntos</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Points pill -->
+        <a href="canjes-catalog.html" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 hover:bg-amber-500/20 transition text-xs font-semibold">
+          <i class="fa-solid fa-gem text-amber-400"></i>
+          <span>14,850 Puntos Pro</span>
+        </a>
+
+        <!-- User profile -->
+        <div class="flex items-center gap-3 pl-3 border-l border-slate-800">
+          <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center font-bold text-xs border border-slate-600">
+            BM
+          </div>
+          <div class="hidden lg:block text-left">
+            <p class="text-xs font-bold text-white leading-tight">Benjamín Morales</p>
+            <span class="text-[10px] text-amber-400">Titular Platinum Black</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-8">
+    
+    <!-- Top Greeting & Status Banner -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-2xl font-bold font-heading text-slate-900">Hola, Benjamín Morales</h1>
+        <p class="text-xs text-slate-500 mt-0.5">Bienvenido a tu consola financiera. Monitorea tu cupo, facturación y beneficios exclusivos.</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="toggleCardFreezeModal()" id="btnFreezeState" class="px-4 py-2 border border-slate-300 hover:bg-slate-100 rounded-xl text-xs font-semibold text-slate-700 transition flex items-center gap-2">
+          <i class="fa-solid fa-snowflake text-cyan-600"></i>
+          <span>Congelar Tarjeta</span>
+        </button>
+        <button onclick="openPaymentModal()" class="px-5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl text-xs font-bold shadow-md shadow-amber-500/20 transition flex items-center gap-2">
+          <i class="fa-solid fa-money-bill-wave"></i>
+          <span>Pagar Saldo Facturado</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Grid: Visual Virtual Card + Account KPIs -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left (5 cols): Tarjeta Plástica maquetada en CSS -->
+      <div class="lg:col-span-5 flex flex-col items-center">
+        <!-- Physical CSS Card Container -->
+        <div class="w-full max-w-[420px] aspect-[1.586/1] rounded-2xl p-6 bg-gradient-to-tr from-slate-950 via-indigo-950 to-slate-900 border-2 border-amber-500/40 shadow-2xl relative overflow-hidden flex flex-col justify-between text-white select-none transition-transform duration-300 hover:scale-[1.02]">
+          
+          <!-- Background decorative shine -->
+          <div class="absolute -right-16 -top-16 w-56 h-56 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <!-- Top Row of Card: Brand & Category -->
+          <div class="flex items-center justify-between relative z-10">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-wave-square text-amber-400 text-xl"></i>
+              <span class="font-heading font-extrabold text-lg tracking-wider text-white">MusicPro</span>
+            </div>
+            <span class="font-heading font-extrabold text-xs uppercase tracking-widest text-amber-400 px-2 py-0.5 rounded border border-amber-500/30 bg-amber-500/10">
+              Black Edition
+            </span>
+          </div>
+
+          <!-- EMV Chip & Contactless icon -->
+          <div class="flex items-center gap-4 relative z-10 my-auto">
+            <!-- Realistic Gold Chip -->
+            <div class="w-12 h-9 rounded-md bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-500 border border-amber-600 shadow-inner flex flex-col justify-around p-1 relative overflow-hidden">
+              <div class="w-full h-px bg-amber-700/50"></div>
+              <div class="w-full h-px bg-amber-700/50"></div>
+              <div class="w-4 h-4 rounded-full border border-amber-700/40 absolute left-4"></div>
+            </div>
+            <!-- Contactless -->
+            <i class="fa-solid fa-wifi rotate-90 text-slate-400 text-lg"></i>
+          </div>
+
+          <!-- Card Number & Mask -->
+          <div class="relative z-10">
+            <p id="cardNumberDisplay" class="font-mono text-xl sm:text-2xl font-bold tracking-[0.2em] text-slate-100 drop-shadow">
+              •••• •••• •••• 4589
+            </p>
+          </div>
+
+          <!-- Bottom Row: Cardholder, Expiry & CVV -->
+          <div class="flex items-end justify-between relative z-10 pt-2 text-xs">
+            <div>
+              <span class="text-[9px] uppercase tracking-wider text-slate-400 block">Titular de la Cuenta</span>
+              <span class="font-bold tracking-wide text-slate-100 uppercase">Benjamín Morales</span>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-[9px] uppercase tracking-wider text-slate-400 block">Vence</span>
+                <span class="font-mono font-bold text-slate-200">08/30</span>
+              </div>
+              <div>
+                <span class="text-[9px] uppercase tracking-wider text-slate-400 block">CVV</span>
+                <span id="cardCvvDisplay" class="font-mono font-bold text-amber-400">•••</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Card Switch Controls -->
+        <div class="w-full max-w-[420px] mt-4 flex items-center justify-between p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-eye text-slate-400 text-xs"></i>
+            <span class="text-xs font-semibold text-slate-700">Ver datos sensibles</span>
+          </div>
+          <button onclick="toggleCardSensitiveData()" id="btnToggleMask" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-semibold text-slate-700 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-unlock text-xs"></i>
+            <span id="btnMaskText">Mostrar Número & CVV</span>
+          </button>
+        </div>
+
+        <!-- Card Security Features -->
+        <div class="w-full max-w-[420px] mt-3 grid grid-cols-2 gap-2 text-center text-xs">
+          <div class="p-2.5 bg-white rounded-xl border border-slate-200 text-slate-600">
+            <i class="fa-solid fa-shield-halved text-emerald-500 mb-1 text-sm block"></i>
+            <span class="text-[11px] font-semibold">Protección 3D Secure</span>
+          </div>
+          <div class="p-2.5 bg-white rounded-xl border border-slate-200 text-slate-600">
+            <i class="fa-solid fa-globe text-cyan-500 mb-1 text-sm block"></i>
+            <span class="text-[11px] font-semibold">Compras Globales</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right (7 cols): KPIs Financieros y Desglose de Línea de Crédito -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- Three Big Financial KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <!-- Cupo Disponible -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Cupo Disponible</span>
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-xs">
+                <i class="fa-solid fa-wallet"></i>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold font-heading text-emerald-600">$2.450.000</h3>
+            <p class="text-[11px] text-slate-400 mt-1">Línea total: $3.500.000</p>
+          </div>
+
+          <!-- Deuda Facturada -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Facturado del Mes</span>
+              <div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-xs">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold font-heading text-rose-600">$1.050.000</h3>
+            <p class="text-[11px] text-slate-400 mt-1">Vence el: <strong>28 Sept 2026</strong></p>
+          </div>
+
+          <!-- Puntos Pro -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Puntos Pro</span>
+              <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-xs">
+                <i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold font-heading text-amber-500">14.850 pts</h3>
+            <p class="text-[11px] text-slate-400 mt-1">Equivalen a $74.250 CLP</p>
+          </div>
+        </div>
+
+        <!-- Meter de Uso de Línea de Crédito -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">Uso de Línea de Crédito</h3>
+              <p class="text-xs text-slate-500">Distribución de compras nacionales e internacionales.</p>
+            </div>
+            <span class="text-xs font-bold text-slate-700">30% utilizado</span>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="w-full bg-slate-100 rounded-full h-3.5 overflow-hidden flex">
+            <div class="bg-amber-500 h-3.5 transition-all duration-500" style="width: 25%" title="Compras Nacionales ($850.000)"></div>
+            <div class="bg-indigo-500 h-3.5 transition-all duration-500" style="width: 5%" title="Compras Internacionales ($200.000)"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-amber-500 flex-shrink-0"></span>
+              <div>
+                <span class="text-slate-500 block">Nacional:</span>
+                <strong class="text-slate-800">$850.000</strong>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-indigo-500 flex-shrink-0"></span>
+              <div>
+                <span class="text-slate-500 block">Internacional:</span>
+                <strong class="text-slate-800">USD $220 (~$200.000)</strong>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-slate-200 flex-shrink-0"></span>
+              <div>
+                <span class="text-slate-500 block">Disponible:</span>
+                <strong class="text-emerald-600">$2.450.000</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accesos directos / Operaciones Rápidas -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+          <a href="avance-simulador.html" class="p-4 bg-amber-500/10 hover:bg-amber-500/20 rounded-xl border border-amber-500/30 text-center transition group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center mx-auto mb-2 transition shadow-md">
+              <i class="fa-solid fa-hand-holding-dollar"></i>
+            </div>
+            <span class="text-xs font-extrabold text-slate-900 block">Avance $</span>
+            <span class="text-[10px] text-amber-700 font-bold">Simular cuotas</span>
+          </a>
+
+          <a href="movimientos-list.html" class="p-4 bg-white hover:bg-slate-50 rounded-xl border border-slate-200 text-center transition group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-amber-50 group-hover:text-amber-600 text-slate-600 flex items-center justify-center mx-auto mb-2 transition">
+              <i class="fa-solid fa-list-check"></i>
+            </div>
+            <span class="text-xs font-semibold text-slate-800 block">Cartola</span>
+            <span class="text-[10px] text-slate-400">Ver historial</span>
+          </a>
+
+          <a href="voucher.html" class="p-4 bg-white hover:bg-slate-50 rounded-xl border border-slate-200 text-center transition group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-amber-50 group-hover:text-amber-600 text-slate-600 flex items-center justify-center mx-auto mb-2 transition">
+              <i class="fa-solid fa-receipt"></i>
+            </div>
+            <span class="text-xs font-semibold text-slate-800 block">Voucher</span>
+            <span class="text-[10px] text-slate-400">Último recibo</span>
+          </a>
+
+          <a href="canjes-catalog.html" class="p-4 bg-white hover:bg-slate-50 rounded-xl border border-slate-200 text-center transition group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-amber-50 group-hover:text-amber-600 text-slate-600 flex items-center justify-center mx-auto mb-2 transition">
+              <i class="fa-solid fa-gift"></i>
+            </div>
+            <span class="text-xs font-semibold text-slate-800 block">Club Canjes</span>
+            <span class="text-[10px] text-slate-400">Canjear puntos</span>
+          </a>
+
+          <button onclick="toggleCardFreezeModal()" class="p-4 bg-white hover:bg-slate-50 rounded-xl border border-slate-200 text-center transition group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-cyan-50 group-hover:text-cyan-600 text-slate-600 flex items-center justify-center mx-auto mb-2 transition">
+              <i class="fa-solid fa-snowflake"></i>
+            </div>
+            <span class="text-xs font-semibold text-slate-800 block">Seguridad</span>
+            <span class="text-[10px] text-slate-400">Bloqueo temporal</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Recent Transactions Table Preview -->
+    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+        <div>
+          <h2 class="text-base font-bold font-heading text-slate-900">Últimos Movimientos Registrados</h2>
+          <p class="text-xs text-slate-500">Transacciones de los últimos 7 días con cargo a tu tarjeta.</p>
+        </div>
+        <a href="movimientos-list.html" class="text-xs font-semibold text-amber-600 hover:text-amber-700 flex items-center gap-1.5">
+          <span>Ver cartola completa</span>
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </a>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-600">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-semibold">
+            <tr>
+              <th class="px-6 py-3">Comercio / Detalle</th>
+              <th class="px-6 py-3">Rubro</th>
+              <th class="px-6 py-3">Fecha & Hora</th>
+              <th class="px-6 py-3">Cuotas</th>
+              <th class="px-6 py-3 text-right">Monto</th>
+              <th class="px-6 py-3 text-center">Acción</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="px-6 py-4 font-semibold text-slate-900 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-guitar"></i>
+                </div>
+                <div>
+                  <span class="block">MusicPro Retail Online</span>
+                  <span class="text-[10px] text-slate-400 font-normal">Guitarra Fender Stratocaster</span>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-50 text-indigo-700">Música & Audio</span>
+              </td>
+              <td class="px-6 py-4 text-slate-500">09 Sep 2026, 18:45</td>
+              <td class="px-6 py-4 font-medium text-slate-700">01/06</td>
+              <td class="px-6 py-4 text-right font-bold text-rose-600">-$689.990</td>
+              <td class="px-6 py-4 text-center">
+                <a href="movimientos-detail.html" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[11px] font-semibold transition">Comprobante</a>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="px-6 py-4 font-semibold text-slate-900 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                </div>
+                <div>
+                  <span class="block">Abono Transferencia Bancaria</span>
+                  <span class="text-[10px] text-slate-400 font-normal">Pago anticipado de facturación</span>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700">Pago / Abono</span>
+              </td>
+              <td class="px-6 py-4 text-slate-500">07 Sep 2026, 11:20</td>
+              <td class="px-6 py-4 font-medium text-slate-500">Contado</td>
+              <td class="px-6 py-4 text-right font-bold text-emerald-600">+$250.000</td>
+              <td class="px-6 py-4 text-center">
+                <a href="movimientos-detail.html" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[11px] font-semibold transition">Comprobante</a>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="px-6 py-4 font-semibold text-slate-900 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-plane"></i>
+                </div>
+                <div>
+                  <span class="block">Spotify Premium Family</span>
+                  <span class="text-[10px] text-slate-400 font-normal">Suscripción recurrente mensual</span>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700">Servicios Digitales</span>
+              </td>
+              <td class="px-6 py-4 text-slate-500">05 Sep 2026, 04:00</td>
+              <td class="px-6 py-4 font-medium text-slate-500">01/01</td>
+              <td class="px-6 py-4 text-right font-bold text-rose-600">-$8.990</td>
+              <td class="px-6 py-4 text-center">
+                <a href="movimientos-detail.html" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[11px] font-semibold transition">Comprobante</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Modal Pagar Facturación -->
+  <div id="paymentModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <h3 class="text-base font-bold font-heading text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-money-bill-wave text-amber-500"></i>
+          Pagar Facturación del Mes
+        </h3>
+        <button onclick="closePaymentModal()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div class="bg-amber-50 rounded-xl p-3 border border-amber-200/60">
+          <div class="flex justify-between font-semibold text-slate-800">
+            <span>Monto Total Facturado:</span>
+            <span class="text-rose-600 font-bold">$1.050.000</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+            <span>Pago Mínimo Sugerido:</span>
+            <span>$52.500</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1.5">Monto a Cancelar</label>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+              <input type="radio" name="payAmount" checked class="text-amber-500 focus:ring-amber-500">
+              <span class="font-medium text-slate-800">Monto total facturado ($1.050.000)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+              <input type="radio" name="payAmount" class="text-amber-500 focus:ring-amber-500">
+              <span class="font-medium text-slate-800">Pago mínimo ($52.500)</span>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Medio de Pago</label>
+          <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <option>Cuenta Corriente Banco Santander (**** 4812)</option>
+            <option>Webpay Plus / Tarjeta de Débito</option>
+            <option>Puntos Pro Acumulados ($74.250)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex gap-3 mt-6">
+        <button onclick="closePaymentModal()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+          Cancelar
+        </button>
+        <button onclick="confirmPayment()" class="flex-1 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-bold shadow-md shadow-amber-500/20 transition">
+          Confirmar Pago
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Congelar / Descongelar Tarjeta -->
+  <div id="freezeModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 text-center animate-in fade-in zoom-in-95 duration-150">
+      <div id="freezeIcon" class="w-14 h-14 bg-cyan-100 text-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg shadow-cyan-500/10">
+        <i class="fa-solid fa-snowflake"></i>
+      </div>
+      <h3 id="freezeTitle" class="text-lg font-bold text-slate-900 mb-1">¿Congelar Temporalmente tu Tarjeta?</h3>
+      <p id="freezeDesc" class="text-xs text-slate-500 mb-5">Al congelarla, se rechazarán transacciones presenciales y compras por internet hasta que decidas reactivarla.</p>
+      
+      <div class="flex gap-3">
+        <button onclick="toggleCardFreezeModal()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+          Volver
+        </button>
+        <button onclick="applyCardFreeze()" id="btnConfirmFreeze" class="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-semibold shadow-sm transition">
+          Confirmar Congelamiento
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isMasked = true;
+    let isFrozen = false;
+
+    function toggleCardSensitiveData() {
+      if (isMasked) {
+        // Unmask
+        document.getElementById('cardNumberDisplay').textContent = "4589  7201  3890  4589";
+        document.getElementById('cardCvvDisplay').textContent = "842";
+        document.getElementById('btnMaskText').textContent = "Ocultar Datos";
+        isMasked = false;
+      } else {
+        // Mask
+        document.getElementById('cardNumberDisplay').textContent = "•••• •••• •••• 4589";
+        document.getElementById('cardCvvDisplay').textContent = "•••";
+        document.getElementById('btnMaskText').textContent = "Mostrar Número & CVV";
+        isMasked = true;
+      }
+    }
+
+    function openPaymentModal() {
+      document.getElementById('paymentModal').classList.remove('hidden');
+    }
+
+    function closePaymentModal() {
+      document.getElementById('paymentModal').classList.add('hidden');
+    }
+
+    function confirmPayment() {
+      alert('¡Pago procesado exitosamente! Tu cupo disponible ha sido actualizado en tiempo real.');
+      closePaymentModal();
+    }
+
+    function toggleCardFreezeModal() {
+      const modal = document.getElementById('freezeModal');
+      modal.classList.toggle('hidden');
+    }
+
+    function applyCardFreeze() {
+      isFrozen = !isFrozen;
+      toggleCardFreezeModal();
+      const btn = document.getElementById('btnFreezeState');
+      if (isFrozen) {
+        btn.innerHTML = `<i class="fa-solid fa-lock-open text-emerald-600"></i><span>Descongelar Tarjeta</span>`;
+        btn.className = "px-4 py-2 border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 rounded-xl text-xs font-semibold text-emerald-800 transition flex items-center gap-2";
+        alert('Tarjeta congelada preventivamente. Las compras están bloqueadas.');
+      } else {
+        btn.innerHTML = `<i class="fa-solid fa-snowflake text-cyan-600"></i><span>Congelar Tarjeta</span>`;
+        btn.className = "px-4 py-2 border border-slate-300 hover:bg-slate-100 rounded-xl text-xs font-semibold text-slate-700 transition flex items-center gap-2";
+        alert('Tarjeta descongelada. Ahora puedes realizar compras normalmente.');
+      }
+    }
+  </script>
+</body>
+</html>

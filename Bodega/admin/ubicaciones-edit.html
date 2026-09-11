@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega WMS | Modificar Ubicación P02-R04-N1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-40 border-r border-slate-800">
+    <div>
+      <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
+        <a href="../../index.html" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg shadow-amber-500/20">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-white text-base leading-tight block">WMS Bodega</span>
+            <span class="text-[10px] text-amber-400 font-medium uppercase tracking-wider">Back-Office Admin</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="px-3 py-5 space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-gauge-high w-4 text-center"></i>
+          <span>Dashboard WMS</span>
+        </a>
+        <a href="articulos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-barcode w-4 text-center"></i>
+          <span>Maestro de Artículos</span>
+        </a>
+        <a href="ubicaciones-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-semibold text-xs border border-amber-500/20">
+          <i class="fa-solid fa-table-cells-large w-4 text-center"></i>
+          <span>Ubicaciones & Racks</span>
+        </a>
+        <a href="movimientos-list.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 hover:text-white text-slate-400 font-medium text-xs transition">
+          <i class="fa-solid fa-arrows-rotate w-4 text-center"></i>
+          <span>Movimientos & Mermas</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="ubicaciones-list.html" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition">
+        <i class="fa-solid fa-arrow-left text-amber-400"></i>
+        <span>Volver a Ubicaciones</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="ubicaciones-list.html" class="hover:text-slate-800">Ubicaciones</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Modificar P02-R04-N1</span>
+      </div>
+      <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+      <div class="max-w-3xl mx-auto">
+        <div class="mb-6">
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Editar Posición de Rack P02-R04-N1</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Ajuste de límites de carga y estado operativo de la posición.</p>
+        </div>
+
+        <form onsubmit="handleEditLocation(event)" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Código Ubicación</label>
+              <input type="text" value="P02-R04-N1" disabled class="w-full bg-slate-100 border border-slate-200 rounded-lg px-3.5 py-2 text-xs text-slate-500 font-mono cursor-not-allowed">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Estado Operativo</label>
+              <select class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-amber-500">
+                <option value="Habilitado" selected>Habilitado para almacenamiento</option>
+                <option value="Mantenimiento">En Mantención / Reparación estructural</option>
+                <option value="Clausurado">Clausurado temporalmente</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Zona de Almacenamiento</label>
+              <select class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-amber-500">
+                <option value="Seco" selected>Zona Seco / Climatizada (Guitarras, Acústicos)</option>
+                <option value="Audio">Zona Cajas Grandes (Amplificación, Baterías)</option>
+                <option value="Alto Valor">Jaula de Alto Valor</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Capacidad Máxima Soportada (kg)</label>
+              <input type="number" value="800" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-amber-500">
+            </div>
+          </div>
+
+          <!-- Current stored items notice -->
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600">
+            <strong class="font-bold text-slate-800 block mb-1">Carga Actual en esta Ubicación:</strong>
+            <span>54 unidades de <em>Guitarra Eléctrica Fender Stratocaster Player</em> (Peso estimado actual: 226 kg / 28% de capacidad máxima).</span>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+            <a href="ubicaciones-list.html" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-100">
+              Cancelar
+            </a>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-md transition flex items-center gap-2">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Guardar Cambios</span>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function handleEditLocation(e) {
+      e.preventDefault();
+      alert('¡Parámetros de ubicación P02-R04-N1 guardados con éxito!');
+      window.location.href = 'ubicaciones-list.html';
+    }
+  </script>
+</body>
+</html>
