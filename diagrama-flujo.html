@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagramas de Flujo de Usuario | MusicPro Enterprise Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+            mono: ['Share Tech Mono', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#fff1f2',
+              500: '#e11d48',
+              600: '#be123c',
+              900: '#4c0519'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .mermaid-container {
+      cursor: grab;
+      user-select: none;
+      transition: transform 0.15s ease-out;
+      transform-origin: center top;
+    }
+    .mermaid-container:active {
+      cursor: grabbing;
+    }
+    /* Estilos personalizados para los nodos de Mermaid */
+    .node rect, .node circle, .node ellipse, .node polygon {
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 1.5px !important;
+    }
+    .edgePath path {
+      stroke: #64748b !important;
+      stroke-width: 2px !important;
+    }
+    .edgeLabel {
+      background-color: #0f172a !important;
+      color: #94a3b8 !important;
+    }
+    .cluster rect {
+      fill: rgba(30, 41, 59, 0.4) !important;
+      stroke: rgba(148, 163, 184, 0.25) !important;
+      stroke-width: 1px !important;
+    }
+    .cluster text {
+      fill: #f8fafc !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-weight: 600 !important;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-rose-500 selection:text-white">
+
+  <!-- Top Navbar -->
+  <header class="sticky top-0 z-50 glass border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-rose-900/30 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-diagram-project text-lg"></i>
+          </div>
+          <div>
+            <span class="font-display font-bold text-lg tracking-tight text-white flex items-center gap-2">
+              MusicPro <span class="text-xs px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-300 font-mono">FLOWS v2.4</span>
+            </span>
+            <p class="text-xs text-slate-400 font-medium">Flujos de Interacción de Usuario</p>
+          </div>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-2">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-house text-slate-400"></i> Hub Central
+        </a>
+        <a href="base-de-datos.html" class="px-3 py-1.5 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-database text-cyan-400"></i> Base de Datos
+        </a>
+        <a href="README.md" class="px-3 py-1.5 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-book text-amber-400"></i> Documentación
+        </a>
+        <a href="PresentacionMusicPro.pdf" target="_blank" class="px-3 py-1.5 rounded-lg text-sm bg-rose-600/20 text-rose-300 hover:bg-rose-600 hover:text-white border border-rose-500/30 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-file-pdf"></i> Ver PDF
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/Bemtorres" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs text-slate-300 bg-slate-900 border border-slate-700/60 px-3 py-1.5 rounded-full hover:border-rose-500/60 hover:text-rose-400 transition-all">
+          <i class="fa-brands fa-github text-sm"></i>
+          <span>Creado por <strong class="text-white font-semibold">Bemtorres</strong></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero & Controls -->
+  <section class="border-b border-slate-800 bg-gradient-to-b from-slate-900/80 to-slate-950 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold mb-3">
+            <i class="fa-solid fa-network-wired"></i> Arquitectura de Flujos UX & Sistema
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
+            Diagramas de Flujo de Usuario
+          </h1>
+          <p class="text-slate-400 mt-1 max-w-2xl text-sm sm:text-base">
+            Mapeo interactivo de pantallas, estados y transiciones para los roles de <strong>Cliente</strong> y <strong>Administrador</strong> en los 4 subsistemas de la suite.
+          </p>
+        </div>
+
+        <!-- Zoom and Export Toolbar -->
+        <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 p-1.5 rounded-xl shadow-inner">
+          <button id="btnZoomOut" title="Reducir Zoom" class="w-9 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 flex items-center justify-center transition-colors">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+          </button>
+          <span id="zoomLevel" class="font-mono text-xs text-slate-300 px-2 min-w-[50px] text-center font-bold">100%</span>
+          <button id="btnZoomIn" title="Aumentar Zoom" class="w-9 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 flex items-center justify-center transition-colors">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </button>
+          <button id="btnZoomReset" title="Restablecer" class="px-3 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors">
+            <i class="fa-solid fa-arrows-rotate"></i> Reset
+          </button>
+          <div class="w-px h-6 bg-slate-800 mx-1"></div>
+          <button id="btnExportSvg" title="Descargar SVG" class="px-3 h-9 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm">
+            <i class="fa-solid fa-download"></i> SVG
+          </button>
+          <a href="diagrama-flujo.md" target="_blank" class="px-3 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors">
+            <i class="fa-brands fa-markdown"></i> Markdown
+          </a>
+        </div>
+      </div>
+
+      <!-- Tab Selectors -->
+      <div class="mt-8 flex flex-wrap gap-2 border-b border-slate-800 pb-3">
+        <button class="tab-btn active px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 bg-rose-600 text-white shadow-lg shadow-rose-900/30" data-target="flow-global">
+          <i class="fa-solid fa-globe"></i> Ecosistema Global
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-all flex items-center gap-2" data-target="flow-bodega">
+          <i class="fa-solid fa-warehouse text-amber-400"></i> Bodega WMS
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-all flex items-center gap-2" data-target="flow-tienda">
+          <i class="fa-solid fa-store text-rose-400"></i> Tienda & POS
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-all flex items-center gap-2" data-target="flow-transporte">
+          <i class="fa-solid fa-truck-fast text-cyan-400"></i> Transporte Courier
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-all flex items-center gap-2" data-target="flow-tarjeta">
+          <i class="fa-solid fa-credit-card text-purple-400"></i> BeatPay Virtual
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Canvas Section -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+
+    <!-- Viewport Container for Diagram -->
+    <div class="w-full bg-slate-900/70 border border-slate-800/80 rounded-2xl p-4 sm:p-6 shadow-2xl relative overflow-hidden flex flex-col min-h-[600px]">
+      
+      <!-- Sub-view Badge & Info -->
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+        <div id="flowHeaderInfo">
+          <h2 class="text-lg font-display font-bold text-white flex items-center gap-2" id="flowTitle">
+            <i class="fa-solid fa-globe text-rose-500"></i> Flujo del Ecosistema Omnicanal Integrado
+          </h2>
+          <p class="text-xs text-slate-400" id="flowSubtitle">
+            Interacción cruzada entre Cliente, Tienda, Bodega Central, Courier y BeatPay Virtual.
+          </p>
+        </div>
+        <div class="text-xs font-mono text-slate-400 bg-slate-800/80 px-2.5 py-1 rounded-lg border border-slate-700/50">
+          Renderizado con Mermaid.js v10
+        </div>
+      </div>
+
+      <!-- Diagram Overflow Canvas -->
+      <div id="diagramViewport" class="flex-1 overflow-auto flex items-center justify-center p-2 min-h-[500px]">
+        <div id="diagramWrapper" class="mermaid-container">
+          <div id="mermaidTarget" class="mermaid flex justify-center">
+            <!-- Mermaid Code will be injected here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Hint -->
+      <div class="mt-4 pt-3 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-2">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-circle-info text-rose-400"></i>
+          <span>Haz clic y arrastra para mover el lienzo, o usa los controles de zoom en la barra superior.</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> Cliente / Front</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-500 inline-block"></span> Administrador / WMS</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-purple-500 inline-block"></span> Fintech / Pagos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen Navigation & Links Reference Cards -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Bodega Card -->
+      <div class="glass p-5 rounded-2xl border border-amber-500/20 hover:border-amber-500/40 transition-all flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
+            <i class="fa-solid fa-warehouse text-lg"></i>
+          </div>
+          <h3 class="font-display font-bold text-white text-base">Bodega Central (WMS)</h3>
+          <p class="text-xs text-slate-400 mt-1">22 Vistas HTML desarrolladas para recepción, slotting, picking y kardex.</p>
+          <ul class="mt-3 text-xs text-slate-300 space-y-1.5 font-mono">
+            <li><a href="Bodega/cliente/stock-catalog.html" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-amber-500"></i> stock-catalog.html</a></li>
+            <li><a href="Bodega/cliente/solicitudes-create.html" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-amber-500"></i> solicitudes-create.html</a></li>
+            <li><a href="Bodega/admin/articulos-list.html" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-amber-500"></i> articulos-list.html</a></li>
+            <li><a href="Bodega/admin/movimientos-create.html" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-amber-500"></i> movimientos-create.html</a></li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+          <a href="Bodega/requerimientos.html" class="text-amber-400 hover:underline">250 Requisitos</a>
+          <a href="Bodega/README.md" class="text-slate-400 hover:text-white">README &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Tienda Card -->
+      <div class="glass p-5 rounded-2xl border border-rose-500/20 hover:border-rose-500/40 transition-all flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center mb-3">
+            <i class="fa-solid fa-store text-lg"></i>
+          </div>
+          <h3 class="font-display font-bold text-white text-base">Tienda E-Commerce & POS</h3>
+          <p class="text-xs text-slate-400 mt-1">25 Vistas HTML con carrito reactivo, demos MP3 y checkout en 2 pasos.</p>
+          <ul class="mt-3 text-xs text-slate-300 space-y-1.5 font-mono">
+            <li><a href="Tienda/cliente/tienda-catalog.html" class="hover:text-rose-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-rose-500"></i> tienda-catalog.html</a></li>
+            <li><a href="Tienda/cliente/producto-detalle.html" class="hover:text-rose-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-rose-500"></i> producto-detalle.html</a></li>
+            <li><a href="Tienda/cliente/checkout-step2.html" class="hover:text-rose-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-rose-500"></i> checkout-step2.html</a></li>
+            <li><a href="Tienda/admin/ordenes-list.html" class="hover:text-rose-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-rose-500"></i> ordenes-list.html</a></li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+          <a href="Tienda/requerimientos.html" class="text-rose-400 hover:underline">250 Requisitos</a>
+          <a href="Tienda/README.md" class="text-slate-400 hover:text-white">README &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Transporte Card -->
+      <div class="glass p-5 rounded-2xl border border-cyan-500/20 hover:border-cyan-500/40 transition-all flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-3">
+            <i class="fa-solid fa-truck-fast text-lg"></i>
+          </div>
+          <h3 class="font-display font-bold text-white text-base">Transporte Express Courier</h3>
+          <p class="text-xs text-slate-400 mt-1">24 Vistas HTML para cotizador, tracking TRA, etiquetas 4x6 y POD.</p>
+          <ul class="mt-3 text-xs text-slate-300 space-y-1.5 font-mono">
+            <li><a href="Transporte/cliente/tracking-detail.html" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-cyan-500"></i> tracking-detail.html</a></li>
+            <li><a href="Transporte/cliente/envios-create.html" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-cyan-500"></i> envios-create.html</a></li>
+            <li><a href="Transporte/cliente/etiqueta.html" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-cyan-500"></i> etiqueta.html (4x6)</a></li>
+            <li><a href="Transporte/admin/rutas-create.html" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-cyan-500"></i> rutas-create.html</a></li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+          <a href="Transporte/requerimientos.html" class="text-cyan-400 hover:underline">250 Requisitos</a>
+          <a href="Transporte/README.md" class="text-slate-400 hover:text-white">README &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Tarjeta Card -->
+      <div class="glass p-5 rounded-2xl border border-purple-500/20 hover:border-purple-500/40 transition-all flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-3">
+            <i class="fa-solid fa-credit-card text-lg"></i>
+          </div>
+          <h3 class="font-display font-bold text-white text-base">BeatPay Virtual Fintech</h3>
+          <p class="text-xs text-slate-400 mt-1">22 Vistas HTML para cupo, simulador de avances, voucher y antifraude.</p>
+          <ul class="mt-3 text-xs text-slate-300 space-y-1.5 font-mono">
+            <li><a href="Tarjeta/cliente/tarjeta-dashboard.html" class="hover:text-purple-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-purple-500"></i> tarjeta-dashboard.html</a></li>
+            <li><a href="Tarjeta/cliente/avance-simulador.html" class="hover:text-purple-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-purple-500"></i> avance-simulador.html</a></li>
+            <li><a href="Tarjeta/cliente/voucher.html" class="hover:text-purple-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-purple-500"></i> voucher.html</a></li>
+            <li><a href="Tarjeta/admin/fraude-reglas.html" class="hover:text-purple-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrow-right text-[10px] text-purple-500"></i> fraude-reglas.html</a></li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+          <a href="Tarjeta/requerimientos.html" class="text-purple-400 hover:underline">250 Requisitos</a>
+          <a href="Tarjeta/README.md" class="text-slate-400 hover:text-white">README &rarr;</a>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-8 px-4 sm:px-6 lg:px-8 mt-12">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-rose-600 flex items-center justify-center text-white font-bold text-sm">MP</div>
+        <span class="text-sm font-semibold text-slate-300">MusicPro Enterprise Suite v2.4</span>
+      </div>
+      <p class="text-xs text-slate-400">
+        Diseñado y desarrollado por <a href="https://github.com/Bemtorres" target="_blank" class="text-rose-400 hover:underline font-semibold">Bemtorres</a> &bull; Music Pro Company
+      </p>
+      <div class="flex items-center gap-3 text-xs text-slate-400">
+        <a href="index.html" class="hover:text-white">Inicio</a>
+        <span>&bull;</span>
+        <a href="diagrama-flujo.md" class="hover:text-white">Markdown</a>
+        <span>&bull;</span>
+        <a href="base-de-datos.html" class="hover:text-white">Base de Datos</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Diagram Data Scripts -->
+  <script>
+    // Inicializar Mermaid
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'dark',
+      securityLevel: 'loose',
+      fontFamily: 'Plus Jakarta Sans',
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: 'basis'
+      }
+    });
+
+    // Definición de diagramas Mermaid para cada vista
+    const FLOW_DEFINITIONS = {
+      'flow-global': {
+        title: '<i class="fa-solid fa-globe text-rose-500"></i> Flujo del Ecosistema Omnicanal Integrado',
+        subtitle: 'Interacción cruzada entre Cliente, Tienda, Bodega Central, Courier y BeatPay Virtual.',
+        code: `flowchart TD
+    subgraph Cliente["👤 Músico / Cliente Final"]
+        C1["1. Navega Catálogo Tienda<br><code>Tienda/cliente/tienda-catalog.html</code>"]
+        C2["2. Carrito y Dirección<br><code>Tienda/cliente/carrito-view.html</code>"]
+        C3["3. Selecciona BeatPay Virtual<br><code>Tienda/cliente/checkout-step2.html</code>"]
+        C4["4. Tracking En Vivo (TRA)<br><code>Transporte/cliente/tracking-detail.html</code>"]
+        C5["5. Recibe Instrumento & Firma POD"]
+    end
+
+    subgraph TiendaM["🛒 Tienda E-Commerce & POS"]
+        T1["Valida Stock & Precios"]
+        T2["Genera Orden de Compra<br><code>Tienda/admin/ordenes-detail.html</code>"]
+        T3["Solicita Despacho a WMS"]
+    end
+
+    subgraph BodegaM["📦 Bodega Central (WMS)"]
+        B1["Recepción de Solicitud<br><code>Bodega/cliente/solicitudes-list.html</code>"]
+        B2["Picking por Olas & Seriales<br><code>Bodega/admin/movimientos-create.html</code>"]
+        B3["Bulto Sellado en Muelle"]
+    end
+
+    subgraph TransporteM["🚚 Transporte & Courier"]
+        TR1["Genera Guía & Código TRA<br><code>Transporte/cliente/envios-create.html</code>"]
+        TR2["Imprime Etiqueta 4x6<br><code>Transporte/cliente/etiqueta.html</code>"]
+        TR3["Ruta de Última Milla<br><code>Transporte/admin/rutas-create.html</code>"]
+    end
+
+    subgraph TarjetaM["💳 BeatPay Virtual (Fintech)"]
+        BP1["Valida Cupo & Score Fraude<br><code>Tarjeta/admin/fraude-reglas.html</code>"]
+        BP2["Autoriza Cuotas sin Interés<br><code>Tarjeta/cliente/voucher.html</code>"]
+        BP3["Abona Fondos Inmediatos"]
+    end
+
+    C1 --> C2 --> C3
+    C3 --> BP1
+    BP1 -->|Aprobado| BP2 --> BP3
+    BP3 --> T1 --> T2 --> T3
+    T3 --> B1 --> B2 --> B3
+    B3 --> TR1 --> TR2 --> TR3
+    TR3 --> C4 --> C5`
+      },
+
+      'flow-bodega': {
+        title: '<i class="fa-solid fa-warehouse text-amber-500"></i> Flujo de Bodega WMS (Cliente B2B & Backoffice)',
+        subtitle: 'Proceso de abastecimiento a sucursales, control de pasillos/racks, picking y movimientos kardex.',
+        code: `flowchart TD
+    subgraph SucursalB2B["🏢 Sucursal / Franquicia (Cliente WMS)"]
+        B_Login["Login de Sucursal<br><code>Bodega/cliente/login.html</code>"]
+        B_Dash["Portal B2B<br><code>Bodega/cliente/index.html</code>"]
+        B_Cat["Consultar Stock WMS<br><code>Bodega/cliente/stock-catalog.html</code>"]
+        B_NewReq["Crear Pedido de Reposición<br><code>Bodega/cliente/solicitudes-create.html</code>"]
+        B_ReqList["Mis Solicitudes de Despacho<br><code>Bodega/cliente/solicitudes-list.html</code>"]
+        B_ReqDet["Detalle y Guía de Despacho<br><code>Bodega/cliente/solicitudes-detail.html</code>"]
+        
+        B_Login --> B_Dash --> B_Cat --> B_NewReq --> B_ReqList --> B_ReqDet
+    end
+
+    subgraph BodegaAdmin["📦 Jefe de Almacén (Backoffice)"]
+        A_Dash["Dashboard Maestro WMS<br><code>Bodega/admin/index.html</code>"]
+        A_Art["Maestro de Artículos<br><code>Bodega/admin/articulos-list.html</code>"]
+        A_ArtNew["Alta de SKU / Instrumento<br><code>Bodega/admin/articulos-create.html</code>"]
+        A_Zonas["Zonas & Racks Pasillos<br><code>Bodega/admin/zonas-almacen.html</code>"]
+        A_Ubi["Mapa de Ubicaciones<br><code>Bodega/admin/ubicaciones-list.html</code>"]
+        A_Mov["Kardex & Movimientos<br><code>Bodega/admin/movimientos-list.html</code>"]
+        A_MovNew["Registrar Entrada / Merma<br><code>Bodega/admin/movimientos-create.html</code>"]
+        
+        A_Dash --> A_Art --> A_ArtNew
+        A_Dash --> A_Zonas --> A_Ubi
+        A_Dash --> A_Mov --> A_MovNew
+    end
+
+    B_ReqList -.->|Llega Solicitud| A_MovNew`
+      },
+
+      'flow-tienda': {
+        title: '<i class="fa-solid fa-store text-rose-500"></i> Flujo de Tienda E-Commerce & Retail POS',
+        subtitle: 'Experiencia del comprador online por género musical y operación del punto de venta en sucursal.',
+        code: `flowchart TD
+    subgraph Comprador["👤 Cliente Comprador Online"]
+        T_Home["Home Comercial<br><code>Tienda/cliente/index.html</code>"]
+        T_Cat["Catálogo por Género (Rock, DJ, Cumbia)<br><code>Tienda/cliente/tienda-catalog.html</code>"]
+        T_Prod["Ficha con Audio Demos MP3<br><code>Tienda/cliente/producto-detalle.html</code>"]
+        T_Cart["Carrito Persistente<br><code>Tienda/cliente/carrito-view.html</code>"]
+        T_Step1["Checkout Paso 1: Envío<br><code>Tienda/cliente/checkout-step1.html</code>"]
+        T_Step2["Checkout Paso 2: Pago BeatPay/Webpay<br><code>Tienda/cliente/checkout-step2.html</code>"]
+        T_Success["Confirmación de Compra<br><code>Tienda/cliente/checkout-success.html</code>"]
+        T_History["Mis Compras y Boleta PDF<br><code>Tienda/cliente/compras-list.html</code>"]
+        
+        T_Home --> T_Cat --> T_Prod --> T_Cart --> T_Step1 --> T_Step2 --> T_Success --> T_History
+    end
+
+    subgraph AdminTienda["🛒 Administrador & Cajero POS"]
+        TA_Dash["Dashboard de Ventas<br><code>Tienda/admin/index.html</code>"]
+        TA_Prod["Maestro de Productos<br><code>Tienda/admin/productos-list.html</code>"]
+        TA_ProdNew["Publicar Nuevo Instrumento<br><code>Tienda/admin/productos-create.html</code>"]
+        TA_Ord["Gestión de Órdenes Omnicanal<br><code>Tienda/admin/ordenes-list.html</code>"]
+        TA_OrdDet["Detalle de Facturación<br><code>Tienda/admin/ordenes-detail.html</code>"]
+        TA_Cup["Cupones & Promociones<br><code>Tienda/admin/cupones-list.html</code>"]
+        
+        TA_Dash --> TA_Prod --> TA_ProdNew
+        TA_Dash --> TA_Ord --> TA_OrdDet
+        TA_Dash --> TA_Cup
+    end
+
+    T_Success -.->|Dispara Pedido| TA_Ord`
+      },
+
+      'flow-transporte': {
+        title: '<i class="fa-solid fa-truck-fast text-cyan-500"></i> Flujo de Transporte Express Courier',
+        subtitle: 'Generación de envíos, etiqueta térmica 4x6, ruteo de chóferes y confirmación digital POD.',
+        code: `flowchart TD
+    subgraph RemitenteDest["📦 Cliente Remitente / Destinatario"]
+        TR_Home["Home Logística<br><code>Transporte/cliente/index.html</code>"]
+        TR_Track["Tracking con Código TRA<br><code>Transporte/cliente/tracking-detail.html</code>"]
+        TR_Create["Cotizar y Solicitar Envío<br><code>Transporte/cliente/envios-create.html</code>"]
+        TR_Label["Generar Etiqueta Térmica 4x6<br><code>Transporte/cliente/etiqueta.html</code>"]
+        TR_List["Mis Envíos Activos<br><code>Transporte/cliente/envios-list.html</code>"]
+        
+        TR_Home --> TR_Track
+        TR_Home --> TR_Create --> TR_Label --> TR_List --> TR_Track
+    end
+
+    subgraph TorreControl["🚚 Torre de Control & Flotas"]
+        TRA_Dash["Dashboard de Despacho<br><code>Transporte/admin/index.html</code>"]
+        TRA_Rut["Planificador de Rutas<br><code>Transporte/admin/rutas-list.html</code>"]
+        TRA_RutNew["Crear Hoja de Ruta Óptima<br><code>Transporte/admin/rutas-create.html</code>"]
+        TRA_Veh["Gestión de Flota / Vehículos<br><code>Transporte/admin/vehiculos-list.html</code>"]
+        TRA_Con["Directorio de Choferes<br><code>Transporte/admin/conductores-list.html</code>"]
+        TRA_Inc["Gestión de Incidencias<br><code>Transporte/admin/incidencias-list.html</code>"]
+        
+        TRA_Dash --> TRA_Rut --> TRA_RutNew
+        TRA_Dash --> TRA_Veh
+        TRA_Dash --> TRA_Con
+        TRA_Dash --> TRA_Inc
+    end
+
+    TR_Label -.->|Carga a Asignar| TRA_RutNew`
+      },
+
+      'flow-tarjeta': {
+        title: '<i class="fa-solid fa-credit-card text-purple-500"></i> Flujo de BeatPay Virtual (Fintech)',
+        subtitle: 'Emisión de tarjeta virtual con CVV dinámico, simulación de avances y motor antifraude.',
+        code: `flowchart TD
+    subgraph Titular["💳 Titular BeatPay Virtual"]
+        BP_Home["Landing BeatPay<br><code>Tarjeta/cliente/index.html</code>"]
+        BP_Reg["Solicitud & Onboarding<br><code>Tarjeta/cliente/registro.html</code>"]
+        BP_Dash["Dashboard Financiero<br><code>Tarjeta/cliente/tarjeta-dashboard.html</code>"]
+        BP_Sim["Simulador de Avances<br><code>Tarjeta/cliente/avance-simulador.html</code>"]
+        BP_Transf["Transferir a Banco<br><code>Tarjeta/cliente/transferencias-create.html</code>"]
+        BP_Voucher["Voucher Digital Oficial<br><code>Tarjeta/cliente/voucher.html</code>"]
+        BP_Mov["Cartola de Movimientos<br><code>Tarjeta/cliente/movimientos-list.html</code>"]
+        
+        BP_Home --> BP_Reg --> BP_Dash
+        BP_Dash --> BP_Sim --> BP_Transf --> BP_Voucher
+        BP_Dash --> BP_Mov
+    end
+
+    subgraph RiesgoFraude["🛡️ Analista de Riesgo & Fraude"]
+        BPA_Dash["Dashboard de Cartera<br><code>Tarjeta/admin/index.html</code>"]
+        BPA_Acc["Maestro de Cuentas y Cupos<br><code>Tarjeta/admin/cuentas-list.html</code>"]
+        BPA_AccDet["Expediente Crediticio<br><code>Tarjeta/admin/cuentas-detail.html</code>"]
+        BPA_Audit["Auditoría de Transacciones<br><code>Tarjeta/admin/transacciones-audit-list.html</code>"]
+        BPA_Fraud["Reglas de Motor Antifraude<br><code>Tarjeta/admin/fraude-reglas.html</code>"]
+        
+        BPA_Dash --> BPA_Acc --> BPA_AccDet
+        BPA_Dash --> BPA_Audit
+        BPA_Dash --> BPA_Fraud
+    end
+
+    BP_Transf -.->|Valida Score| BPA_Fraud`
+      }
+    };
+
+    // Estado del canvas
+    let currentScale = 1;
+    let isPanning = false;
+    let startX = 0, startY = 0;
+    let translateX = 0, translateY = 0;
+
+    const wrapper = document.getElementById('diagramWrapper');
+    const viewport = document.getElementById('diagramViewport');
+    const zoomLevelEl = document.getElementById('zoomLevel');
+    const flowTitleEl = document.getElementById('flowTitle');
+    const flowSubtitleEl = document.getElementById('flowSubtitle');
+    const mermaidTarget = document.getElementById('mermaidTarget');
+
+    function updateTransform() {
+      wrapper.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+      zoomLevelEl.textContent = `${Math.round(currentScale * 100)}%`;
+    }
+
+    // Renderizar diagrama seleccionado
+    async function renderDiagram(flowKey) {
+      const def = FLOW_DEFINITIONS[flowKey];
+      if (!def) return;
+
+      flowTitleEl.innerHTML = def.title;
+      flowSubtitleEl.textContent = def.subtitle;
+
+      // Limpiar y resetear zoom
+      currentScale = 1;
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+
+      mermaidTarget.removeAttribute('data-processed');
+      mermaidTarget.innerHTML = def.code;
+
+      try {
+        await mermaid.run({
+          nodes: [mermaidTarget]
+        });
+      } catch (err) {
+        console.error('Error renderizando Mermaid:', err);
+      }
+    }
+
+    // Control de Pestañas
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => {
+          b.classList.remove('active', 'bg-rose-600', 'text-white', 'shadow-lg', 'shadow-rose-900/30');
+          b.classList.add('text-slate-400', 'hover:text-slate-200', 'hover:bg-slate-900');
+        });
+
+        btn.classList.add('active', 'bg-rose-600', 'text-white', 'shadow-lg', 'shadow-rose-900/30');
+        btn.classList.remove('text-slate-400', 'hover:text-slate-200', 'hover:bg-slate-900');
+
+        const target = btn.getAttribute('data-target');
+        renderDiagram(target);
+      });
+    });
+
+    // Controles de Zoom
+    document.getElementById('btnZoomIn').addEventListener('click', () => {
+      currentScale = Math.min(currentScale + 0.15, 2.5);
+      updateTransform();
+    });
+
+    document.getElementById('btnZoomOut').addEventListener('click', () => {
+      currentScale = Math.max(currentScale - 0.15, 0.4);
+      updateTransform();
+    });
+
+    document.getElementById('btnZoomReset').addEventListener('click', () => {
+      currentScale = 1;
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+    });
+
+    // Panning con Mouse
+    viewport.addEventListener('mousedown', (e) => {
+      isPanning = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isPanning) return;
+      translateX = e.clientX - startX;
+      translateY = e.clientY - startY;
+      updateTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      isPanning = false;
+    });
+
+    // Exportar a SVG
+    document.getElementById('btnExportSvg').addEventListener('click', () => {
+      const svg = mermaidTarget.querySelector('svg');
+      if (!svg) {
+        alert('No se pudo encontrar el SVG para exportar.');
+        return;
+      }
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `musicpro-diagrama-flujo-${Date.now()}.svg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // Carga inicial
+    document.addEventListener('DOMContentLoaded', () => {
+      renderDiagram('flow-global');
+    });
+  </script>
+</body>
+</html>

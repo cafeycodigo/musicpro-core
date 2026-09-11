@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelo de Base de Datos Relacional | MusicPro Enterprise Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+            mono: ['Share Tech Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .mermaid-container {
+      cursor: grab;
+      user-select: none;
+      transition: transform 0.15s ease-out;
+      transform-origin: center top;
+    }
+    .mermaid-container:active {
+      cursor: grabbing;
+    }
+    /* Estilos para diagrama ER */
+    .er.entityBox {
+      fill: #1e293b !important;
+      stroke: #0284c7 !important;
+      stroke-width: 1.5px !important;
+    }
+    .er.entityLabel {
+      fill: #f8fafc !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-weight: 700 !important;
+    }
+    .er.relationshipLabelBox {
+      fill: #0f172a !important;
+      stroke: #334155 !important;
+    }
+    .er.relationshipLabel {
+      fill: #38bdf8 !important;
+      font-size: 11px !important;
+    }
+    .er.relationshipLine {
+      stroke: #64748b !important;
+      stroke-width: 1.5px !important;
+    }
+    .er.attributeBoxOdd {
+      fill: #0f172a !important;
+      stroke: #1e293b !important;
+    }
+    .er.attributeBoxEven {
+      fill: #1e293b !important;
+      stroke: #1e293b !important;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-white">
+
+  <!-- Top Navbar -->
+  <header class="sticky top-0 z-50 glass border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-cyan-900/30 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-database text-lg"></i>
+          </div>
+          <div>
+            <span class="font-display font-bold text-lg tracking-tight text-white flex items-center gap-2">
+              MusicPro <span class="text-xs px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 font-mono">DB-SCHEMA v2.4</span>
+            </span>
+            <p class="text-xs text-slate-400 font-medium">Modelo Relacional & Diccionario</p>
+          </div>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-2">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-house text-slate-400"></i> Hub Central
+        </a>
+        <a href="diagrama-flujo.html" class="px-3 py-1.5 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-diagram-project text-rose-400"></i> Flujos UX
+        </a>
+        <a href="README.md" class="px-3 py-1.5 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-book text-amber-400"></i> Documentación
+        </a>
+        <a href="PresentacionMusicPro.pdf" target="_blank" class="px-3 py-1.5 rounded-lg text-sm bg-cyan-600/20 text-cyan-300 hover:bg-cyan-600 hover:text-white border border-cyan-500/30 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-file-pdf"></i> Ver PDF
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/Bemtorres" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs text-slate-300 bg-slate-900 border border-slate-700/60 px-3 py-1.5 rounded-full hover:border-cyan-500/60 hover:text-cyan-400 transition-all">
+          <i class="fa-brands fa-github text-sm"></i>
+          <span>Creado por <strong class="text-white font-semibold">Bemtorres</strong></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="border-b border-slate-800 bg-gradient-to-b from-slate-900/80 to-slate-950 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-3">
+            <i class="fa-solid fa-table-cells"></i> Arquitectura de Datos Enterprise
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
+            Modelo de Base de Datos Relacional
+          </h1>
+          <p class="text-slate-400 mt-1 max-w-2xl text-sm sm:text-base">
+            Esquema unificado Entidad-Relación con tipado estricto, llaves primarias, foráneas, cardinalidad y diccionario de datos para los 4 subsistemas.
+          </p>
+        </div>
+
+        <!-- Action Toolbar -->
+        <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 p-1.5 rounded-xl shadow-inner">
+          <button id="btnZoomOut" title="Reducir Zoom" class="w-9 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 flex items-center justify-center transition-colors">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+          </button>
+          <span id="zoomLevel" class="font-mono text-xs text-slate-300 px-2 min-w-[50px] text-center font-bold">100%</span>
+          <button id="btnZoomIn" title="Aumentar Zoom" class="w-9 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 flex items-center justify-center transition-colors">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </button>
+          <button id="btnZoomReset" title="Restablecer" class="px-3 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors">
+            <i class="fa-solid fa-arrows-rotate"></i> Reset
+          </button>
+          <div class="w-px h-6 bg-slate-800 mx-1"></div>
+          <button id="btnExportSvg" title="Descargar SVG" class="px-3 h-9 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm">
+            <i class="fa-solid fa-download"></i> SVG
+          </button>
+          <a href="base-de-datos.md" target="_blank" class="px-3 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors">
+            <i class="fa-brands fa-markdown"></i> Markdown
+          </a>
+        </div>
+      </div>
+
+      <!-- Tab Selectors -->
+      <div class="mt-8 flex flex-wrap gap-2 border-b border-slate-800 pb-3">
+        <button class="db-tab-btn active px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 bg-cyan-600 text-white shadow-lg shadow-cyan-900/30" data-target="db-global">
+          <i class="fa-solid fa-diagram-nested"></i> Modelo Global ERD
+        </button>
+        <button class="db-tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-all flex items-center gap-2" data-target="db-bodega">
+          <i class="fa-solid fa-warehouse text-amber-400"></i> WMS Bodega
+        </button>
+        <button class="db-tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-all flex items-center gap-2" data-target="db-tienda">
+          <i class="fa-solid fa-store text-rose-400"></i> Tienda & Ventas
+        </button>
+        <button class="db-tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-all flex items-center gap-2" data-target="db-transporte">
+          <i class="fa-solid fa-truck-fast text-blue-400"></i> Transporte Courier
+        </button>
+        <button class="db-tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-all flex items-center gap-2" data-target="db-tarjeta">
+          <i class="fa-solid fa-credit-card text-purple-400"></i> BeatPay Fintech
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Canvas Section -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-10">
+
+    <!-- Viewport Container for Diagram -->
+    <div class="w-full bg-slate-900/70 border border-slate-800/80 rounded-2xl p-4 sm:p-6 shadow-2xl relative overflow-hidden flex flex-col min-h-[620px]">
+      
+      <!-- Sub-view Badge & Info -->
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+        <div>
+          <h2 class="text-lg font-display font-bold text-white flex items-center gap-2" id="dbTitle">
+            <i class="fa-solid fa-diagram-nested text-cyan-400"></i> Diagrama Entidad-Relación Global (ERD)
+          </h2>
+          <p class="text-xs text-slate-400" id="dbSubtitle">
+            Relaciones cardinales y llaves foráneas integradas de los 4 subsistemas de Music Pro Company.
+          </p>
+        </div>
+        <div class="text-xs font-mono text-slate-400 bg-slate-800/80 px-2.5 py-1 rounded-lg border border-slate-700/50">
+          Notación Crow's Foot &bull; Mermaid.js
+        </div>
+      </div>
+
+      <!-- Diagram Overflow Canvas -->
+      <div id="diagramViewport" class="flex-1 overflow-auto flex items-center justify-center p-2 min-h-[500px]">
+        <div id="diagramWrapper" class="mermaid-container">
+          <div id="mermaidTarget" class="mermaid flex justify-center">
+            <!-- Mermaid Code injected here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Hint -->
+      <div class="mt-4 pt-3 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-2">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-circle-info text-cyan-400"></i>
+          <span>Arrastra con el mouse para desplazarte en el diagrama y usa el zoom para mayor detalle.</span>
+        </div>
+        <div class="flex items-center gap-3 font-mono">
+          <span class="text-amber-400">||--o{ Uno a Muchos</span>
+          <span>&bull;</span>
+          <span class="text-cyan-400">||--|| Uno a Uno</span>
+          <span>&bull;</span>
+          <span class="text-rose-400">}|--|{ Muchos a Muchos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Dictionary Section -->
+    <section class="glass p-6 rounded-2xl border border-slate-800">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h3 class="text-xl font-display font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-book-bookmark text-cyan-400"></i> Diccionario de Datos del Sistema
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">Estructura tabular de campos, tipos de datos, restricciones y llaves relacionales.</p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+            <input type="text" id="dictSearch" placeholder="Filtrar tabla o campo..." class="bg-slate-900 border border-slate-700/80 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 w-48 sm:w-64">
+          </div>
+          <button id="btnCopySql" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-semibold flex items-center gap-1.5 transition-colors border border-slate-700">
+            <i class="fa-solid fa-copy"></i> Copiar DDL SQL
+          </button>
+        </div>
+      </div>
+
+      <!-- Table Container -->
+      <div class="overflow-x-auto rounded-xl border border-slate-800/80">
+        <table class="w-full text-left text-xs" id="dictTable">
+          <thead class="bg-slate-900/90 text-slate-300 font-semibold border-b border-slate-800">
+            <tr>
+              <th class="py-3 px-4">Tabla</th>
+              <th class="py-3 px-4">Campo / Columna</th>
+              <th class="py-3 px-4">Tipo de Dato</th>
+              <th class="py-3 px-4">Nulo</th>
+              <th class="py-3 px-4">Clave</th>
+              <th class="py-3 px-4">Descripción / Regla de Negocio</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/50 text-slate-300 font-mono">
+            <!-- Core -->
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">usuarios</td><td class="py-2.5 px-4 text-cyan-400 font-bold">id</td><td class="py-2.5 px-4">SERIAL / INT</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">PK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">Identificador único autoincremental de usuario.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">usuarios</td><td class="py-2.5 px-4">rut</td><td class="py-2.5 px-4">VARCHAR(12)</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">UK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">RUT chileno validado con dígito verificador.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">usuarios</td><td class="py-2.5 px-4">rol</td><td class="py-2.5 px-4">VARCHAR(20)</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4">-</td><td class="py-2.5 px-4 font-sans text-slate-400">ADMIN, MANTENEDOR o CLIENTE.</td></tr>
+            <!-- Sucursales -->
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">sucursales</td><td class="py-2.5 px-4 text-cyan-400 font-bold">id</td><td class="py-2.5 px-4">SERIAL / INT</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">PK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">Identificador único de sucursal física o central.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">sucursales</td><td class="py-2.5 px-4">tipo_genero</td><td class="py-2.5 px-4">VARCHAR(30)</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4">-</td><td class="py-2.5 px-4 font-sans text-slate-400">ROCK, DJ, REGGAETON_CUMBIA o CENTRAL.</td></tr>
+            <!-- Bodega Articulos -->
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">bodega_articulos</td><td class="py-2.5 px-4 text-cyan-400 font-bold">id</td><td class="py-2.5 px-4">SERIAL / INT</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">PK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">ID del artículo en el maestro de inventario WMS.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">bodega_articulos</td><td class="py-2.5 px-4">sku</td><td class="py-2.5 px-4">VARCHAR(50)</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">UK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">Código de SKU único por instrumento o repuesto.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">bodega_articulos</td><td class="py-2.5 px-4">categoria_id</td><td class="py-2.5 px-4">INT</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">FK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">Relación a bodega_categorias(id).</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">bodega_articulos</td><td class="py-2.5 px-4">stock_actual</td><td class="py-2.5 px-4">INT</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4">-</td><td class="py-2.5 px-4 font-sans text-slate-400">Existencias físicas reales en bodega central.</td></tr>
+            <!-- Tienda Productos -->
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">tienda_productos</td><td class="py-2.5 px-4 text-cyan-400 font-bold">id</td><td class="py-2.5 px-4">SERIAL / INT</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">PK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">ID del producto publicado en catálogo web/POS.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">tienda_productos</td><td class="py-2.5 px-4">articulo_bodega_id</td><td class="py-2.5 px-4">INT</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">FK, UK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">Enlace 1:1 estricto con el inventario físico de WMS.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">tienda_productos</td><td class="py-2.5 px-4">precio_tarjeta_musicpro</td><td class="py-2.5 px-4">DECIMAL(12,2)</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4">-</td><td class="py-2.5 px-4 font-sans text-slate-400">Precio exclusivo al pagar con BeatPay Virtual.</td></tr>
+            <!-- Transporte Envios -->
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">transporte_envios</td><td class="py-2.5 px-4 text-cyan-400 font-bold">id</td><td class="py-2.5 px-4">SERIAL / INT</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">PK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">ID interno de la orden de transporte.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">transporte_envios</td><td class="py-2.5 px-4">codigo_tracking_tra</td><td class="py-2.5 px-4">VARCHAR(30)</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">UK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">Código público de rastreo en formato TRA-YYYY-XXXXXX.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">transporte_envios</td><td class="py-2.5 px-4">orden_id</td><td class="py-2.5 px-4">INT</td><td class="py-2.5 px-4 text-emerald-400">SÍ</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">FK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">Relación opcional a tienda_ordenes(id).</td></tr>
+            <!-- Tarjeta Cuentas -->
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">tarjeta_cuentas</td><td class="py-2.5 px-4 text-cyan-400 font-bold">id</td><td class="py-2.5 px-4">SERIAL / INT</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4"><span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">PK</span></td><td class="py-2.5 px-4 font-sans text-slate-400">ID de la cuenta financiera del titular BeatPay.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">tarjeta_cuentas</td><td class="py-2.5 px-4">linea_credito_total</td><td class="py-2.5 px-4">DECIMAL(12,2)</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4">-</td><td class="py-2.5 px-4 font-sans text-slate-400">Cupo total asignado tras evaluación de riesgo.</td></tr>
+            <tr class="hover:bg-slate-800/30"><td class="py-2.5 px-4 font-bold text-slate-100 font-sans">tarjeta_cuentas</td><td class="py-2.5 px-4">saldo_disponible</td><td class="py-2.5 px-4">DECIMAL(12,2)</td><td class="py-2.5 px-4 text-rose-400">NO</td><td class="py-2.5 px-4">-</td><td class="py-2.5 px-4 font-sans text-slate-400">Cupo disponible en tiempo real para transacciones.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-8 px-4 sm:px-6 lg:px-8 mt-12">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 flex items-center justify-center text-white font-bold text-sm">MP</div>
+        <span class="text-sm font-semibold text-slate-300">MusicPro Enterprise Suite v2.4</span>
+      </div>
+      <p class="text-xs text-slate-400">
+        Diseñado y desarrollado por <a href="https://github.com/Bemtorres" target="_blank" class="text-cyan-400 hover:underline font-semibold">Bemtorres</a> &bull; Music Pro Company
+      </p>
+      <div class="flex items-center gap-3 text-xs text-slate-400">
+        <a href="index.html" class="hover:text-white">Inicio</a>
+        <span>&bull;</span>
+        <a href="diagrama-flujo.html" class="hover:text-white">Flujos de Usuario</a>
+        <span>&bull;</span>
+        <a href="base-de-datos.md" class="hover:text-white">Markdown</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script de Renderizado y Controles -->
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'dark',
+      securityLevel: 'loose',
+      fontFamily: 'Plus Jakarta Sans',
+      er: {
+        useMaxWidth: false
+      }
+    });
+
+    const DB_DEFINITIONS = {
+      'db-global': {
+        title: '<i class="fa-solid fa-diagram-nested text-cyan-400"></i> Diagrama Entidad-Relación Global (ERD)',
+        subtitle: 'Relaciones cardinales y llaves foráneas integradas de los 4 subsistemas de Music Pro Company.',
+        code: `erDiagram
+    USUARIOS ||--o{ BODEGA_SOLICITUDES : "solicita"
+    USUARIOS ||--o{ TIENDA_ORDENES : "compra"
+    USUARIOS ||--o| TRANSPORTE_CONDUCTORES : "es_conductor"
+    USUARIOS ||--o{ TARJETA_CUENTAS : "posee"
+    SUCURSALES ||--o{ BODEGA_SOLICITUDES : "recibe"
+    SUCURSALES ||--o{ TIENDA_ORDENES : "emite_pos"
+
+    BODEGA_ZONAS ||--o{ BODEGA_UBICACIONES : "alberga"
+    BODEGA_CATEGORIAS ||--o{ BODEGA_ARTICULOS : "clasifica"
+    BODEGA_ARTICULOS ||--o{ BODEGA_SERIES : "tiene_unidades"
+    BODEGA_ARTICULOS ||--o{ BODEGA_MOVIMIENTOS : "registra"
+    BODEGA_ARTICULOS ||--o{ BODEGA_SOLICITUDES_ITEMS : "incluido_en"
+    BODEGA_ARTICULOS ||--o| TIENDA_PRODUCTOS : "publicado_como"
+    BODEGA_UBICACIONES ||--o{ BODEGA_MOVIMIENTOS : "destino"
+    BODEGA_SOLICITUDES ||--|{ BODEGA_SOLICITUDES_ITEMS : "contiene"
+
+    TIENDA_CATEGORIAS ||--o{ TIENDA_PRODUCTOS : "agrupa"
+    TIENDA_PRODUCTOS ||--o{ TIENDA_ORDENES_ITEMS : "vendido_en"
+    TIENDA_ORDENES ||--|{ TIENDA_ORDENES_ITEMS : "posee"
+    TIENDA_CUPONES ||--o{ TIENDA_ORDENES : "aplica_descuento"
+    TIENDA_ORDENES ||--o| TRANSPORTE_ENVIOS : "genera_despacho"
+
+    TRANSPORTE_VEHICULOS ||--o{ TRANSPORTE_RUTAS : "asignado_a"
+    TRANSPORTE_CONDUCTORES ||--o{ TRANSPORTE_RUTAS : "conduce"
+    TRANSPORTE_ZONAS ||--o{ TRANSPORTE_RUTAS : "cubre"
+    TRANSPORTE_RUTAS ||--o{ TRANSPORTE_ENVIOS : "transporta"
+    TRANSPORTE_ENVIOS ||--o| TRANSPORTE_ENTREGAS_POD : "comprobante_entrega"
+    TRANSPORTE_ENVIOS ||--o{ TRANSPORTE_INCIDENCIAS : "reporta"
+
+    TARJETA_PRODUCTOS ||--o{ TARJETA_CUENTAS : "plan_afiliado"
+    TARJETA_CUENTAS ||--o{ TARJETA_PLASTICOS_VIRTUALES : "emite_pan"
+    TARJETA_CUENTAS ||--o{ TARJETA_TRANSACCIONES : "registra_cargo"
+    TARJETA_TRANSACCIONES ||--o| TARJETA_AVANCES : "simula_transfiere"
+
+    USUARIOS {
+        int id PK
+        string rut UK
+        string nombre
+        string email UK
+        string rol
+        string estado
+    }
+    SUCURSALES {
+        int id PK
+        string codigo UK
+        string nombre
+        string tipo_genero
+        string ciudad
+    }
+    BODEGA_ARTICULOS {
+        int id PK
+        string sku UK
+        string nombre
+        int categoria_id FK
+        int stock_actual
+        decimal costo_unitario
+    }
+    TIENDA_PRODUCTOS {
+        int id PK
+        int articulo_bodega_id FK
+        string nombre
+        decimal precio_normal
+        decimal precio_tarjeta_musicpro
+        int stock_disponible
+    }
+    TIENDA_ORDENES {
+        int id PK
+        string codigo_orden UK
+        int usuario_id FK
+        decimal total_final
+        string estado
+        string metodo_pago
+    }
+    TRANSPORTE_ENVIOS {
+        int id PK
+        string codigo_tracking_tra UK
+        int orden_id FK
+        string estado
+        decimal peso_kg
+    }
+    TARJETA_CUENTAS {
+        int id PK
+        int usuario_id FK
+        string numero_cuenta UK
+        decimal linea_credito_total
+        decimal saldo_disponible
+    }
+    TARJETA_TRANSACCIONES {
+        int id PK
+        int cuenta_id FK
+        string tipo_transaccion
+        decimal monto
+        int cuotas
+        string estado
+    }`
+      },
+
+      'db-bodega': {
+        title: '<i class="fa-solid fa-warehouse text-amber-500"></i> Modelo de Base de Datos - Bodega WMS',
+        subtitle: 'Esquema de almacenamiento físico, pasillos, racks, artículos, números de serie y kardex de movimientos.',
+        code: `erDiagram
+    BODEGA_ZONAS ||--o{ BODEGA_UBICACIONES : "alberga"
+    BODEGA_CATEGORIAS ||--o{ BODEGA_ARTICULOS : "clasifica"
+    BODEGA_ARTICULOS ||--o{ BODEGA_SERIES : "tiene_unidades"
+    BODEGA_ARTICULOS ||--o{ BODEGA_MOVIMIENTOS : "registra"
+    BODEGA_UBICACIONES ||--o{ BODEGA_MOVIMIENTOS : "destino"
+    BODEGA_SOLICITUDES ||--|{ BODEGA_SOLICITUDES_ITEMS : "contiene"
+    BODEGA_ARTICULOS ||--o{ BODEGA_SOLICITUDES_ITEMS : "incluido_en"
+
+    BODEGA_ZONAS {
+        int id PK
+        string codigo UK
+        string nombre
+        boolean activa
+    }
+    BODEGA_UBICACIONES {
+        int id PK
+        int zona_id FK
+        string pasillo
+        string rack
+        int nivel
+        int posicion
+        string codigo_slot UK
+        decimal capacidad_kg
+        boolean ocupada
+    }
+    BODEGA_ARTICULOS {
+        int id PK
+        string sku UK
+        string codigo_barras_ean13
+        string nombre
+        int categoria_id FK
+        int stock_actual
+        int stock_minimo
+        decimal costo_unitario
+        boolean requiere_serie
+    }
+    BODEGA_SERIES {
+        int id PK
+        int articulo_id FK
+        string numero_serie UK
+        string estado
+        int ubicacion_id FK
+    }
+    BODEGA_MOVIMIENTOS {
+        int id PK
+        int articulo_id FK
+        string tipo_movimiento
+        int cantidad
+        int ubicacion_origen_id FK
+        int ubicacion_destino_id FK
+        string motivo
+        datetime fecha_movimiento
+    }
+    BODEGA_SOLICITUDES {
+        int id PK
+        string codigo_solicitud UK
+        int sucursal_id FK
+        int usuario_id FK
+        string estado
+        string prioridad
+        date fecha_requerida
+    }`
+      },
+
+      'db-tienda': {
+        title: '<i class="fa-solid fa-store text-rose-500"></i> Modelo de Base de Datos - Tienda E-Commerce & POS',
+        subtitle: 'Catálogo clasificado por género musical, promociones, carrito, órdenes y detalle de facturación.',
+        code: `erDiagram
+    TIENDA_CATEGORIAS ||--o{ TIENDA_PRODUCTOS : "agrupa"
+    TIENDA_PRODUCTOS ||--o{ TIENDA_ORDENES_ITEMS : "vendido_en"
+    TIENDA_ORDENES ||--|{ TIENDA_ORDENES_ITEMS : "posee"
+    TIENDA_CUPONES ||--o{ TIENDA_ORDENES : "aplica_descuento"
+
+    TIENDA_CATEGORIAS {
+        int id PK
+        string nombre
+        string genero_musical
+        string slug UK
+    }
+    TIENDA_PRODUCTOS {
+        int id PK
+        int articulo_bodega_id FK
+        int categoria_tienda_id FK
+        string nombre
+        decimal precio_normal
+        decimal precio_tarjeta_musicpro
+        string audio_demo_url
+        int stock_disponible
+        boolean activo
+    }
+    TIENDA_CUPONES {
+        int id PK
+        string codigo UK
+        decimal porcentaje_descuento
+        decimal tope_descuento
+        date fecha_expiracion
+        boolean activo
+    }
+    TIENDA_ORDENES {
+        int id PK
+        string codigo_orden UK
+        int usuario_id FK
+        int sucursal_id FK
+        decimal total_neto
+        decimal iva
+        decimal total_final
+        string estado
+        string metodo_pago
+        string canal
+        datetime fecha_orden
+    }
+    TIENDA_ORDENES_ITEMS {
+        int id PK
+        int orden_id FK
+        int producto_id FK
+        int cantidad
+        decimal precio_unitario
+        decimal subtotal
+    }`
+      },
+
+      'db-transporte': {
+        title: '<i class="fa-solid fa-truck-fast text-blue-500"></i> Modelo de Base de Datos - Transporte Courier',
+        subtitle: 'Gestión de flotas, conductores, zonas de cobertura, rutas diarias, guías TRA y firmas POD.',
+        code: `erDiagram
+    TRANSPORTE_VEHICULOS ||--o{ TRANSPORTE_RUTAS : "asignado_a"
+    TRANSPORTE_CONDUCTORES ||--o{ TRANSPORTE_RUTAS : "conduce"
+    TRANSPORTE_ZONAS ||--o{ TRANSPORTE_RUTAS : "cubre"
+    TRANSPORTE_RUTAS ||--o{ TRANSPORTE_ENVIOS : "transporta"
+    TRANSPORTE_ENVIOS ||--o| TRANSPORTE_ENTREGAS_POD : "comprobante_entrega"
+    TRANSPORTE_ENVIOS ||--o{ TRANSPORTE_INCIDENCIAS : "reporta"
+
+    TRANSPORTE_VEHICULOS {
+        int id PK
+        string patente UK
+        string marca
+        string modelo
+        decimal capacidad_kg
+        string estado
+    }
+    TRANSPORTE_CONDUCTORES {
+        int id PK
+        int usuario_id FK
+        string rut UK
+        string tipo_licencia
+        string estado
+    }
+    TRANSPORTE_ZONAS {
+        int id PK
+        string nombre_zona
+        decimal tarifa_base
+        int plazo_sla_horas
+    }
+    TRANSPORTE_RUTAS {
+        int id PK
+        string codigo_ruta UK
+        int conductor_id FK
+        int vehiculo_id FK
+        int zona_id FK
+        date fecha_ruta
+        string estado
+    }
+    TRANSPORTE_ENVIOS {
+        int id PK
+        string codigo_tracking_tra UK
+        int orden_id FK
+        int ruta_id FK
+        string direccion_destino
+        decimal peso_kg
+        string estado
+        datetime fecha_creacion
+    }
+    TRANSPORTE_ENTREGAS_POD {
+        int id PK
+        int envio_id FK
+        string receptor_nombre
+        string receptor_rut
+        string firma_digital_svg
+        decimal latitud
+        decimal longitud
+        datetime fecha_hora_entrega
+    }`
+      },
+
+      'db-tarjeta': {
+        title: '<i class="fa-solid fa-credit-card text-purple-500"></i> Modelo de Base de Datos - BeatPay Virtual',
+        subtitle: 'Cuentas de crédito rotativas, plásticos tokenizados con CVV dinámico, avances y motor antifraude.',
+        code: `erDiagram
+    TARJETA_PRODUCTOS ||--o{ TARJETA_CUENTAS : "plan_afiliado"
+    TARJETA_CUENTAS ||--o{ TARJETA_PLASTICOS_VIRTUALES : "emite_pan"
+    TARJETA_CUENTAS ||--o{ TARJETA_TRANSACCIONES : "registra_cargo"
+    TARJETA_TRANSACCIONES ||--o| TARJETA_AVANCES : "simula_transfiere"
+
+    TARJETA_PRODUCTOS {
+        int id PK
+        string nombre
+        string segmento
+        decimal cupo_maximo
+        decimal tasa_interes_mensual
+        decimal cae_anual
+    }
+    TARJETA_CUENTAS {
+        int id PK
+        int usuario_id FK
+        int producto_tarjeta_id FK
+        string numero_cuenta UK
+        decimal linea_credito_total
+        decimal saldo_utilizado
+        decimal saldo_disponible
+        string estado
+        date fecha_apertura
+    }
+    TARJETA_PLASTICOS_VIRTUALES {
+        int id PK
+        int cuenta_id FK
+        string pan_enmascarado
+        string token_card UK
+        int mes_vencimiento
+        int anio_vencimiento
+        string cvv_dinamico_hash
+        boolean activa
+    }
+    TARJETA_TRANSACCIONES {
+        int id PK
+        int cuenta_id FK
+        string tipo_transaccion
+        decimal monto
+        int cuotas
+        decimal valor_cuota
+        string comercio
+        int score_fraude
+        string estado
+        datetime fecha_transaccion
+    }
+    TARJETA_AVANCES {
+        int id PK
+        int transaccion_id FK
+        decimal monto_solicitado
+        int cuotas
+        decimal tasa_aplicada
+        string banco_destino
+        string cuenta_destino
+        string comprobante_voucher_hash
+    }`
+      }
+    };
+
+    let currentScale = 1;
+    let isPanning = false;
+    let startX = 0, startY = 0;
+    let translateX = 0, translateY = 0;
+
+    const wrapper = document.getElementById('diagramWrapper');
+    const viewport = document.getElementById('diagramViewport');
+    const zoomLevelEl = document.getElementById('zoomLevel');
+    const dbTitleEl = document.getElementById('dbTitle');
+    const dbSubtitleEl = document.getElementById('dbSubtitle');
+    const mermaidTarget = document.getElementById('mermaidTarget');
+
+    function updateTransform() {
+      wrapper.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+      zoomLevelEl.textContent = `${Math.round(currentScale * 100)}%`;
+    }
+
+    async function renderDiagram(dbKey) {
+      const def = DB_DEFINITIONS[dbKey];
+      if (!def) return;
+
+      dbTitleEl.innerHTML = def.title;
+      dbSubtitleEl.textContent = def.subtitle;
+
+      currentScale = 1;
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+
+      mermaidTarget.removeAttribute('data-processed');
+      mermaidTarget.innerHTML = def.code;
+
+      try {
+        await mermaid.run({
+          nodes: [mermaidTarget]
+        });
+      } catch (err) {
+        console.error('Error renderizando Mermaid ERD:', err);
+      }
+    }
+
+    // Tabs
+    document.querySelectorAll('.db-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.db-tab-btn').forEach(b => {
+          b.classList.remove('active', 'bg-cyan-600', 'text-white', 'shadow-lg', 'shadow-cyan-900/30');
+          b.classList.add('text-slate-400', 'hover:text-slate-200', 'hover:bg-slate-900');
+        });
+
+        btn.classList.add('active', 'bg-cyan-600', 'text-white', 'shadow-lg', 'shadow-cyan-900/30');
+        btn.classList.remove('text-slate-400', 'hover:text-slate-200', 'hover:bg-slate-900');
+
+        const target = btn.getAttribute('data-target');
+        renderDiagram(target);
+      });
+    });
+
+    // Zoom
+    document.getElementById('btnZoomIn').addEventListener('click', () => {
+      currentScale = Math.min(currentScale + 0.15, 2.5);
+      updateTransform();
+    });
+
+    document.getElementById('btnZoomOut').addEventListener('click', () => {
+      currentScale = Math.max(currentScale - 0.15, 0.4);
+      updateTransform();
+    });
+
+    document.getElementById('btnZoomReset').addEventListener('click', () => {
+      currentScale = 1;
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+    });
+
+    // Pan
+    viewport.addEventListener('mousedown', (e) => {
+      isPanning = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isPanning) return;
+      translateX = e.clientX - startX;
+      translateY = e.clientY - startY;
+      updateTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      isPanning = false;
+    });
+
+    // Export SVG
+    document.getElementById('btnExportSvg').addEventListener('click', () => {
+      const svg = mermaidTarget.querySelector('svg');
+      if (!svg) {
+        alert('No se pudo encontrar el SVG.');
+        return;
+      }
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `musicpro-modelo-erd-${Date.now()}.svg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // Filtro Diccionario
+    document.getElementById('dictSearch').addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      const rows = document.querySelectorAll('#dictTable tbody tr');
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(query) ? '' : 'none';
+      });
+    });
+
+    // Copiar SQL
+    document.getElementById('btnCopySql').addEventListener('click', () => {
+      fetch('base-de-datos.md')
+        .then(r => r.text())
+        .then(text => {
+          const match = text.match(/```sql([\s\S]*?)```/);
+          if (match && match[1]) {
+            navigator.clipboard.writeText(match[1].trim()).then(() => {
+              alert('Script SQL DDL copiado al portapapeles exitosamente.');
+            });
+          } else {
+            alert('No se encontró el bloque SQL.');
+          }
+        })
+        .catch(() => alert('No se pudo leer el archivo base-de-datos.md'));
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderDiagram('db-global');
+    });
+  </script>
+</body>
+</html>

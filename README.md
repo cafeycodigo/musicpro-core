@@ -22,10 +22,12 @@ Este documento integra en profundidad la **visión corporativa, el contexto hist
    * [3. Courier Proveedor - Cliente (Logística y Flota)](#3-courier-proveedor---cliente-logística-y-flota)
    * [4. BeatPay Virtual (Fintech & Pagos Musicales)](#4-beatpay-virtual-fintech--pagos-musicales)
 4. [Matrices de Requisitos Formales (1.000 Requisitos de Software)](#-matrices-de-requisitos-formales-1000-requisitos-de-software)
-5. [Arquitectura del Repositorio y Estructura de Archivos](#-arquitectura-del-repositorio-y-estructura-de-archivos)
-6. [Estándar de Componentes y Assets Modulares](#-estándar-de-componentes-y-assets-modulares)
-7. [Visualización y Acceso al Hub Central](#-visualización-y-acceso-al-hub-central)
-8. [Autor y Créditos](#-autor-y-créditos)
+5. [Diagramas de Flujo de Usuario UX & Transición de Pantallas](#-diagramas-de-flujo-de-usuario-ux--transición-de-pantallas)
+6. [Modelo de Base de Datos Relacional (ERD & Diccionario)](#-modelo-de-base-de-datos-relacional-erd--diccionario)
+7. [Arquitectura del Repositorio y Estructura de Archivos](#-arquitectura-del-repositorio-y-estructura-de-archivos)
+8. [Estándar de Componentes y Assets Modulares](#-estándar-de-componentes-y-assets-modulares)
+9. [Visualización y Acceso al Hub Central](#-visualización-y-acceso-al-hub-central)
+10. [Autor y Créditos](#-autor-y-créditos)
 
 ---
 
@@ -168,6 +170,38 @@ Para garantizar la calidad de software de clase empresarial, cada sistema cuenta
 
 ---
 
+## 🔀 Diagramas de Flujo de Usuario UX & Transición de Pantallas
+
+Para comprender la experiencia de usuario y la navegación entre las más de 80 vistas HTML del proyecto, se construyó una suite interactiva de diagramas de flujo con **Mermaid.js v10**:
+
+* 🌐 **Aplicación Interactiva:** [diagrama-flujo.html](diagrama-flujo.html) (con controles de zoom, pan, exportación SVG y selector de pestañas por módulo).
+* 📄 **Especificación en Markdown:** [diagrama-flujo.md](diagrama-flujo.md) (diagramas Mermaid nativos y matriz de transición pantalla por pantalla).
+
+### Cobertura de Flujos UX:
+1. **Ecosistema Global Integrado:** Ciclo omnicanal desde la navegación web de instrumentos hasta la entrega por courier y el cobro en cuotas vía BeatPay.
+2. **Bodega WMS:** Flujo B2B de sucursales solicitando stock vs. panel de administración operando recepción, slotting y picking por olas.
+3. **Tienda & Retail POS:** Compra online en 2 pasos con audio demos MP3 vs. operación de venta rápida en mostrador para cajeros.
+4. **Transporte Express:** Emisión de guía TRA, etiqueta térmica 4x6" y tracking satelital vs. despacho de rutas y confirmación POD con firma digital.
+5. **BeatPay Virtual:** Onboarding de tarjeta con CVV dinámico y simulador de avances vs. motor antifraude y auditoría de transacciones.
+
+---
+
+## 🗄️ Modelo de Base de Datos Relacional (ERD & Diccionario)
+
+La persistencia de la suite está soportada por un **modelo relacional normalizado en 3FN**, diseñado para soportar alta transaccionalidad y consistencia en inventario, ventas y pagos:
+
+* 🌐 **Visualizador ERD Interactivo:** [base-de-datos.html](base-de-datos.html) (diagramas Entidad-Relación interactivos con Mermaid, buscador en el diccionario de datos y botón para copiar script SQL).
+* 📄 **Especificación y DDL en Markdown:** [base-de-datos.md](base-de-datos.md) (script SQL completo DDL listo para PostgreSQL/MySQL y diccionario tabular de columnas).
+
+### Módulos del Modelo Relacional:
+* **Módulo Central (`usuarios`, `sucursales`):** Identidad federada y red de tiendas temáticas (Rock, DJ, Reggaetón/Cumbia, Central).
+* **Módulo Bodega (`bodega_articulos`, `bodega_ubicaciones`, `bodega_series`, `bodega_movimientos`, `bodega_solicitudes`):** Trazabilidad física y kardex inmutable.
+* **Módulo Tienda (`tienda_productos`, `tienda_cupones`, `tienda_ordenes`, `tienda_ordenes_items`):** Catálogo comercial con precio BeatPay y facturación.
+* **Módulo Transporte (`transporte_vehiculos`, `transporte_conductores`, `transporte_rutas`, `transporte_envios`, `transporte_entregas_pod`):** Flota, código TRA y comprobante POD.
+* **Módulo Tarjeta (`tarjeta_cuentas`, `tarjeta_plasticos_virtuales`, `tarjeta_transacciones`, `tarjeta_avances`, `tarjeta_reglas_fraude`):** Líneas rotativas, tokenización y score de riesgo.
+
+---
+
 ## 🏛️ Arquitectura del Repositorio y Estructura de Archivos
 
 ```text
@@ -176,6 +210,10 @@ c:\Users\benja\Desktop\musicpro\
 ├── PresentacionMusicPro.pdf        <-- Presentación ejecutiva corporativa (25 láminas, 27.3 MB)
 ├── README.md                       <-- Documentación central, técnica y de negocio
 ├── requisitos.md                   <-- Requisitos globales de la suite
+├── diagrama-flujo.html             <-- Visor interactivo de Flujos de Usuario (Mermaid)
+├── diagrama-flujo.md               <-- Respaldo Markdown de Flujos y transición de pantallas
+├── base-de-datos.html              <-- Visor interactivo de Modelo ERD y Diccionario SQL
+├── base-de-datos.md                <-- Respaldo Markdown de Esquema Relacional y Script DDL
 ├── shared/                         <-- Componentes transversales
 │   └── modal-system.js             <-- Sistema universal de modales (alert, confirm, prompt)
 │
