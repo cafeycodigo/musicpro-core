@@ -2,6 +2,12 @@
 
 Este documento contiene la especificación detallada de los requisitos del software para la suite **MusicPro Enterprise v2.4**, abarcando requerimientos funcionales, no funcionales, de interfaz de usuario y de componentes para todos los subsistemas.
 
+> 🌟 **Matrices Exhaustivas de Requisitos por Subsistema (1.000 Requisitos en total / 250 por sistema):**
+> * 📦 **Bodega WMS:** [Página Interactiva en Tablas](Bodega/requerimientos.html) | [Especificación Markdown](Bodega/requisitos.md) (100 RF, 50 RNF, 100 RD)
+> * 🛒 **Tienda E-commerce:** [Página Interactiva en Tablas](Tienda/requerimientos.html) | [Especificación Markdown](Tienda/requisitos.md) (100 RF, 50 RNF, 100 RD)
+> * 🚚 **Transporte Express:** [Página Interactiva en Tablas](Transporte/requerimientos.html) | [Especificación Markdown](Transporte/requisitos.md) (100 RF, 50 RNF, 100 RD)
+> * 💳 **Tarjeta Financiera:** [Página Interactiva en Tablas](Tarjeta/requerimientos.html) | [Especificación Markdown](Tarjeta/requisitos.md) (100 RF, 50 RNF, 100 RD)
+
 ---
 
 ## 1. Requerimientos Funcionales Globales (RF-G)

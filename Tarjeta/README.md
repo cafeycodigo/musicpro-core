@@ -9,7 +9,8 @@ El subsistema de **Tarjeta Fintech** de MusicPro administra la emisión de plás
 ```text
 Tarjeta/
 ├── README.md                  <-- Este archivo de documentación
-├── requisitos.md              <-- Especificación de requerimientos funcionales y no funcionales
+├── requerimientos.html        <-- Página web interactiva con 250 requisitos en tablas Tailwind
+├── requisitos.md              <-- Especificación formal en Markdown (100 RF, 50 RNF, 100 RD)
 ├── assets/
 │   ├── css/
 │   │   ├── components.css    <-- Plásticos de tarjetas virtuales, chip EMV, sliders y riesgo
@@ -52,3 +53,10 @@ Tarjeta/
 * [transferencias-create.html](cliente/transferencias-create.html): Transferencia de fondos a cuentas bancarias con confirmación.
 * [canjes-catalog.html](cliente/canjes-catalog.html): Tienda de canje de puntos acumulación MusicPoints.
 * [voucher.html](cliente/voucher.html): Comprobante imprimible de transacción.
+
+---
+
+## 👨‍💻 Autor & Créditos
+* **Creado por:** [Bemtorres](https://github.com/Bemtorres)
+* **GitHub:** [@Bemtorres](https://github.com/Bemtorres)
+

@@ -9,7 +9,8 @@ El módulo de **Bodega (WMS)** de MusicPro proporciona el control operativo y ad
 ```text
 Bodega/
 ├── README.md                  <-- Este archivo de documentación
-├── requisitos.md              <-- Especificación de requerimientos funcionales y no funcionales
+├── requerimientos.html        <-- Página web interactiva con 250 requisitos en tablas Tailwind
+├── requisitos.md              <-- Especificación formal en Markdown (100 RF, 50 RNF, 100 RD)
 ├── assets/
 │   ├── css/
 │   │   ├── components.css    <-- Estilos de semáforos, racks, tablas WMS y toasts
@@ -52,3 +53,10 @@ Bodega/
 * [solicitudes-create.html](cliente/solicitudes-create.html): Formulario interactivo para armar pedido de stock.
 * [solicitudes-edit.html](cliente/solicitudes-edit.html): Modificación de solicitudes en estado borrador.
 * [solicitudes-detail.html](cliente/solicitudes-detail.html): Estado en tiempo real del despacho de sucursal.
+
+---
+
+## 👨‍💻 Autor & Créditos
+* **Creado por:** [Bemtorres](https://github.com/Bemtorres)
+* **GitHub:** [@Bemtorres](https://github.com/Bemtorres)
+

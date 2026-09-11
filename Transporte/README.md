@@ -9,7 +9,8 @@ El subsistema de **Transporte Express** de MusicPro administra la logística de 
 ```text
 Transporte/
 ├── README.md                  <-- Este archivo de documentación
-├── requisitos.md              <-- Especificación de requerimientos funcionales y no funcionales
+├── requerimientos.html        <-- Página web interactiva con 250 requisitos en tablas Tailwind
+├── requisitos.md              <-- Especificación formal en Markdown (100 RF, 50 RNF, 100 RD)
 ├── assets/
 │   ├── css/
 │   │   ├── components.css    <-- Stepper de tracking, barras de carga y etiquetas térmicas
@@ -54,3 +55,10 @@ Transporte/
 * [direcciones-edit.html](cliente/direcciones-edit.html): Modificación de punto de retiro.
 * [login.html](cliente/login.html): Inicio de sesión de clientes corporativos.
 * [registro.html](cliente/registro.html): Registro de cuenta de cliente express.
+
+---
+
+## 👨‍💻 Autor & Créditos
+* **Creado por:** [Bemtorres](https://github.com/Bemtorres)
+* **GitHub:** [@Bemtorres](https://github.com/Bemtorres)
+

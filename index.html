@@ -1,241 +1,252 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full bg-black">
+<html lang="es" class="h-full bg-slate-900">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MusicPro Company | Warehouse and Distributor - Presentaciones</title>
+  <title>MusicPro Suite | Hub de Presentaciones</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
   <script src="shared/modal-system.js"></script>
   <style>
     body {
-      font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
-      background-color: #121212;
-      color: #ffffff;
-      overflow-x: hidden;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f1f5f9;
     }
 
     .font-heading {
       font-family: 'Outfit', sans-serif;
     }
 
-    /* Textura de Fondo Oscuro Rugoso */
-    .dark-grunge-bg {
-      background-color: #141414;
+    /* Fondo Cuadrícula Superior (Grid Paper) */
+    .grid-paper-bg {
+      background-color: #f8fafc;
       background-image: 
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 80%),
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.2) 2px, rgba(0, 0, 0, 0.2) 4px);
+        linear-gradient(to right, rgba(203, 213, 225, 0.4) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(203, 213, 225, 0.4) 1px, transparent 1px);
+      background-size: 16px 16px;
     }
 
-    /* Bordes de Papel Rasgado SVG */
-    .torn-paper-top {
-      background-color: #ffffff;
-      background-image: radial-gradient(#cbd5e1 1px, transparent 0);
-      background-size: 10px 10px;
-      clip-path: polygon(
-        0% 0%, 100% 0%, 100% 70%,
-        98% 65%, 95% 75%, 91% 60%, 87% 72%, 82% 65%, 78% 75%, 73% 62%, 68% 72%, 63% 60%, 58% 75%, 52% 65%, 47% 72%, 42% 60%, 37% 75%, 32% 62%, 26% 75%, 21% 65%, 15% 78%, 10% 62%, 5% 75%, 0% 68%
-      );
+    /* Contenedor Principal Oscuro (Fondo Rasgado) */
+    .dark-main-bg {
+      background-color: #121212;
+      background-image: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 80%);
     }
 
-    .torn-paper-bottom {
-      background-color: #f1f5f9;
-      clip-path: polygon(
-        0% 30%, 4% 20%, 9% 32%, 14% 18%, 19% 30%, 25% 15%, 30% 32%, 36% 22%, 41% 35%, 47% 18%, 53% 32%, 58% 20%, 64% 35%, 70% 18%, 76% 32%, 82% 22%, 88% 35%, 93% 20%, 100% 30%,
-        100% 100%, 0% 100%
-      );
+    /* Papel Periódico Inferior Izquierdo */
+    .newspaper-snippet {
+      background: #e2e8f0;
+      color: #334155;
+      font-family: monospace;
+      font-size: 8px;
+      line-height: 1.1;
+      transform: rotate(-4deg);
+      clip-path: polygon(0% 15%, 15% 0%, 85% 10%, 100% 0%, 95% 85%, 100% 100%, 10% 95%, 0% 80%);
     }
 
-    /* Logo Circular Principal */
-    .brand-circle {
-      border: 3px solid #ffffff;
-      border-radius: 50%;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-    }
-
-    .brand-circle::before {
-      content: '';
-      position: absolute;
-      inset: -8px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-    }
-
-    .brand-circle:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 35px rgba(255, 255, 255, 0.15);
-    }
-
-    /* Tarjetas de Módulo Seleccionables */
-    .module-card {
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Tarjeta Módulo Clickeable */
+    .module-item {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
       cursor: pointer;
     }
 
-    .module-card:hover {
+    .module-item:hover {
       transform: translateY(-4px) scale(1.03);
     }
 
-    .module-card:hover .module-icon {
-      filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.6));
-      transform: scale(1.08);
-    }
-
-    .module-icon {
-      transition: all 0.3s ease;
-    }
-
-    /* Red Starburst Icon Keyframe Pulse */
-    .starburst-icon {
-      filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5));
+    .module-item:hover .module-icon {
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between dark-grunge-bg relative select-none">
+<body class="min-h-screen flex flex-col justify-between grid-paper-bg relative overflow-x-hidden selection:bg-red-600 selection:text-white">
 
-  <!-- CAPA DE PAPEL RASGADO SUPERIOR (Grid Pattern) -->
-  <div class="w-full h-16 sm:h-20 torn-paper-top relative z-10 flex items-center justify-center">
-    <!-- BANNER ROJO "PRESENTACIONES" -->
-    <div class="bg-red-650 bg-red-600 text-white font-heading font-black text-sm sm:text-base tracking-[0.25em] px-8 py-2 uppercase shadow-xl transform translate-y-3 sm:translate-y-4 rounded-sm border-2 border-red-700">
-      PRESENTACIONES
+  <!-- CAPA SUPERIOR CON PAPEL RASGADO Y BADGE -->
+  <header class="relative z-20">
+    <!-- ESPACIO SUPERIOR GRID -->
+    <div class="h-10 sm:h-12 w-full flex items-center justify-between px-6">
+      <!-- ESTRELLA ROJA ESQUINA SUPERIOR IZQUIERDA -->
+      <div class="text-red-600 flex items-center gap-1">
+        <svg class="w-7 h-7 fill-current drop-shadow" viewBox="0 0 24 24">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#ffffff"/>
+        </svg>
+      </div>
+
+      <!-- CRÉDITOS DEL AUTOR: BEMTORRES & GITHUB -->
+      <a href="https://github.com/Bemtorres" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/85 hover:bg-black text-white hover:text-red-400 border border-slate-700/80 hover:border-red-500 shadow-md transition transform hover:scale-105 text-xs font-bold group">
+        <i class="fa-brands fa-github text-sm text-slate-300 group-hover:text-white transition"></i>
+        <span>Creado por <span class="text-red-500 group-hover:text-red-400 font-extrabold underline decoration-red-500/60 underline-offset-2">Bemtorres</span></span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-red-300"></i>
+      </a>
     </div>
-  </div>
 
-  <!-- DECORACIONES ESTRELLA ROJA (ESQUINAS) -->
-  <div class="absolute top-6 left-6 z-20 pointer-events-none">
-    <svg class="w-8 h-8 text-red-600 starburst-icon" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
-      <circle cx="12" cy="12" r="3" fill="#ffffff"/>
-    </svg>
-  </div>
+    <!-- BORDE RASGADO SUPERIOR (SVG SVG Vector Tear) -->
+    <div class="w-full overflow-hidden leading-none -mb-1">
+      <svg class="w-full h-12 sm:h-16 text-[#121212] fill-current" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0 Q150,90 300,40 T600,60 T900,30 T1200,70 L1200,120 L0,120 Z"></path>
+      </svg>
+    </div>
+  </header>
 
-  <div class="absolute bottom-16 right-6 z-20 pointer-events-none">
-    <svg class="w-10 h-10 text-red-600 starburst-icon" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
-      <circle cx="12" cy="12" r="3" fill="#ffffff"/>
-    </svg>
-  </div>
+  <!-- CONTENIDO PRINCIPAL OSCURO (SLIDE CENTRAL) -->
+  <main class="flex-1 dark-main-bg relative z-20 px-6 py-6 sm:py-10 flex flex-col items-center justify-center">
 
-  <!-- SECCIÓN PRINCIPAL GRID DE NAVEGACIÓN -->
-  <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-8 sm:py-12 flex items-center justify-center relative z-20">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full">
+    <!-- BOTÓN PRINCIPAL PARA VISUALIZAR PRESENTACIÓN PDF -->
+    <div class="mb-8 sm:mb-10 text-center">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <!-- BOTÓN VISUALIZAR PDF EN MODAL INTERACTIVO -->
+        <button onclick="openPdfModal()" class="bg-[#e61c24] hover:bg-red-500 text-white font-black text-xs sm:text-sm tracking-[0.18em] px-8 py-3.5 uppercase shadow-2xl hover:shadow-red-600/50 border border-red-700 hover:border-red-400 rounded-2xl inline-flex items-center gap-3 transition-all transform hover:-translate-y-0.5 active:scale-95 group">
+          <div class="w-7 h-7 rounded-lg bg-black/30 flex items-center justify-center text-sm shadow-inner">
+            <i class="fa-solid fa-file-pdf text-amber-300 group-hover:scale-110 transition-transform"></i>
+          </div>
+          <span>Visualizar Presentación (PDF)</span>
+          <i class="fa-solid fa-eye text-xs text-red-200"></i>
+        </button>
+        <!-- BOTÓN ABRIR EN NUEVA PESTAÑA -->
+        <a href="PresentacionMusicPro.pdf" target="_blank" class="px-5 py-3.5 rounded-2xl bg-black/60 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-bold transition flex items-center gap-2 shadow-lg">
+          <i class="fa-solid fa-arrow-up-right-from-square text-amber-400"></i>
+          <span>Abrir en Nueva Pestaña</span>
+        </a>
+        <!-- BOTÓN DESCARGAR PDF -->
+        <a href="PresentacionMusicPro.pdf" download="PresentacionMusicPro.pdf" class="px-5 py-3.5 rounded-2xl bg-black/60 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-bold transition flex items-center gap-2 shadow-lg">
+          <i class="fa-solid fa-download text-red-400"></i>
+          <span>Descargar PDF</span>
+        </a>
+      </div>
 
-      <!-- COLUMNA IZQUIERDA: LOGO OFICIAL MUSIC PRO COMPANY -->
+      <!-- ACCESO RÁPIDO A MATRICES DE REQUISITOS (250 POR SISTEMA) -->
+      <div class="flex flex-wrap justify-center items-center gap-2 sm:gap-3 mt-4">
+        <a href="Bodega/requerimientos.html" class="px-3 py-1.5 rounded-xl bg-black/60 hover:bg-amber-500 hover:text-slate-950 border border-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1.5 shadow-lg">
+          <i class="fa-solid fa-boxes-stacked text-amber-400"></i>
+          <span>Bodega WMS (250)</span>
+        </a>
+        <a href="Tienda/requerimientos.html" class="px-3 py-1.5 rounded-xl bg-black/60 hover:bg-indigo-500 hover:text-white border border-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1.5 shadow-lg">
+          <i class="fa-solid fa-store text-indigo-400"></i>
+          <span>Tienda Store (250)</span>
+        </a>
+        <a href="Transporte/requerimientos.html" class="px-3 py-1.5 rounded-xl bg-black/60 hover:bg-cyan-500 hover:text-slate-950 border border-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1.5 shadow-lg">
+          <i class="fa-solid fa-truck-fast text-cyan-400"></i>
+          <span>Transporte Express (250)</span>
+        </a>
+        <a href="Tarjeta/requerimientos.html" class="px-3 py-1.5 rounded-xl bg-black/60 hover:bg-yellow-500 hover:text-slate-950 border border-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1.5 shadow-lg">
+          <i class="fa-solid fa-credit-card text-yellow-400"></i>
+          <span>Tarjeta Fintech (250)</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ESTRUCTURA PRINCIPAL DE 2 COLUMNAS (LOGO E ICONOS) -->
+    <div class="max-w-5xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+
+      <!-- COLUMNA IZQUIERDA: SELLO CIRCULAR MUSIC PRO COMPANY -->
       <div class="lg:col-span-5 flex justify-center">
-        <div class="brand-circle w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 p-8 text-center bg-black/40 backdrop-blur-sm">
+        <div class="w-64 h-64 sm:w-80 sm:h-80 md:w-84 md:h-84 rounded-full border-2 border-white flex flex-col items-center justify-center p-6 text-center relative shadow-2xl bg-black/30">
           
-          <!-- LOGOTIPO ISOTIPO "M" -->
-          <div class="w-24 h-24 sm:w-28 sm:h-28 border-4 border-white rounded-2xl flex items-center justify-center mb-3">
-            <span class="font-heading font-black text-6xl sm:text-7xl text-white tracking-tighter">M</span>
+          <!-- ANILLO EXTERIOR DOBLE -->
+          <div class="absolute -inset-2 rounded-full border border-white/40 pointer-events-none"></div>
+
+          <!-- EMBLEMA "M" EN CUADRO BLANCO -->
+          <div class="w-20 h-20 sm:w-24 sm:h-24 bg-white rounded-2xl flex items-center justify-center mb-3 shadow-lg">
+            <span class="font-heading font-black text-5xl sm:text-6xl text-[#121212] tracking-tighter">M</span>
           </div>
 
-          <!-- TEXTO MARCA -->
-          <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-white tracking-wider leading-none uppercase mb-1">
+          <!-- TEXTO MUSIC PRO COMPANY -->
+          <h1 class="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-widest leading-none uppercase">
             MUSIC PRO
           </h1>
-          <h2 class="font-heading font-black text-3xl sm:text-4xl text-white tracking-widest leading-none uppercase mb-3">
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-white tracking-widest leading-none uppercase mb-2">
             COMPANY
           </h2>
 
-          <div class="w-full h-px bg-white/40 my-1"></div>
+          <div class="w-3/4 h-[1.5px] bg-white/70 my-1"></div>
 
-          <p class="text-[9px] sm:text-[11px] font-bold text-slate-300 tracking-[0.2em] uppercase">
+          <p class="text-[8px] sm:text-[10px] font-bold text-white tracking-[0.22em] uppercase">
             WAREHOUSE AND DISTRIBUTOR
           </p>
         </div>
       </div>
 
       <!-- COLUMNA DERECHA: LOS 4 MÓDULOS DE PRESENTACIÓN -->
-      <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
+      <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
 
-        <!-- 1. BODEGA PRINCIPAL -->
-        <div onclick="openModuleModal('bodega')" class="module-card flex flex-col items-center text-center group p-4 rounded-2xl hover:bg-white/5 transition">
-          <div class="module-icon mb-4 text-white">
+        <!-- MÓDULO 1: BODEGA PRINCIPAL -->
+        <div onclick="openModuleModal('bodega')" class="module-item flex flex-col items-center text-center group">
+          <div class="module-icon text-white mb-3">
             <!-- Icono Caja Fuerte / Vault -->
-            <svg class="w-20 h-20 sm:w-24 sm:h-24 stroke-current fill-none stroke-[1.5]" viewBox="0 0 64 64">
+            <svg class="w-16 h-16 sm:w-20 sm:h-20 stroke-current fill-none stroke-[1.8]" viewBox="0 0 64 64">
               <rect x="10" y="10" width="44" height="44" rx="6" stroke="currentColor"/>
-              <circle cx="32" cy="32" r="12" stroke="currentColor"/>
-              <circle cx="32" cy="32" r="4" stroke="currentColor"/>
-              <path d="M32 12V20M32 44V52M12 32H20M44 32H52" stroke-linecap="round"/>
-              <circle cx="16" cy="16" r="2" fill="currentColor"/>
-              <circle cx="48" cy="16" r="2" fill="currentColor"/>
-              <circle cx="16" cy="48" r="2" fill="currentColor"/>
-              <circle cx="48" cy="48" r="2" fill="currentColor"/>
+              <circle cx="32" cy="32" r="10" stroke="currentColor"/>
+              <circle cx="32" cy="32" r="3" stroke="currentColor"/>
+              <path d="M32 10V18M32 46V54M10 32H18M46 32H54" stroke-linecap="round"/>
+              <circle cx="17" cy="17" r="2" fill="currentColor"/>
+              <circle cx="47" cy="17" r="2" fill="currentColor"/>
+              <circle cx="17" cy="47" r="2" fill="currentColor"/>
+              <circle cx="47" cy="47" r="2" fill="currentColor"/>
             </svg>
           </div>
-          <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
+          <h3 class="font-heading font-extrabold text-lg sm:text-xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
             Bodega<br>principal
           </h3>
-          <span class="mt-2 text-xs font-semibold text-slate-400 group-hover:text-slate-200 transition">Sistema WMS & Almacén &rarr;</span>
         </div>
 
-        <!-- 2. SUCURSALES Y FRANQUICIAS (TIENDA) -->
-        <div onclick="openModuleModal('tienda')" class="module-card flex flex-col items-center text-center group p-4 rounded-2xl hover:bg-white/5 transition">
-          <div class="module-icon mb-4 text-white">
+        <!-- MÓDULO 2: SUCURSALES Y FRANQUICIAS -->
+        <div onclick="openModuleModal('tienda')" class="module-item flex flex-col items-center text-center group">
+          <div class="module-icon text-white mb-3">
             <!-- Icono Tienda / Shop -->
-            <svg class="w-20 h-20 sm:w-24 sm:h-24 stroke-current fill-none stroke-[1.5]" viewBox="0 0 64 64">
-              <path d="M8 24L12 10H52L56 24V54H8V24Z" stroke="currentColor"/>
-              <path d="M8 24C11 24 13 21 16 21C19 21 21 24 24 24C27 24 29 21 32 21C35 21 37 24 40 24C43 24 45 21 48 21C51 21 53 24 56 24" stroke="currentColor"/>
-              <rect x="22" y="34" width="20" height="20" stroke="currentColor"/>
-              <path d="M22 42H42" stroke="currentColor"/>
-              <!-- Tiendita pequeña lateral -->
-              <path d="M48 40H60V54H48V40Z" fill="#141414" stroke="currentColor"/>
-              <path d="M48 40L50 32H58L60 40" stroke="currentColor"/>
+            <svg class="w-16 h-16 sm:w-20 sm:h-20 stroke-current fill-none stroke-[1.8]" viewBox="0 0 64 64">
+              <path d="M10 24L14 10H50L54 24V52H10V24Z" stroke="currentColor"/>
+              <path d="M10 24C12.5 24 14.5 21 17 21C19.5 21 21.5 24 24 24C26.5 24 28.5 21 31 21C33.5 21 35.5 24 38 24C40.5 24 42.5 21 45 21C47.5 21 49.5 24 54 24" stroke="currentColor"/>
+              <rect x="24" y="34" width="16" height="18" stroke="currentColor"/>
+              <path d="M24 42H40" stroke="currentColor"/>
+              <!-- Tienda secundaria pequeña al lado -->
+              <path d="M46 38H58V52H46V38Z" fill="#121212" stroke="currentColor"/>
+              <path d="M46 38L48 30H56L58 38" stroke="currentColor"/>
             </svg>
           </div>
-          <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
+          <h3 class="font-heading font-extrabold text-lg sm:text-xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
             Sucursales<br>y franquicias
           </h3>
-          <span class="mt-2 text-xs font-semibold text-slate-400 group-hover:text-slate-200 transition">E-Commerce & POS &rarr;</span>
         </div>
 
-        <!-- 3. COURIER (TRANSPORTE) -->
-        <div onclick="openModuleModal('transporte')" class="module-card flex flex-col items-center text-center group p-4 rounded-2xl hover:bg-white/5 transition">
-          <div class="module-icon mb-4 text-white">
+        <!-- MÓDULO 3: COURIER (PROVEEDOR - CLIENTE) -->
+        <div onclick="openModuleModal('transporte')" class="module-item flex flex-col items-center text-center group">
+          <div class="module-icon text-white mb-2">
             <!-- Icono Camión Courier -->
-            <svg class="w-20 h-20 sm:w-24 sm:h-24 stroke-current fill-none stroke-[1.5]" viewBox="0 0 64 64">
+            <svg class="w-16 h-16 sm:w-20 sm:h-20 stroke-current fill-none stroke-[1.8]" viewBox="0 0 64 64">
               <path d="M6 18H40V44H6V18Z" stroke="currentColor"/>
               <path d="M40 26H50L58 36V44H40V26Z" stroke="currentColor"/>
-              <circle cx="16" cy="46" r="5" stroke="currentColor" fill="#141414"/>
-              <circle cx="48" cy="46" r="5" stroke="currentColor" fill="#141414"/>
-              <path d="M22 46H42" stroke="currentColor"/>
-              <path d="M12 26H28" stroke="currentColor" stroke-dasharray="2 2"/>
+              <circle cx="16" cy="46" r="4.5" stroke="currentColor" fill="#121212"/>
+              <circle cx="48" cy="46" r="4.5" stroke="currentColor" fill="#121212"/>
+              <path d="M21 46H43" stroke="currentColor"/>
             </svg>
           </div>
-          <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
+          <h3 class="font-heading font-extrabold text-lg sm:text-xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
             Courier
           </h3>
-          <p class="text-xs font-bold text-slate-300 mt-1 uppercase tracking-wider">
+          <p class="text-[11px] font-bold text-white uppercase tracking-wider mt-0.5">
             Proveedor - Cliente
           </p>
-          <span class="mt-2 text-xs font-semibold text-slate-400 group-hover:text-slate-200 transition">Envíos & Tracking &rarr;</span>
         </div>
 
-        <!-- 4. SISTEMA DE PAGOS (TARJETA) -->
-        <div onclick="openModuleModal('tarjeta')" class="module-card flex flex-col items-center text-center group p-4 rounded-2xl hover:bg-white/5 transition">
-          <div class="module-icon mb-4 text-white">
+        <!-- MÓDULO 4: SISTEMA DE PAGOS -->
+        <div onclick="openModuleModal('tarjeta')" class="module-item flex flex-col items-center text-center group">
+          <div class="module-icon text-white mb-3">
             <!-- Icono Tarjetas de Crédito -->
-            <svg class="w-20 h-20 sm:w-24 sm:h-24 stroke-current fill-none stroke-[1.5]" viewBox="0 0 64 64">
-              <rect x="6" y="22" width="46" height="30" rx="4" stroke="currentColor"/>
-              <path d="M6 30H52" stroke="currentColor" stroke-width="2"/>
-              <rect x="12" y="38" width="10" height="7" rx="1" fill="currentColor"/>
-              <!-- Segunda tarjeta superpuesta -->
-              <path d="M16 14H54C56.2 14 58 15.8 58 18V40" stroke="currentColor"/>
-              <path d="M16 20H58" stroke="currentColor"/>
+            <svg class="w-16 h-16 sm:w-20 sm:h-20 stroke-current fill-none stroke-[1.8]" viewBox="0 0 64 64">
+              <rect x="6" y="24" width="44" height="28" rx="4" stroke="currentColor"/>
+              <path d="M6 32H50" stroke="currentColor" stroke-width="2"/>
+              <rect x="12" y="40" width="8" height="6" rx="1" fill="currentColor"/>
+              <!-- Segunda tarjeta detrás -->
+              <path d="M14 16H52C54.2 16 56 17.8 56 20V40" stroke="currentColor"/>
+              <path d="M14 22H56" stroke="currentColor"/>
             </svg>
           </div>
-          <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
+          <h3 class="font-heading font-extrabold text-lg sm:text-xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
             Sistema de<br>pagos
           </h3>
-          <span class="mt-2 text-xs font-semibold text-slate-400 group-hover:text-slate-200 transition">Tarjeta & Fidelización &rarr;</span>
         </div>
 
       </div>
@@ -243,65 +254,158 @@
     </div>
   </main>
 
-  <!-- CAPA DE PAPEL RASGADO INFERIOR (Newspaper Print Texture Effect) -->
-  <div class="w-full h-20 sm:h-24 torn-paper-bottom relative z-10 flex items-end justify-center p-4 bg-slate-200 text-slate-900 overflow-hidden">
-    <div class="text-[10px] font-mono opacity-40 text-center tracking-tighter leading-none max-w-4xl uppercase select-none pointer-events-none">
-      MUSIC PRO COMPANY WAREHOUSE AND DISTRIBUTOR • ENTERPRISE LOGISTICS SYSTEM • BODEGA PRINCIPAL • SUCURSALES Y FRANQUICIAS • COURIER PROVEEDOR CLIENTE • SISTEMA DE PAGOS TARJETA • MUSIC PRO SUITE V2.4 •
+  <!-- CAPA INFERIOR DE PAPEL RASGADO Y DETALLES -->
+  <footer class="relative z-20">
+    <!-- BORDE RASGADO INFERIOR (SVG Vector Tear) -->
+    <div class="w-full overflow-hidden leading-none -mt-1">
+      <svg class="w-full h-12 sm:h-16 text-[#121212] fill-current transform rotate-180" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0 Q180,80 360,30 T720,60 T1080,20 T1200,60 L1200,120 L0,120 Z"></path>
+      </svg>
     </div>
-  </div>
 
-  <!-- MODAL DE SELECCIÓN DE ENTORNO (CLIENTE VS ADMIN) -->
-  <div id="moduleModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative text-left">
+    <!-- SECCIÓN DE PIE DE PÁGINA -->
+    <div class="h-14 sm:h-16 w-full flex items-center justify-between px-6 grid-paper-bg relative">
       
-      <button onclick="closeModuleModal()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
-        <i class="fa-solid fa-xmark text-lg"></i>
+      <!-- SNIPPET DE PERIÓDICO DECORATIVO (ABAJO IZQUIERDA) -->
+      <div class="newspaper-snippet p-2 w-36 sm:w-48 shadow-sm">
+        MUSIC PRO COMPANY WAREHOUSE DISTRIBUTION SYSTEM ENTERPRISE LOGISTICS V2.4
+      </div>
+
+      <!-- CRÉDITOS DEL AUTOR: BEMTORRES -->
+      <a href="https://github.com/Bemtorres" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/85 hover:bg-black text-white hover:text-red-400 border border-slate-700/80 hover:border-red-500 shadow-md transition transform hover:scale-105 group text-xs font-bold z-30">
+        <i class="fa-brands fa-github text-sm text-slate-300 group-hover:text-white transition"></i>
+        <span>Creado por <span class="text-red-500 group-hover:text-red-400 font-extrabold underline decoration-red-500/60 underline-offset-2">Bemtorres</span></span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-red-300"></i>
+      </a>
+
+      <!-- ESTRELLA ROJA ESQUINA INFERIOR DERECHA -->
+      <div class="text-red-600 flex items-center gap-1">
+        <svg class="w-7 h-7 fill-current drop-shadow" viewBox="0 0 24 24">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#ffffff"/>
+        </svg>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL DE ELECCIÓN DE ENTORNO (CLIENTE VS ADMIN) -->
+  <div id="moduleModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-[#18181b] border border-slate-700 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative text-left">
+      
+      <button onclick="closeModuleModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
+        <i class="fa-solid fa-xmark text-base"></i>
       </button>
 
       <div class="flex items-center gap-4 mb-6">
-        <div id="modalIconContainer" class="w-14 h-14 rounded-2xl bg-red-600/20 text-red-500 flex items-center justify-center text-3xl border border-red-500/30">
+        <div id="modalIconContainer" class="w-12 h-12 rounded-2xl bg-red-600/20 text-red-500 flex items-center justify-center text-2xl border border-red-500/30 flex-shrink-0">
           <i id="modalIcon" class="fa-solid fa-boxes-stacked"></i>
         </div>
         <div>
-          <h3 id="modalTitle" class="font-heading font-extrabold text-2xl text-white">Nombre Módulo</h3>
-          <p id="modalSubtitle" class="text-xs text-slate-400">Selecciona el entorno al que deseas ingresar</p>
+          <h3 id="modalTitle" class="font-heading font-extrabold text-xl text-white">Nombre Módulo</h3>
+          <p id="modalSubtitle" class="text-xs text-slate-400">Selecciona el panel al que deseas ingresar</p>
         </div>
       </div>
 
-      <div class="space-y-4">
-        <!-- OPCIÓN CLIENTE / FRONT-OFFICE -->
-        <a id="modalClientBtn" href="#" class="group p-4 rounded-2xl bg-slate-800 hover:bg-slate-700/80 border border-slate-700 hover:border-slate-500 transition flex items-center justify-between">
-          <div class="flex items-center gap-3.5">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg">
+      <div class="space-y-3.5">
+        <!-- OPCIÓN CLIENTE / OPERADOR -->
+        <a id="modalClientBtn" href="#" class="group p-4 rounded-2xl bg-slate-800/80 hover:bg-slate-700/90 border border-slate-700 hover:border-slate-500 transition flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-base">
               <i class="fa-solid fa-user-gear"></i>
             </div>
             <div>
-              <h4 id="modalClientTitle" class="font-bold text-sm text-white">Portal de Cliente / Operador</h4>
-              <p id="modalClientDesc" class="text-xs text-slate-400">Acceso a solicitudes, catálogo y seguimiento</p>
+              <h4 id="modalClientTitle" class="font-bold text-xs sm:text-sm text-white">Portal de Cliente / Operador</h4>
+              <p id="modalClientDesc" class="text-[11px] text-slate-400">Solicitudes, catálogo y consultas</p>
             </div>
           </div>
-          <i class="fa-solid fa-arrow-right text-slate-400 group-hover:text-white transition"></i>
+          <i class="fa-solid fa-arrow-right text-slate-400 group-hover:text-white transition text-xs"></i>
         </a>
 
-        <!-- OPCIÓN ADMINISTRACIÓN / BACK-OFFICE -->
-        <a id="modalAdminBtn" href="#" class="group p-4 rounded-2xl bg-gradient-to-r from-red-900/40 to-red-600/40 hover:from-red-900/60 hover:to-red-600/60 border border-red-500/40 transition flex items-center justify-between">
-          <div class="flex items-center gap-3.5">
-            <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-lg">
+        <!-- OPCIÓN ADMINISTRATIVO / BACKOFFICE -->
+        <a id="modalAdminBtn" href="#" class="group p-4 rounded-2xl bg-red-950/40 hover:bg-red-900/50 border border-red-700/40 hover:border-red-500/60 transition flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-base">
               <i class="fa-solid fa-shield-halved"></i>
             </div>
             <div>
-              <h4 id="modalAdminTitle" class="font-bold text-sm text-white">Panel Administrativo (Backoffice)</h4>
-              <p id="modalAdminDesc" class="text-xs text-red-200/80">Gestión de configuraciones, auditoría y reportes</p>
+              <h4 id="modalAdminTitle" class="font-bold text-xs sm:text-sm text-white">Panel Administrativo (Backoffice)</h4>
+              <p id="modalAdminDesc" class="text-[11px] text-red-200/70">Gestión global, auditoría y reportes</p>
             </div>
           </div>
-          <i class="fa-solid fa-arrow-right text-red-300 group-hover:text-white transition"></i>
+          <i class="fa-solid fa-arrow-right text-red-400 group-hover:text-white transition text-xs"></i>
+        </a>
+
+        <!-- OPCIÓN ESPECIFICACIÓN DE REQUERIMIENTOS -->
+        <a id="modalReqBtn" href="#" class="group p-4 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 hover:border-amber-500/50 transition flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-base">
+              <i class="fa-solid fa-list-check"></i>
+            </div>
+            <div>
+              <h4 id="modalReqTitle" class="font-bold text-xs sm:text-sm text-white">Requisitos de Software & Diseño</h4>
+              <p id="modalReqDesc" class="text-[11px] text-amber-300/80">100 RF, 50 RNF y 100 RD en tablas interactivas</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-amber-400 group-hover:text-white transition text-xs"></i>
         </a>
       </div>
 
     </div>
   </div>
 
-  <!-- JS DE INTERACCIÓN -->
+  <!-- MODAL DE VISUALIZACIÓN DE PRESENTACIÓN (PDF) -->
+  <div id="pdfModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex flex-col p-2 sm:p-4 md:p-6 select-none">
+    
+    <!-- ENCABEZADO DEL MODAL PDF -->
+    <div class="flex items-center justify-between bg-[#18181b] border border-slate-700/80 rounded-2xl px-4 py-3 mb-3 shadow-2xl">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-red-600/20 text-red-500 flex items-center justify-center text-xl border border-red-500/30 flex-shrink-0">
+          <i class="fa-solid fa-file-pdf text-amber-400"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="font-heading font-extrabold text-sm sm:text-base text-white leading-tight">Presentación Corporativa Music Pro</h3>
+            <span class="px-2 py-0.5 text-[9px] font-black rounded-full bg-red-500/20 text-red-300 border border-red-500/30">Documento PDF</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-0.5">Archivo: <span class="text-slate-200 font-mono">PresentacionMusicPro.pdf</span> • Tamaño: <span class="text-amber-400 font-semibold">27.29 MB</span></p>
+        </div>
+      </div>
+
+      <!-- ACCIONES DERECHA -->
+      <div class="flex items-center gap-2">
+        <a href="PresentacionMusicPro.pdf" target="_blank" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition border border-slate-700 flex items-center gap-1.5" title="Abrir en pestaña completa">
+          <i class="fa-solid fa-arrow-up-right-from-square text-xs text-amber-400"></i>
+          <span class="hidden sm:inline">Pestaña Completa</span>
+        </a>
+        <a href="PresentacionMusicPro.pdf" download="PresentacionMusicPro.pdf" class="px-3 py-2 rounded-xl bg-[#e61c24] hover:bg-red-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-md" title="Descargar archivo">
+          <i class="fa-solid fa-download text-xs"></i>
+          <span class="hidden sm:inline">Descargar</span>
+        </a>
+        <button onclick="closePdfModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition border border-slate-700" title="Cerrar (Esc)">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- VISOR DE PDF NATIVO EN IFRAME -->
+    <div class="flex-1 bg-[#121215] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl relative flex flex-col">
+      <iframe id="pdfIframe" src="" class="w-full h-full flex-1 rounded-2xl bg-slate-900" frameborder="0"></iframe>
+    </div>
+
+    <!-- PIE DEL MODAL CON CRÉDITOS BEMTORRES -->
+    <div class="mt-2.5 flex items-center justify-between px-2">
+      <a href="https://github.com/Bemtorres" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white font-medium transition group">
+        <i class="fa-brands fa-github text-sm text-red-500 group-hover:text-red-400"></i>
+        <span>Creado por <strong class="text-white group-hover:text-red-400 underline decoration-red-500/50">Bemtorres</strong></span>
+      </a>
+      <button onclick="closePdfModal()" class="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition">
+        Cerrar
+      </button>
+    </div>
+
+  </div>
+
+  <!-- SCRIPT DE MANEJO DE MODALES -->
   <script>
     const moduleData = {
       bodega: {
@@ -313,7 +417,8 @@
         clientUrl: 'Bodega/cliente/index.html',
         adminTitle: 'Administración WMS',
         adminDesc: 'Maestro de artículos, ubicaciones, kardex y mermas',
-        adminUrl: 'Bodega/admin/index.html'
+        adminUrl: 'Bodega/admin/index.html',
+        reqUrl: 'Bodega/requerimientos.html'
       },
       tienda: {
         title: 'Sucursales y Franquicias',
@@ -323,8 +428,9 @@
         clientDesc: 'Exploración de catálogo, carrito y checkout',
         clientUrl: 'Tienda/cliente/index.html',
         adminTitle: 'Administración Tienda',
-        adminDesc: 'Gestión de productos, ordenes de compra y cupones',
-        adminUrl: 'Tienda/admin/index.html'
+        adminDesc: 'Gestión de productos, órdenes de compra y cupones',
+        adminUrl: 'Tienda/admin/index.html',
+        reqUrl: 'Tienda/requerimientos.html'
       },
       transporte: {
         title: 'Courier (Proveedor - Cliente)',
@@ -335,7 +441,8 @@
         clientUrl: 'Transporte/cliente/index.html',
         adminTitle: 'Administración de Transporte',
         adminDesc: 'Gestión de flotas, conductores y despachador de rutas',
-        adminUrl: 'Transporte/admin/index.html'
+        adminUrl: 'Transporte/admin/index.html',
+        reqUrl: 'Transporte/requerimientos.html'
       },
       tarjeta: {
         title: 'Sistema de Pagos',
@@ -346,7 +453,8 @@
         clientUrl: 'Tarjeta/cliente/index.html',
         adminTitle: 'Administración Financiera',
         adminDesc: 'Emisión de plásticos, motor antifraude y auditoría',
-        adminUrl: 'Tarjeta/admin/index.html'
+        adminUrl: 'Tarjeta/admin/index.html',
+        reqUrl: 'Tarjeta/requerimientos.html'
       }
     };
 
@@ -366,12 +474,36 @@
       document.getElementById('modalAdminDesc').innerText = data.adminDesc;
       document.getElementById('modalAdminBtn').href = data.adminUrl;
 
+      document.getElementById('modalReqBtn').href = data.reqUrl;
+
       document.getElementById('moduleModal').classList.remove('hidden');
     }
 
     function closeModuleModal() {
       document.getElementById('moduleModal').classList.add('hidden');
     }
+
+    function openPdfModal() {
+      const iframe = document.getElementById('pdfIframe');
+      if (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('PresentacionMusicPro.pdf')) {
+        iframe.src = 'PresentacionMusicPro.pdf';
+      }
+      document.getElementById('pdfModal').classList.remove('hidden');
+    }
+
+    function closePdfModal() {
+      document.getElementById('pdfModal').classList.add('hidden');
+      const iframe = document.getElementById('pdfIframe');
+      iframe.src = 'about:blank';
+    }
+
+    // Cerrar modales con Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModuleModal();
+        closePdfModal();
+      }
+    });
   </script>
 
 </body>
