@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/cliente/solicitudes-edit.css">
 </head>
 <body class="min-h-full flex flex-col font-sans text-slate-800">
 
@@ -203,47 +205,8 @@
 
   </main>
 
-  <script>
-    function recalcTotal() {
-      let total = 0;
-      document.querySelectorAll('.item-qty').forEach(input => {
-        total += parseInt(input.value || 0);
-      });
-      document.getElementById('totalBultosEdit').innerText = total;
-    }
-
-    function toggleLockState() {
-      const state = document.getElementById('stateSimulator').value;
-      const badge = document.getElementById('badgeEstado');
-      const warning = document.getElementById('lockWarning');
-      const saveBtn = document.getElementById('saveButton');
-      const fields = document.querySelectorAll('.form-field');
-      const btns = document.querySelectorAll('.form-btn');
-
-      if (state === 'En Picking') {
-        badge.innerText = 'En Picking';
-        badge.className = 'text-xs px-2.5 py-1 rounded-full font-medium bg-amber-100 text-amber-800 border border-amber-300';
-        warning.classList.remove('hidden');
-        saveBtn.disabled = true;
-        saveBtn.className = 'px-6 py-2.5 rounded-xl bg-slate-300 text-slate-500 text-xs font-semibold cursor-not-allowed flex items-center gap-2';
-        fields.forEach(f => f.disabled = true);
-        btns.forEach(b => b.classList.add('hidden'));
-      } else {
-        badge.innerText = 'Borrador';
-        badge.className = 'text-xs px-2.5 py-1 rounded-full font-medium bg-slate-100 text-slate-700 border border-slate-300';
-        warning.classList.add('hidden');
-        saveBtn.disabled = false;
-        saveBtn.className = 'px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-md transition flex items-center gap-2';
-        fields.forEach(f => f.disabled = false);
-        btns.forEach(b => b.classList.remove('hidden'));
-      }
-    }
-
-    function handleEditSubmit(e) {
-      e.preventDefault();
-      alert('¡Solicitud SOL-2026-089 actualizada con éxito!');
-      window.location.href = 'solicitudes-list.html';
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/cliente/solicitudes-edit.js"></script>
 </body>
 </html>

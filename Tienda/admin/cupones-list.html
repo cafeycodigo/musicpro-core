@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/cupones-list.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -186,37 +188,8 @@
     </div>
   </div>
 
-  <script>
-    let activeCoupon = null;
-
-    function filterCoupons() {
-      const query = document.getElementById('couponSearch').value.toLowerCase();
-      const rows = document.querySelectorAll('.coupon-row');
-      rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
-      });
-    }
-
-    function openDeleteCouponModal(code) {
-      activeCoupon = code;
-      document.getElementById('deleteCouponCode').innerText = code;
-      document.getElementById('deleteCouponModal').classList.remove('hidden');
-    }
-
-    function closeDeleteCouponModal() {
-      document.getElementById('deleteCouponModal').classList.add('hidden');
-      activeCoupon = null;
-    }
-
-    function confirmDeleteCoupon() {
-      if (activeCoupon) {
-        const row = document.querySelector(`tr[data-code="${activeCoupon}"]`);
-        if (row) row.remove();
-        alert(`Cupón ${activeCoupon} eliminado exitosamente.`);
-      }
-      closeDeleteCouponModal();
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/cupones-list.js"></script>
 </body>
 </html>

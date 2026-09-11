@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/articulos-list.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -353,60 +355,8 @@
     </div>
   </div>
 
-  <script>
-    let activeDeactivateSku = null;
-
-    function filterAdminTable() {
-      const category = document.getElementById('categoryFilter').value;
-      const query = document.getElementById('adminSkuSearch').value.toLowerCase();
-      const rows = document.querySelectorAll('.sku-row');
-
-      rows.forEach(row => {
-        const cat = row.getAttribute('data-cat');
-        const text = row.innerText.toLowerCase();
-
-        const matchCat = (category === 'all' || cat === category);
-        const matchQuery = text.includes(query);
-
-        row.style.display = (matchCat && matchQuery) ? '' : 'none';
-      });
-    }
-
-    document.getElementById('adminSkuSearch').addEventListener('input', filterAdminTable);
-
-    function openDeactivateModal(sku, name, stock) {
-      activeDeactivateSku = sku;
-      document.getElementById('modalSkuCode').innerText = sku;
-      document.getElementById('modalSkuName').innerText = name;
-      const warning = document.getElementById('modalStockWarning');
-      if (stock > 0) {
-        warning.classList.remove('hidden');
-        document.getElementById('modalStockCount').innerText = stock;
-      } else {
-        warning.classList.add('hidden');
-      }
-      document.getElementById('deactivateModal').classList.remove('hidden');
-    }
-
-    function closeDeactivateModal() {
-      document.getElementById('deactivateModal').classList.add('hidden');
-      activeDeactivateSku = null;
-    }
-
-    function confirmDeactivate() {
-      if (activeDeactivateSku) {
-        const row = document.querySelector(`tr[data-sku="${activeDeactivateSku}"]`);
-        if (row) {
-          row.style.opacity = '0.4';
-          row.querySelector('td:nth-child(2)').innerHTML += ' <span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-200 text-slate-600">Desactivado</span>';
-        }
-      }
-      closeDeactivateModal();
-    }
-
-    function exportCSV() {
-      alert('Generando exportación CSV del maestro de inventario...');
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/articulos-list.js"></script>
 </body>
 </html>

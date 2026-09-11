@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/movimientos-list.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -205,24 +207,8 @@
     </main>
   </div>
 
-  <script>
-    function filterMovimientos() {
-      const type = document.getElementById('typeFilter').value;
-      const query = document.getElementById('movSearch').value.toLowerCase();
-      const rows = document.querySelectorAll('.mov-row');
-
-      rows.forEach(row => {
-        const rowType = row.getAttribute('data-type');
-        const text = row.innerText.toLowerCase();
-
-        const matchType = (type === 'all' || rowType === type);
-        const matchQuery = text.includes(query);
-
-        row.style.display = (matchType && matchQuery) ? '' : 'none';
-      });
-    }
-
-    document.getElementById('movSearch').addEventListener('input', filterMovimientos);
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/movimientos-list.js"></script>
 </body>
 </html>

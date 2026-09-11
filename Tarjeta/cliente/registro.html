@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/cliente/registro.css">
 </head>
 <body class="min-h-full flex flex-col justify-between font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
 
@@ -139,22 +141,8 @@
     <span>MusicPro Servicios Financieros S.A. © 2026 • Evaluación protegida bajo secreto financiero</span>
   </footer>
 
-  <script>
-    function handleCardRegister() {
-      const pin1 = document.getElementById('solPin').value;
-      const pin2 = document.getElementById('solPinConfirm').value;
-      if (pin1 !== pin2) {
-        alert('Las claves numéricas no coinciden. Por favor verifícalas.');
-        return;
-      }
-      if (pin1.length < 6) {
-        alert('La clave debe tener exactamente 6 dígitos numéricos.');
-        return;
-      }
-      const name = document.getElementById('solName').value;
-      alert(`¡Felicitaciones ${name}! Tu solicitud ha sido aprobada de forma instantánea. Se ha generado tu tarjeta virtual activa y hemos acreditado 5.000 Puntos Pro de bienvenida.`);
-      window.location.href = "tarjeta-dashboard.html";
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/cliente/registro.js"></script>
 </body>
 </html>

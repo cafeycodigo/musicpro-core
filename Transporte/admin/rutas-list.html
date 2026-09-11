@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/rutas-list.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -191,15 +193,8 @@
     </main>
   </div>
 
-  <script>
-    function filterRoutes() {
-      const query = document.getElementById('routeSearch').value.toLowerCase();
-      const rows = document.querySelectorAll('.route-row');
-      rows.forEach(row => {
-        const text = row.getAttribute('data-search').toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
-      });
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/rutas-list.js"></script>
 </body>
 </html>

@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/cliente/compras-list.css">
 </head>
 <body class="min-h-full flex flex-col font-sans text-slate-800">
 
@@ -166,22 +168,8 @@
 
   </main>
 
-  <script>
-    function filterOrders() {
-      const status = document.getElementById('statusFilter').value;
-      const query = document.getElementById('orderSearch').value.toLowerCase();
-      const rows = document.querySelectorAll('.order-row');
-
-      rows.forEach(row => {
-        const rowStatus = row.getAttribute('data-status');
-        const text = row.innerText.toLowerCase();
-
-        const matchStatus = (status === 'all' || rowStatus === status);
-        const matchQuery = text.includes(query);
-
-        row.style.display = (matchStatus && matchQuery) ? '' : 'none';
-      });
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/cliente/compras-list.js"></script>
 </body>
 </html>

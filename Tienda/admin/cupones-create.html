@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/cupones-create.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -141,19 +143,8 @@
     </main>
   </div>
 
-  <script>
-    function generateRandomCode() {
-      const words = ['MUSIC', 'PRO', 'CYBER', 'VIP', 'GUITAR'];
-      const num = Math.floor(10 + Math.random() * 90);
-      const code = words[Math.floor(Math.random() * words.length)] + num;
-      document.getElementById('couponCodeInput').value = code;
-    }
-
-    function handleCreateCoupon(e) {
-      e.preventDefault();
-      alert('¡Cupón creado exitosamente y disponible para checkout!');
-      window.location.href = 'cupones-list.html';
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/cupones-create.js"></script>
 </body>
 </html>

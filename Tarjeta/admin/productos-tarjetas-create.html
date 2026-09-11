@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/productos-tarjetas-create.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -206,12 +208,8 @@
     </main>
   </div>
 
-  <script>
-    function saveNewPlan() {
-      const name = document.getElementById('planNameInput').value;
-      alert(`¡Plan "${name}" creado exitosamente! Ahora se encuentra habilitado para evaluación y emisión.`);
-      window.location.href = "productos-tarjetas-list.html";
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/productos-tarjetas-create.js"></script>
 </body>
 </html>

@@ -1,416 +1,378 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full bg-slate-900">
+<html lang="es" class="h-full bg-black">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MusicPro Suite | Hub de Sistemas</title>
+  <title>MusicPro Company | Warehouse and Distributor - Presentaciones</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="shared/modal-system.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            heading: ['"Outfit"', 'sans-serif'],
-          }
-        }
-      }
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="shared/modal-system.js"></script>
+  <style>
+    body {
+      font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      overflow-x: hidden;
     }
-  </script>
+
+    .font-heading {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* Textura de Fondo Oscuro Rugoso */
+    .dark-grunge-bg {
+      background-color: #141414;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 80%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.2) 2px, rgba(0, 0, 0, 0.2) 4px);
+    }
+
+    /* Bordes de Papel Rasgado SVG */
+    .torn-paper-top {
+      background-color: #ffffff;
+      background-image: radial-gradient(#cbd5e1 1px, transparent 0);
+      background-size: 10px 10px;
+      clip-path: polygon(
+        0% 0%, 100% 0%, 100% 70%,
+        98% 65%, 95% 75%, 91% 60%, 87% 72%, 82% 65%, 78% 75%, 73% 62%, 68% 72%, 63% 60%, 58% 75%, 52% 65%, 47% 72%, 42% 60%, 37% 75%, 32% 62%, 26% 75%, 21% 65%, 15% 78%, 10% 62%, 5% 75%, 0% 68%
+      );
+    }
+
+    .torn-paper-bottom {
+      background-color: #f1f5f9;
+      clip-path: polygon(
+        0% 30%, 4% 20%, 9% 32%, 14% 18%, 19% 30%, 25% 15%, 30% 32%, 36% 22%, 41% 35%, 47% 18%, 53% 32%, 58% 20%, 64% 35%, 70% 18%, 76% 32%, 82% 22%, 88% 35%, 93% 20%, 100% 30%,
+        100% 100%, 0% 100%
+      );
+    }
+
+    /* Logo Circular Principal */
+    .brand-circle {
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+
+    .brand-circle::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+    }
+
+    .brand-circle:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 35px rgba(255, 255, 255, 0.15);
+    }
+
+    /* Tarjetas de Módulo Seleccionables */
+    .module-card {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .module-card:hover {
+      transform: translateY(-4px) scale(1.03);
+    }
+
+    .module-card:hover .module-icon {
+      filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.6));
+      transform: scale(1.08);
+    }
+
+    .module-icon {
+      transition: all 0.3s ease;
+    }
+
+    /* Red Starburst Icon Keyframe Pulse */
+    .starburst-icon {
+      filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5));
+    }
+  </style>
 </head>
-<body class="min-h-full text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black">
+<body class="min-h-screen flex flex-col justify-between dark-grunge-bg relative select-none">
 
-  <!-- Header / Navigation -->
-  <header class="border-b border-slate-800/80 backdrop-blur-md sticky top-0 z-40 bg-slate-900/70">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-violet-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 ring-1 ring-white/20">
-          <i class="fa-solid fa-guitar text-xl text-white"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-heading font-extrabold text-2xl tracking-tight text-white">MusicPro<span class="text-indigo-400">.</span></span>
-            <span class="px-2 py-0.5 text-xs font-semibold uppercase tracking-wider rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Enterprise v2.4</span>
-          </div>
-          <p class="text-xs text-slate-400 font-medium">Plataforma Integral de Gestión y Comercio</p>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <div class="hidden md:flex items-center gap-2 bg-slate-800/80 px-3.5 py-1.5 rounded-full border border-slate-700 text-xs text-slate-300">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>4 Sistemas Operativos</span>
-        </div>
-        <a href="_docs/readme.md" target="_blank" class="px-3.5 py-2 text-xs font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition flex items-center gap-2">
-          <i class="fa-regular fa-file-lines text-indigo-400"></i>
-          <span>Documentación Técnica</span>
-        </a>
-      </div>
+  <!-- CAPA DE PAPEL RASGADO SUPERIOR (Grid Pattern) -->
+  <div class="w-full h-16 sm:h-20 torn-paper-top relative z-10 flex items-center justify-center">
+    <!-- BANNER ROJO "PRESENTACIONES" -->
+    <div class="bg-red-650 bg-red-600 text-white font-heading font-black text-sm sm:text-base tracking-[0.25em] px-8 py-2 uppercase shadow-xl transform translate-y-3 sm:translate-y-4 rounded-sm border-2 border-red-700">
+      PRESENTACIONES
     </div>
-  </header>
+  </div>
 
-  <!-- Hero Section -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="text-center max-w-3xl mx-auto mb-12">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-4">
-        <i class="fa-solid fa-sparkles"></i> Módulos Frontend Independientes
-      </div>
-      <h1 class="font-heading font-extrabold text-4xl sm:text-5xl tracking-tight text-white mb-4 leading-tight">
-        Panel de Control Central <br>
-        <span class="bg-gradient-to-r from-indigo-400 via-violet-300 to-pink-400 bg-clip-text text-transparent">4 Soluciones de Alta Escala</span>
-      </h1>
-      <p class="text-slate-400 text-base sm:text-lg">
-        Accede directamente a los entornos de <span class="text-indigo-300 font-medium">Cliente (Front-Office)</span> y <span class="text-violet-300 font-medium">Administración (Back-Office)</span> diseñados para cada vertiente del negocio.
-      </p>
-    </div>
+  <!-- DECORACIONES ESTRELLA ROJA (ESQUINAS) -->
+  <div class="absolute top-6 left-6 z-20 pointer-events-none">
+    <svg class="w-8 h-8 text-red-600 starburst-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+      <circle cx="12" cy="12" r="3" fill="#ffffff"/>
+    </svg>
+  </div>
 
-    <!-- MusicPro Modal System Interactive Tester -->
-    <div class="mb-10 p-5 rounded-3xl bg-slate-800/40 border border-slate-700/60 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-4 shadow-lg">
-      <div class="flex items-center gap-3.5">
-        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-lg border border-indigo-500/30">
-          <i class="fa-solid fa-window-restore"></i>
-        </div>
-        <div>
-          <h3 class="font-heading font-bold text-white text-sm">Sistema Universal de Modales Activo</h3>
-          <p class="text-xs text-slate-400">Reemplaza automáticamente cualquier llamada nativa <code class="text-indigo-300 font-mono">alert()</code>, <code class="text-indigo-300 font-mono">confirm()</code> o <code class="text-indigo-300 font-mono">prompt()</code> en toda la suite.</p>
-        </div>
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <button onclick="alert('¡Operación realizada con éxito! Los datos fueron sincronizados en el servidor.')" class="px-3.5 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
-          <i class="fa-solid fa-circle-check"></i> Probar alert()
-        </button>
-        <button onclick="confirm('¿Estás seguro de que deseas ejecutar esta acción irreversible?', (ok) => { alert(ok ? 'Confirmación recibida: Acción aprobada.' : 'Acción cancelada por el usuario.'); })" class="px-3.5 py-2 bg-violet-500/10 hover:bg-violet-500/20 text-violet-300 border border-violet-500/30 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
-          <i class="fa-solid fa-circle-question"></i> Probar confirm()
-        </button>
-        <button onclick="prompt('Ingresa tu código de autorización o comentario:', 'MP-2026-AUT', (val) => { if (val !== null) alert(`Valor recibido: ${val}`); })" class="px-3.5 py-2 bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
-          <i class="fa-solid fa-pen-to-square"></i> Probar prompt()
-        </button>
-      </div>
-    </div>
+  <div class="absolute bottom-16 right-6 z-20 pointer-events-none">
+    <svg class="w-10 h-10 text-red-600 starburst-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+      <circle cx="12" cy="12" r="3" fill="#ffffff"/>
+    </svg>
+  </div>
 
-    <!-- Systems Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+  <!-- SECCIÓN PRINCIPAL GRID DE NAVEGACIÓN -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-8 sm:py-12 flex items-center justify-center relative z-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full">
 
-      <!-- 1. SISTEMA DE BODEGA -->
-      <div class="relative group bg-slate-800/60 hover:bg-slate-800/90 rounded-3xl p-7 border border-slate-700/70 hover:border-indigo-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between">
-        <div>
-          <div class="flex items-start justify-between mb-5">
-            <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl group-hover:scale-110 transition-transform">
-              <i class="fa-solid fa-boxes-stacked"></i>
-            </div>
-            <span class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-amber-500/10 text-amber-300 border border-amber-500/20">WMS & Almacén</span>
+      <!-- COLUMNA IZQUIERDA: LOGO OFICIAL MUSIC PRO COMPANY -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="brand-circle w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 p-8 text-center bg-black/40 backdrop-blur-sm">
+          
+          <!-- LOGOTIPO ISOTIPO "M" -->
+          <div class="w-24 h-24 sm:w-28 sm:h-28 border-4 border-white rounded-2xl flex items-center justify-center mb-3">
+            <span class="font-heading font-black text-6xl sm:text-7xl text-white tracking-tighter">M</span>
           </div>
 
-          <h2 class="font-heading font-bold text-2xl text-white mb-2">Sistema de Bodega</h2>
-          <p class="text-slate-400 text-sm leading-relaxed mb-6">
-            Control físico de inventario, gestión de racks y pasillos, solicitudes de despacho para sucursales, picking de mercadería, auditoría de entradas y control de mermas.
+          <!-- TEXTO MARCA -->
+          <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-white tracking-wider leading-none uppercase mb-1">
+            MUSIC PRO
+          </h1>
+          <h2 class="font-heading font-black text-3xl sm:text-4xl text-white tracking-widest leading-none uppercase mb-3">
+            COMPANY
+          </h2>
+
+          <div class="w-full h-px bg-white/40 my-1"></div>
+
+          <p class="text-[9px] sm:text-[11px] font-bold text-slate-300 tracking-[0.2em] uppercase">
+            WAREHOUSE AND DISTRIBUTOR
           </p>
-
-          <div class="space-y-2.5 mb-6 text-xs text-slate-300">
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-amber-400 text-xs"></i>
-              <span>Catálogo consultivo con semáforo de disponibilidad</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-amber-400 text-xs"></i>
-              <span>Maestro de artículos con códigos EAN-13 y Kardex</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-amber-400 text-xs"></i>
-              <span>Gestión de ubicaciones físicas y ocupación en tiempo real</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-6 border-t border-slate-700/60 space-y-2">
-          <div class="grid grid-cols-2 gap-3">
-            <a href="Bodega/cliente/index.html" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-medium text-xs border border-slate-600 transition hover:shadow-lg">
-              <i class="fa-solid fa-store text-amber-400"></i>
-              <span>OnePage Sucursales</span>
-            </a>
-            <a href="Bodega/admin/index.html" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-medium text-xs shadow-lg shadow-amber-900/30 transition hover:scale-[1.02]">
-              <i class="fa-solid fa-shield-halved"></i>
-              <span>Admin WMS</span>
-            </a>
-          </div>
-          <div class="flex justify-center text-[11px] text-slate-400">
-            <a href="Bodega/cliente/login.html" class="text-amber-400 hover:underline flex items-center gap-1">
-              <i class="fa-solid fa-right-to-bracket text-[10px]"></i> Login Sucursales (Sin registro externo)
-            </a>
-          </div>
         </div>
       </div>
 
-      <!-- 2. SISTEMA DE TIENDA -->
-      <div class="relative group bg-slate-800/60 hover:bg-slate-800/90 rounded-3xl p-7 border border-slate-700/70 hover:border-emerald-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between">
-        <div>
-          <div class="flex items-start justify-between mb-5">
-            <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl group-hover:scale-110 transition-transform">
-              <i class="fa-solid fa-cart-shopping"></i>
-            </div>
-            <span class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">E-Commerce & Retail</span>
-          </div>
+      <!-- COLUMNA DERECHA: LOS 4 MÓDULOS DE PRESENTACIÓN -->
+      <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
 
-          <h2 class="font-heading font-bold text-2xl text-white mb-2">Sistema de Tienda</h2>
-          <p class="text-slate-400 text-sm leading-relaxed mb-6">
-            Catálogo comercial público de instrumentos musicales, carrito interactivo con cupones, checkout en 2 fases, gestión de órdenes de venta y administración de productos con variantes.
+        <!-- 1. BODEGA PRINCIPAL -->
+        <div onclick="openModuleModal('bodega')" class="module-card flex flex-col items-center text-center group p-4 rounded-2xl hover:bg-white/5 transition">
+          <div class="module-icon mb-4 text-white">
+            <!-- Icono Caja Fuerte / Vault -->
+            <svg class="w-20 h-20 sm:w-24 sm:h-24 stroke-current fill-none stroke-[1.5]" viewBox="0 0 64 64">
+              <rect x="10" y="10" width="44" height="44" rx="6" stroke="currentColor"/>
+              <circle cx="32" cy="32" r="12" stroke="currentColor"/>
+              <circle cx="32" cy="32" r="4" stroke="currentColor"/>
+              <path d="M32 12V20M32 44V52M12 32H20M44 32H52" stroke-linecap="round"/>
+              <circle cx="16" cy="16" r="2" fill="currentColor"/>
+              <circle cx="48" cy="16" r="2" fill="currentColor"/>
+              <circle cx="16" cy="48" r="2" fill="currentColor"/>
+              <circle cx="48" cy="48" r="2" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
+            Bodega<br>principal
+          </h3>
+          <span class="mt-2 text-xs font-semibold text-slate-400 group-hover:text-slate-200 transition">Sistema WMS & Almacén &rarr;</span>
+        </div>
+
+        <!-- 2. SUCURSALES Y FRANQUICIAS (TIENDA) -->
+        <div onclick="openModuleModal('tienda')" class="module-card flex flex-col items-center text-center group p-4 rounded-2xl hover:bg-white/5 transition">
+          <div class="module-icon mb-4 text-white">
+            <!-- Icono Tienda / Shop -->
+            <svg class="w-20 h-20 sm:w-24 sm:h-24 stroke-current fill-none stroke-[1.5]" viewBox="0 0 64 64">
+              <path d="M8 24L12 10H52L56 24V54H8V24Z" stroke="currentColor"/>
+              <path d="M8 24C11 24 13 21 16 21C19 21 21 24 24 24C27 24 29 21 32 21C35 21 37 24 40 24C43 24 45 21 48 21C51 21 53 24 56 24" stroke="currentColor"/>
+              <rect x="22" y="34" width="20" height="20" stroke="currentColor"/>
+              <path d="M22 42H42" stroke="currentColor"/>
+              <!-- Tiendita pequeña lateral -->
+              <path d="M48 40H60V54H48V40Z" fill="#141414" stroke="currentColor"/>
+              <path d="M48 40L50 32H58L60 40" stroke="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
+            Sucursales<br>y franquicias
+          </h3>
+          <span class="mt-2 text-xs font-semibold text-slate-400 group-hover:text-slate-200 transition">E-Commerce & POS &rarr;</span>
+        </div>
+
+        <!-- 3. COURIER (TRANSPORTE) -->
+        <div onclick="openModuleModal('transporte')" class="module-card flex flex-col items-center text-center group p-4 rounded-2xl hover:bg-white/5 transition">
+          <div class="module-icon mb-4 text-white">
+            <!-- Icono Camión Courier -->
+            <svg class="w-20 h-20 sm:w-24 sm:h-24 stroke-current fill-none stroke-[1.5]" viewBox="0 0 64 64">
+              <path d="M6 18H40V44H6V18Z" stroke="currentColor"/>
+              <path d="M40 26H50L58 36V44H40V26Z" stroke="currentColor"/>
+              <circle cx="16" cy="46" r="5" stroke="currentColor" fill="#141414"/>
+              <circle cx="48" cy="46" r="5" stroke="currentColor" fill="#141414"/>
+              <path d="M22 46H42" stroke="currentColor"/>
+              <path d="M12 26H28" stroke="currentColor" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
+            Courier
+          </h3>
+          <p class="text-xs font-bold text-slate-300 mt-1 uppercase tracking-wider">
+            Proveedor - Cliente
           </p>
-
-          <div class="space-y-2.5 mb-6 text-xs text-slate-300">
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-emerald-400 text-xs"></i>
-              <span>Grid comercial con filtros de precio y categoría</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-emerald-400 text-xs"></i>
-              <span>Carrito en tiempo real y selector de pago Webpay/Tarjetas</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-emerald-400 text-xs"></i>
-              <span>Dashboard de ventas con métricas y gestión de cupones</span>
-            </div>
-          </div>
+          <span class="mt-2 text-xs font-semibold text-slate-400 group-hover:text-slate-200 transition">Envíos & Tracking &rarr;</span>
         </div>
 
-        <div class="pt-6 border-t border-slate-700/60 space-y-2">
-          <div class="grid grid-cols-2 gap-3">
-            <a href="Tienda/cliente/index.html" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-medium text-xs border border-slate-600 transition hover:shadow-lg">
-              <i class="fa-solid fa-bag-shopping text-emerald-400"></i>
-              <span>OnePage Tienda</span>
-            </a>
-            <a href="Tienda/admin/index.html" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-medium text-xs shadow-lg shadow-emerald-900/30 transition hover:scale-[1.02]">
-              <i class="fa-solid fa-chart-line"></i>
-              <span>Admin Ventas</span>
-            </a>
+        <!-- 4. SISTEMA DE PAGOS (TARJETA) -->
+        <div onclick="openModuleModal('tarjeta')" class="module-card flex flex-col items-center text-center group p-4 rounded-2xl hover:bg-white/5 transition">
+          <div class="module-icon mb-4 text-white">
+            <!-- Icono Tarjetas de Crédito -->
+            <svg class="w-20 h-20 sm:w-24 sm:h-24 stroke-current fill-none stroke-[1.5]" viewBox="0 0 64 64">
+              <rect x="6" y="22" width="46" height="30" rx="4" stroke="currentColor"/>
+              <path d="M6 30H52" stroke="currentColor" stroke-width="2"/>
+              <rect x="12" y="38" width="10" height="7" rx="1" fill="currentColor"/>
+              <!-- Segunda tarjeta superpuesta -->
+              <path d="M16 14H54C56.2 14 58 15.8 58 18V40" stroke="currentColor"/>
+              <path d="M16 20H58" stroke="currentColor"/>
+            </svg>
           </div>
-          <div class="flex items-center justify-center gap-4 text-[11px] text-slate-400">
-            <a href="Tienda/cliente/login.html" class="text-slate-300 hover:text-emerald-400 transition">Iniciar Sesión</a>
-            <span>•</span>
-            <a href="Tienda/cliente/registro.html" class="text-emerald-400 hover:underline">Crear Cuenta Cliente</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. SISTEMA DE TRANSPORTE -->
-      <div class="relative group bg-slate-800/60 hover:bg-slate-800/90 rounded-3xl p-7 border border-slate-700/70 hover:border-cyan-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between">
-        <div>
-          <div class="flex items-start justify-between mb-5">
-            <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl group-hover:scale-110 transition-transform">
-              <i class="fa-solid fa-truck-fast"></i>
-            </div>
-            <span class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">Logística & Rutas</span>
-          </div>
-
-          <h2 class="font-heading font-bold text-2xl text-white mb-2">Sistema de Transporte</h2>
-          <p class="text-slate-400 text-sm leading-relaxed mb-6">
-            Cotizador reactivo de envíos con cálculo volumétrico y peso, tracking paso a paso en tiempo real, gestión de flota vehicular, control de choferes y despacho por hojas de ruta.
-          </p>
-
-          <div class="space-y-2.5 mb-6 text-xs text-slate-300">
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-cyan-400 text-xs"></i>
-              <span>Cotizador en 3 pasos con tarifa instantánea</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-cyan-400 text-xs"></i>
-              <span>Línea de tiempo gráfica de despacho y mapa interactivo</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-cyan-400 text-xs"></i>
-              <span>Control de capacidad de carga de camiones y camionetas</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-6 border-t border-slate-700/60 space-y-2">
-          <div class="grid grid-cols-2 gap-3">
-            <a href="Transporte/cliente/index.html" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-medium text-xs border border-slate-600 transition hover:shadow-lg">
-              <i class="fa-solid fa-location-dot text-cyan-400"></i>
-              <span>OnePage Envíos</span>
-            </a>
-            <a href="Transporte/admin/index.html" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-500 hover:to-cyan-600 text-white font-medium text-xs shadow-lg shadow-cyan-900/30 transition hover:scale-[1.02]">
-              <i class="fa-solid fa-route"></i>
-              <span>Torre Logística</span>
-            </a>
-          </div>
-          <div class="flex items-center justify-center gap-4 text-[11px] text-slate-400">
-            <a href="Transporte/cliente/login.html" class="text-slate-300 hover:text-cyan-400 transition">Iniciar Sesión</a>
-            <span>•</span>
-            <a href="Transporte/cliente/registro.html" class="text-cyan-400 hover:underline">Registrar Remitente</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. SISTEMA DE TARJETAS -->
-      <div class="relative group bg-slate-800/60 hover:bg-slate-800/90 rounded-3xl p-7 border border-slate-700/70 hover:border-violet-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between">
-        <div>
-          <div class="flex items-start justify-between mb-5">
-            <div class="w-14 h-14 rounded-2xl bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400 text-2xl group-hover:scale-110 transition-transform">
-              <i class="fa-solid fa-credit-card"></i>
-            </div>
-            <span class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-violet-500/10 text-violet-300 border border-violet-500/20">Financiero & Puntos</span>
-          </div>
-
-          <h2 class="font-heading font-bold text-2xl text-white mb-2">Sistema de Tarjetas</h2>
-          <p class="text-slate-400 text-sm leading-relaxed mb-6">
-            Billetera digital con tarjeta virtual interactiva CSS, visualización de saldo y puntos cashback, cartola de movimientos bancarios, scoring crediticio y auditoría de riesgo/fraude.
-          </p>
-
-          <div class="space-y-2.5 mb-6 text-xs text-slate-300">
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-violet-400 text-xs"></i>
-              <span>Tarjeta plástica virtual con switch para mostrar CVV</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-violet-400 text-xs"></i>
-              <span>Directorio de cuentas y emisión con límites de crédito</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-violet-400 text-xs"></i>
-              <span>Monitor transaccional con alertas de scoring de riesgo > 80</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-6 border-t border-slate-700/60 space-y-2">
-          <div class="grid grid-cols-2 gap-3">
-            <a href="Tarjeta/cliente/index.html" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-medium text-xs border border-slate-600 transition hover:shadow-lg">
-              <i class="fa-solid fa-wallet text-violet-400"></i>
-              <span>OnePage Tarjeta</span>
-            </a>
-            <a href="Tarjeta/admin/index.html" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-700 hover:from-violet-500 hover:to-indigo-600 text-white font-medium text-xs shadow-lg shadow-violet-900/30 transition hover:scale-[1.02]">
-              <i class="fa-solid fa-scale-balanced"></i>
-              <span>Admin Riesgo</span>
-            </a>
-          </div>
-          <div class="flex items-center justify-center gap-4 text-[11px] text-slate-400">
-            <a href="Tarjeta/cliente/login.html" class="text-slate-300 hover:text-amber-400 transition">Banca en Línea</a>
-            <span>•</span>
-            <a href="Tarjeta/cliente/registro.html" class="text-amber-400 hover:underline">Solicitar Tarjeta</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- NUEVOS MANTENEDORES Y VISTAS AVANZADAS SEGÚN PROPUESTAS _DOCS -->
-    <div class="bg-slate-800/80 rounded-3xl border border-slate-700 p-8 mb-12 shadow-2xl">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-700">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold mb-2 border border-indigo-500/20">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> Sistema Actualizado al 100% según Propuestas _docs
-          </div>
-          <h2 class="text-2xl font-extrabold text-white">Matriz de Nuevos Mantenedores y Vistas Especializadas</h2>
-          <p class="text-xs text-slate-400 mt-1">Acceso directo a las vistas y CRUDs creados a partir de la especificación técnica de cada subsistema.</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
-        
-        <!-- BODEGA -->
-        <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
-          <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
-            <i class="fa-solid fa-boxes-stacked"></i>
-            <span>Bodega WMS (6 Mantenedores)</span>
-          </div>
-          <div class="space-y-1.5 text-slate-300">
-            <a href="Bodega/admin/articulos-list.html" class="block p-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">1. Maestro de Artículos SKUs</a>
-            <a href="Bodega/admin/ubicaciones-list.html" class="block p-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">2. Ubicaciones & Racks</a>
-            <a href="Bodega/admin/categorias-list.html" class="block p-2 rounded-lg bg-amber-500/10 text-amber-400 font-semibold hover:bg-amber-500/20 transition">3. Categorías & Familias [NUEVO]</a>
-            <a href="Bodega/admin/proveedores-list.html" class="block p-2 rounded-lg bg-amber-500/10 text-amber-400 font-semibold hover:bg-amber-500/20 transition">4. Proveedores & Recepción [NUEVO]</a>
-            <a href="Bodega/admin/motivos-ajuste.html" class="block p-2 rounded-lg bg-amber-500/10 text-amber-400 font-semibold hover:bg-amber-500/20 transition">5. Motivos de Ajuste & Merma [NUEVO]</a>
-            <a href="Bodega/admin/zonas-almacen.html" class="block p-2 rounded-lg bg-amber-500/10 text-amber-400 font-semibold hover:bg-amber-500/20 transition">6. Gestión de Pasillos / Naves [NUEVO]</a>
-          </div>
-        </div>
-
-        <!-- TIENDA -->
-        <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
-          <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm">
-            <i class="fa-solid fa-store"></i>
-            <span>Tienda Retail (6 Mantenedores)</span>
-          </div>
-          <div class="space-y-1.5 text-slate-300">
-            <a href="Tienda/cliente/producto-detalle.html" class="block p-2 rounded-lg bg-emerald-500/10 text-emerald-400 font-semibold hover:bg-emerald-500/20 transition">Ficha de Producto (PDP) [NUEVO]</a>
-            <a href="Tienda/cliente/direcciones-list.html" class="block p-2 rounded-lg bg-emerald-500/10 text-emerald-400 font-semibold hover:bg-emerald-500/20 transition">Libreta de Direcciones [NUEVO]</a>
-            <a href="Tienda/admin/productos-list.html" class="block p-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">1. Catálogo Productos</a>
-            <a href="Tienda/admin/categorias-list.html" class="block p-2 rounded-lg bg-emerald-500/10 text-emerald-400 font-semibold hover:bg-emerald-500/20 transition">2. Categorías & Colecciones [NUEVO]</a>
-            <a href="Tienda/admin/clientes-list.html" class="block p-2 rounded-lg bg-emerald-500/10 text-emerald-400 font-semibold hover:bg-emerald-500/20 transition">5. Directorio Clientes (LTV) [NUEVO]</a>
-            <a href="Tienda/admin/tarifas-envio.html" class="block p-2 rounded-lg bg-emerald-500/10 text-emerald-400 font-semibold hover:bg-emerald-500/20 transition">6. Reglas & Tarifas Envío [NUEVO]</a>
-          </div>
-        </div>
-
-        <!-- TRANSPORTE -->
-        <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
-          <div class="flex items-center gap-2 text-cyan-400 font-bold text-sm">
-            <i class="fa-solid fa-truck-fast"></i>
-            <span>Transporte TMS (6 Mantenedores)</span>
-          </div>
-          <div class="space-y-1.5 text-slate-300">
-            <a href="Transporte/cliente/etiqueta.html" target="_blank" class="block p-2 rounded-lg bg-cyan-500/10 text-cyan-400 font-semibold hover:bg-cyan-500/20 transition">Etiqueta Térmica 10x15 Barcode [NUEVO]</a>
-            <a href="Transporte/cliente/puntos-red.html" class="block p-2 rounded-lg bg-cyan-500/10 text-cyan-400 font-semibold hover:bg-cyan-500/20 transition">Red Puntos Pick-up & Lockers [NUEVO]</a>
-            <a href="Transporte/admin/vehiculos-list.html" class="block p-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">1. Flota de Vehículos</a>
-            <a href="Transporte/admin/conductores-list.html" class="block p-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">2. Conductores & Choferes</a>
-            <a href="Transporte/admin/zonas-list.html" class="block p-2 rounded-lg bg-cyan-500/10 text-cyan-400 font-semibold hover:bg-cyan-500/20 transition">3. Zonas & Tarifas de Despacho [NUEVO]</a>
-            <a href="Transporte/admin/incidencias-list.html" class="block p-2 rounded-lg bg-cyan-500/10 text-cyan-400 font-semibold hover:bg-cyan-500/20 transition">6. Incidencias & Excepciones [NUEVO]</a>
-          </div>
-        </div>
-
-        <!-- TARJETA -->
-        <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
-          <div class="flex items-center gap-2 text-violet-400 font-bold text-sm">
-            <i class="fa-solid fa-credit-card"></i>
-            <span>Tarjeta Fintech (6 Mantenedores)</span>
-          </div>
-          <div class="space-y-1.5 text-slate-300">
-            <a href="Tarjeta/cliente/avance-simulador.html" class="block p-2 rounded-lg bg-violet-500/10 text-violet-400 font-semibold hover:bg-violet-500/20 transition">Simulador Avance en Efectivo [NUEVO]</a>
-            <a href="Tarjeta/cliente/voucher.html" class="block p-2 rounded-lg bg-violet-500/10 text-violet-400 font-semibold hover:bg-violet-500/20 transition">Voucher Digital Imprimible [NUEVO]</a>
-            <a href="Tarjeta/admin/cuentas-list.html" class="block p-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">1. Cuentas & Tarjetahabientes</a>
-            <a href="Tarjeta/admin/transacciones-audit-list.html" class="block p-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">4. Transacciones en Vivo & Reversas</a>
-            <a href="Tarjeta/admin/fraude-reglas.html" class="block p-2 rounded-lg bg-violet-500/10 text-violet-400 font-semibold hover:bg-violet-500/20 transition">5. Reglas Antifraude & Scoring [NUEVO]</a>
-            <a href="Tarjeta/admin/beneficios-list.html" class="block p-2 rounded-lg bg-violet-500/10 text-violet-400 font-semibold hover:bg-violet-500/20 transition">6. Catálogo de Beneficios [NUEVO]</a>
-          </div>
+          <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-wide leading-tight group-hover:text-red-500 transition-colors">
+            Sistema de<br>pagos
+          </h3>
+          <span class="mt-2 text-xs font-semibold text-slate-400 group-hover:text-slate-200 transition">Tarjeta & Fidelización &rarr;</span>
         </div>
 
       </div>
-    </div>
 
-    <!-- Features Banner -->
-    <div class="bg-slate-800/40 rounded-2xl border border-slate-800 p-6 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-400 text-xs">
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-lg">
-          <i class="fa-solid fa-layer-group"></i>
-        </div>
-        <div>
-          <span class="text-white font-semibold block text-sm">Arquitectura Modular Desacoplada</span>
-          <span>Cada carpeta funciona de manera autónoma con HTML5, Tailwind CSS y JavaScript Vanilla.</span>
-        </div>
-      </div>
-      <div class="flex items-center gap-6">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-mobile-screen text-slate-500"></i>
-          <span>100% Responsivo</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-bolt text-slate-500"></i>
-          <span>Búsquedas en Vivo</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-shield-check text-slate-500"></i>
-          <span>Modales de Confirmación</span>
-        </div>
-      </div>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
-    <p>MusicPro Enterprise © 2026. Todos los derechos reservados. Desarrollado con Tailwind CSS & Vanilla JS.</p>
-  </footer>
+  <!-- CAPA DE PAPEL RASGADO INFERIOR (Newspaper Print Texture Effect) -->
+  <div class="w-full h-20 sm:h-24 torn-paper-bottom relative z-10 flex items-end justify-center p-4 bg-slate-200 text-slate-900 overflow-hidden">
+    <div class="text-[10px] font-mono opacity-40 text-center tracking-tighter leading-none max-w-4xl uppercase select-none pointer-events-none">
+      MUSIC PRO COMPANY WAREHOUSE AND DISTRIBUTOR • ENTERPRISE LOGISTICS SYSTEM • BODEGA PRINCIPAL • SUCURSALES Y FRANQUICIAS • COURIER PROVEEDOR CLIENTE • SISTEMA DE PAGOS TARJETA • MUSIC PRO SUITE V2.4 •
+    </div>
+  </div>
+
+  <!-- MODAL DE SELECCIÓN DE ENTORNO (CLIENTE VS ADMIN) -->
+  <div id="moduleModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative text-left">
+      
+      <button onclick="closeModuleModal()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center gap-4 mb-6">
+        <div id="modalIconContainer" class="w-14 h-14 rounded-2xl bg-red-600/20 text-red-500 flex items-center justify-center text-3xl border border-red-500/30">
+          <i id="modalIcon" class="fa-solid fa-boxes-stacked"></i>
+        </div>
+        <div>
+          <h3 id="modalTitle" class="font-heading font-extrabold text-2xl text-white">Nombre Módulo</h3>
+          <p id="modalSubtitle" class="text-xs text-slate-400">Selecciona el entorno al que deseas ingresar</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <!-- OPCIÓN CLIENTE / FRONT-OFFICE -->
+        <a id="modalClientBtn" href="#" class="group p-4 rounded-2xl bg-slate-800 hover:bg-slate-700/80 border border-slate-700 hover:border-slate-500 transition flex items-center justify-between">
+          <div class="flex items-center gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-user-gear"></i>
+            </div>
+            <div>
+              <h4 id="modalClientTitle" class="font-bold text-sm text-white">Portal de Cliente / Operador</h4>
+              <p id="modalClientDesc" class="text-xs text-slate-400">Acceso a solicitudes, catálogo y seguimiento</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-slate-400 group-hover:text-white transition"></i>
+        </a>
+
+        <!-- OPCIÓN ADMINISTRACIÓN / BACK-OFFICE -->
+        <a id="modalAdminBtn" href="#" class="group p-4 rounded-2xl bg-gradient-to-r from-red-900/40 to-red-600/40 hover:from-red-900/60 hover:to-red-600/60 border border-red-500/40 transition flex items-center justify-between">
+          <div class="flex items-center gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div>
+              <h4 id="modalAdminTitle" class="font-bold text-sm text-white">Panel Administrativo (Backoffice)</h4>
+              <p id="modalAdminDesc" class="text-xs text-red-200/80">Gestión de configuraciones, auditoría y reportes</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-red-300 group-hover:text-white transition"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JS DE INTERACCIÓN -->
+  <script>
+    const moduleData = {
+      bodega: {
+        title: 'Bodega Principal',
+        subtitle: 'Sistema WMS de Almacén & Control de Inventario',
+        icon: 'fa-boxes-stacked',
+        clientTitle: 'Portal Receptores & Sucursales',
+        clientDesc: 'Solicitud de despachos y consulta de stock',
+        clientUrl: 'Bodega/cliente/index.html',
+        adminTitle: 'Administración WMS',
+        adminDesc: 'Maestro de artículos, ubicaciones, kardex y mermas',
+        adminUrl: 'Bodega/admin/index.html'
+      },
+      tienda: {
+        title: 'Sucursales y Franquicias',
+        subtitle: 'Sistema E-Commerce & Catálogo de Venta POS',
+        icon: 'fa-store',
+        clientTitle: 'Tienda Online & Catálogo Cliente',
+        clientDesc: 'Exploración de catálogo, carrito y checkout',
+        clientUrl: 'Tienda/cliente/index.html',
+        adminTitle: 'Administración Tienda',
+        adminDesc: 'Gestión de productos, ordenes de compra y cupones',
+        adminUrl: 'Tienda/admin/index.html'
+      },
+      transporte: {
+        title: 'Courier (Proveedor - Cliente)',
+        subtitle: 'Sistema de Envíos, Rutas & Seguimiento Logistics',
+        icon: 'fa-truck-fast',
+        clientTitle: 'Portal de Seguimiento & Envíos',
+        clientDesc: 'Cotizador de despachos y tracking de guías',
+        clientUrl: 'Transporte/cliente/index.html',
+        adminTitle: 'Administración de Transporte',
+        adminDesc: 'Gestión de flotas, conductores y despachador de rutas',
+        adminUrl: 'Transporte/admin/index.html'
+      },
+      tarjeta: {
+        title: 'Sistema de Pagos',
+        subtitle: 'Plataforma Fintech de Tarjetas & Puntos Fidelización',
+        icon: 'fa-credit-card',
+        clientTitle: 'Portal del Titular de Tarjeta',
+        clientDesc: 'Estado de cuenta, avances en efectivo y canje de puntos',
+        clientUrl: 'Tarjeta/cliente/index.html',
+        adminTitle: 'Administración Financiera',
+        adminDesc: 'Emisión de plásticos, motor antifraude y auditoría',
+        adminUrl: 'Tarjeta/admin/index.html'
+      }
+    };
+
+    function openModuleModal(key) {
+      const data = moduleData[key];
+      if (!data) return;
+
+      document.getElementById('modalTitle').innerText = data.title;
+      document.getElementById('modalSubtitle').innerText = data.subtitle;
+      document.getElementById('modalIcon').className = 'fa-solid ' + data.icon;
+      
+      document.getElementById('modalClientTitle').innerText = data.clientTitle;
+      document.getElementById('modalClientDesc').innerText = data.clientDesc;
+      document.getElementById('modalClientBtn').href = data.clientUrl;
+
+      document.getElementById('modalAdminTitle').innerText = data.adminTitle;
+      document.getElementById('modalAdminDesc').innerText = data.adminDesc;
+      document.getElementById('modalAdminBtn').href = data.adminUrl;
+
+      document.getElementById('moduleModal').classList.remove('hidden');
+    }
+
+    function closeModuleModal() {
+      document.getElementById('moduleModal').classList.add('hidden');
+    }
+  </script>
 
 </body>
 </html>

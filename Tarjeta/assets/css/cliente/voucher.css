@@ -1,0 +1,11 @@
+/**
+ * Estilos para vista voucher (cliente) - Tarjeta
+ */
+
+body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3, .font-heading { font-family: 'Outfit', sans-serif; }
+    @media print {
+      body { background: white !important; }
+      .no-print { display: none !important; }
+      .ticket-box { box-shadow: none !important; border: 1px solid #ccc !important; }
+    }

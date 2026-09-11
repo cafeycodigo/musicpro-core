@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/cliente/stock-catalog.css">
 </head>
 <body class="min-h-full flex flex-col font-sans text-slate-800">
 
@@ -239,33 +241,8 @@
 
   </main>
 
-  <script>
-    let cartCount = 2;
-
-    function filterProducts() {
-      const category = document.getElementById('categoryFilter').value;
-      const query = document.getElementById('catalogSearch').value.toLowerCase();
-      const cards = document.querySelectorAll('.product-card');
-
-      cards.forEach(card => {
-        const cat = card.getAttribute('data-category');
-        const title = card.getAttribute('data-title').toLowerCase();
-        const sku = card.getAttribute('data-sku').toLowerCase();
-
-        const matchCat = (category === 'all' || cat === category);
-        const matchQuery = (title.includes(query) || sku.includes(query));
-
-        card.style.display = (matchCat && matchQuery) ? '' : 'none';
-      });
-    }
-
-    document.getElementById('catalogSearch').addEventListener('input', filterProducts);
-
-    function addToRequest(sku, name) {
-      cartCount++;
-      document.getElementById('cartCountBadge').innerText = cartCount;
-      alert(`Se ha añadido 1 unidad de "${name}" (${sku}) a tu solicitud en curso.`);
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/cliente/stock-catalog.js"></script>
 </body>
 </html>

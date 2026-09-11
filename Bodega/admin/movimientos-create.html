@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/movimientos-create.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -168,24 +170,8 @@
     </main>
   </div>
 
-  <script>
-    function adjustSign() {
-      const type = document.getElementById('movTypeSelect').value;
-      const indicator = document.getElementById('signIndicator');
-      if (type.includes('Recepción') || type.includes('Positivo')) {
-        indicator.innerText = '(+) Entrada';
-        indicator.className = 'text-emerald-600 font-bold';
-      } else {
-        indicator.innerText = '(-) Salida';
-        indicator.className = 'text-rose-600 font-bold';
-      }
-    }
-
-    function handleRecordMovement(e) {
-      e.preventDefault();
-      alert('¡Movimiento procesado en el Kardex y folio de auditoría emitido exitosamente!');
-      window.location.href = 'movimientos-list.html';
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/movimientos-create.js"></script>
 </body>
 </html>

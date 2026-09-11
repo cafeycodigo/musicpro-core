@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/cliente/index.css">
 </head>
 <body class="min-h-full flex flex-col font-sans text-slate-800 bg-white antialiased selection:bg-cyan-500 selection:text-slate-950">
 
@@ -192,15 +194,8 @@
     </div>
   </footer>
 
-  <script>
-    function goToTracking() {
-      const code = document.getElementById('heroTrackingInput').value.trim();
-      if (!code) {
-        alert('Por favor ingresa un número de guía.');
-        return;
-      }
-      window.location.href = "tracking-detail.html";
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/cliente/index.js"></script>
 </body>
 </html>

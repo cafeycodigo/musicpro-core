@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/cliente/solicitudes-list.css">
 </head>
 <body class="min-h-full flex flex-col font-sans text-slate-800">
 
@@ -347,75 +349,8 @@
   </div>
 
   <!-- Vanilla JS: Search, Filter, Modals, Toasts -->
-  <script>
-    let currentDeleteId = null;
-
-    // Search with simulated debounce
-    const searchInput = document.getElementById('searchInput');
-    let debounceTimer;
-    searchInput.addEventListener('input', (e) => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        const query = e.target.value.toLowerCase();
-        const rows = document.querySelectorAll('.pedido-row');
-        rows.forEach(row => {
-          const text = row.innerText.toLowerCase();
-          row.style.display = text.includes(query) ? '' : 'none';
-        });
-      }, 200);
-    });
-
-    // Filter by Status
-    function filterStatus(status) {
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        if (btn.getAttribute('data-filter') === status) {
-          btn.className = 'filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-600 text-white transition';
-        } else {
-          btn.className = 'filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition';
-        }
-      });
-
-      const rows = document.querySelectorAll('.pedido-row');
-      rows.forEach(row => {
-        if (status === 'all' || row.getAttribute('data-status') === status) {
-          row.style.display = '';
-        } else {
-          row.style.display = 'none';
-        }
-      });
-    }
-
-    // Modal Delete Handlers
-    function openDeleteModal(id) {
-      currentDeleteId = id;
-      document.getElementById('deleteTargetId').innerText = id;
-      document.getElementById('deleteModal').classList.remove('hidden');
-    }
-
-    function closeDeleteModal() {
-      document.getElementById('deleteModal').classList.add('hidden');
-      currentDeleteId = null;
-    }
-
-    function confirmDelete() {
-      if (currentDeleteId) {
-        const row = document.querySelector(`tr[data-id="${currentDeleteId}"]`);
-        if (row) {
-          row.remove();
-          showToast(`La solicitud ${currentDeleteId} ha sido anulada con éxito.`);
-        }
-      }
-      closeDeleteModal();
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById('toastNotification');
-      document.getElementById('toastMessage').innerText = message;
-      toast.classList.remove('hidden');
-      setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 3500);
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/cliente/solicitudes-list.js"></script>
 </body>
 </html>

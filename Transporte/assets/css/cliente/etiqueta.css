@@ -1,0 +1,65 @@
+/**
+ * Estilos para vista etiqueta (cliente) - Transporte
+ */
+
+body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .barcode-font {
+      font-family: 'Libre Barcode 128 Text', monospace;
+    }
+    /* Estilos de impresión térmica 10x15 cm (4x6 pulgadas) */
+    @media print {
+      @page {
+        size: 100mm 150mm;
+        margin: 0;
+      }
+      body {
+        background: #ffffff !important;
+        margin: 0;
+        padding: 0;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .label-container {
+        border: none !important;
+        box-shadow: none !important;
+        width: 100mm !important;
+        height: 148mm !important;
+        max-width: 100mm !important;
+        margin: 0 auto !important;
+        padding: 4mm !important;
+        page-break-after: always;
+      }
+    }
+    /* Código de barras simulado en CSS si la fuente barcode no ha cargado */
+    .barcode-stripes {
+      background: repeating-linear-gradient(
+        90deg,
+        #000,
+        #000 2px,
+        #fff 2px,
+        #fff 4px,
+        #000 4px,
+        #000 7px,
+        #fff 7px,
+        #fff 9px,
+        #000 9px,
+        #000 13px,
+        #fff 13px,
+        #fff 15px,
+        #000 15px,
+        #000 16px,
+        #fff 16px,
+        #fff 19px,
+        #000 19px,
+        #000 24px,
+        #fff 24px,
+        #fff 26px,
+        #000 26px,
+        #000 27px,
+        #fff 27px,
+        #fff 31px
+      );
+    }

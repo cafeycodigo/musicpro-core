@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/ubicaciones-create.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -141,19 +143,8 @@
     </main>
   </div>
 
-  <script>
-    function updateGeneratedCode() {
-      const p = document.getElementById('inPasillo').value.trim() || 'P00';
-      const r = document.getElementById('inRack').value.trim() || 'R00';
-      const n = document.getElementById('inNivel').value.trim() || 'N0';
-      document.getElementById('generatedCode').innerText = `${p}-${r}-${n}`.toUpperCase();
-    }
-
-    function handleCreateLocation(e) {
-      e.preventDefault();
-      alert('¡Ubicación registrada exitosamente!');
-      window.location.href = 'ubicaciones-list.html';
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/ubicaciones-create.js"></script>
 </body>
 </html>

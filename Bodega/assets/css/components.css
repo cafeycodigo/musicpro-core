@@ -1,0 +1,139 @@
+/**
+ * MusicPro Bodega WMS - Componentes y Estilos Compartidos
+ */
+
+/* Importación de tipografías y fuentes base */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --wms-primary: #f59e0b;
+  --wms-primary-dark: #d97706;
+  --wms-dark: #0f172a;
+  --wms-surface: #1e293b;
+  --wms-border: #334155;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Outfit', sans-serif;
+}
+
+.font-mono, .sku-badge {
+  font-family: 'Share Tech Mono', monospace;
+}
+
+/* Tablas WMS de alta densidad */
+.wms-table-compact th {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.wms-table-compact td {
+  padding: 0.625rem 0.75rem;
+  font-size: 0.8125rem;
+}
+
+/* Indicadores y Semáforos de Stock */
+.stock-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.stock-pill.optimal {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.stock-pill.warning {
+  background-color: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.stock-pill.critical {
+  background-color: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fecdd3;
+}
+
+/* Efectos visuales de Racks y Ubicaciones */
+.rack-slot {
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rack-slot:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Notificaciones Toast WMS */
+.wms-toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.wms-toast {
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 420px;
+  padding: 0.875rem 1.25rem;
+  border-radius: 1rem;
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 0.8125rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid #334155;
+  animation: wmsToastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes wmsToastIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Barras de desplazamiento estilizadas */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

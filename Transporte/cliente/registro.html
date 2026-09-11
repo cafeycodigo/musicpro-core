@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/cliente/registro.css">
 </head>
 <body class="min-h-full flex flex-col justify-between font-sans text-slate-800 bg-slate-50 antialiased">
 
@@ -144,18 +146,8 @@
     <span>MusicPro Express Logística © 2026 • Afiliado a la Asociación Chilena de Logística</span>
   </footer>
 
-  <script>
-    function handleRegister() {
-      const p1 = document.getElementById('regPass').value;
-      const p2 = document.getElementById('regPassConfirm').value;
-      if (p1 !== p2) {
-        alert('Las contraseñas no coinciden. Por favor verifícalas.');
-        return;
-      }
-      const name = document.getElementById('regName').value;
-      alert(`¡Remitente registrado exitosamente! Bienvenido, ${name}. Ahora puedes generar órdenes de retiro y guías de despacho.`);
-      window.location.href = "envios-list.html";
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/cliente/registro.js"></script>
 </body>
 </html>

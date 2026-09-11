@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/conductores-list.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -208,38 +210,8 @@
     </div>
   </div>
 
-  <script>
-    let activeDriverName = null;
-
-    function filterDrivers() {
-      const query = document.getElementById('driverSearch').value.toLowerCase();
-      const rows = document.querySelectorAll('.driver-row');
-      rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
-      });
-    }
-
-    function openDeleteDriverModal(name, rut) {
-      activeDriverName = name;
-      document.getElementById('deleteDriverName').innerText = name;
-      document.getElementById('deleteDriverRut').innerText = rut;
-      document.getElementById('deleteDriverModal').classList.remove('hidden');
-    }
-
-    function closeDeleteDriverModal() {
-      document.getElementById('deleteDriverModal').classList.add('hidden');
-      activeDriverName = null;
-    }
-
-    function confirmDeleteDriver() {
-      if (activeDriverName) {
-        const row = document.querySelector(`tr[data-name="${activeDriverName}"]`);
-        if (row) row.remove();
-        alert(`Conductor ${activeDriverName} dado de baja del equipo de reparto.`);
-      }
-      closeDeleteDriverModal();
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/conductores-list.js"></script>
 </body>
 </html>

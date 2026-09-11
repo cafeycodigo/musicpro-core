@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/cliente/direcciones-list.css">
 </head>
 <body class="min-h-full flex flex-col font-sans text-slate-800">
 
@@ -186,28 +188,8 @@
     </div>
   </div>
 
-  <script>
-    let activeAddrId = null;
-
-    function openDeleteAddrModal(id, name) {
-      activeAddrId = id;
-      document.getElementById('deleteAddrName').innerText = name;
-      document.getElementById('deleteAddrModal').classList.remove('hidden');
-    }
-
-    function closeDeleteAddrModal() {
-      document.getElementById('deleteAddrModal').classList.add('hidden');
-      activeAddrId = null;
-    }
-
-    function confirmDeleteAddr() {
-      if (activeAddrId) {
-        const card = document.querySelector(`[data-id="${activeAddrId}"]`);
-        if (card) card.remove();
-        alert('Dirección eliminada correctamente.');
-      }
-      closeDeleteAddrModal();
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/cliente/direcciones-list.js"></script>
 </body>
 </html>

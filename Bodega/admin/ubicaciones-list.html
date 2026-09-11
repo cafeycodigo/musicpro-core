@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/ubicaciones-list.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -266,59 +268,8 @@
     </div>
   </div>
 
-  <script>
-    let activeLocCode = null;
-
-    function filterUbicaciones() {
-      const state = document.getElementById('stateFilter').value;
-      const query = document.getElementById('ubicacionSearch').value.toLowerCase();
-      const rows = document.querySelectorAll('.ubicacion-row');
-
-      rows.forEach(row => {
-        const rowState = row.getAttribute('data-state');
-        const text = row.innerText.toLowerCase();
-
-        const matchState = (state === 'all' || rowState === state);
-        const matchQuery = text.includes(query);
-
-        row.style.display = (matchState && matchQuery) ? '' : 'none';
-      });
-    }
-
-    document.getElementById('ubicacionSearch').addEventListener('input', filterUbicaciones);
-
-    function openDeleteLocModal(code, occupancy) {
-      activeLocCode = code;
-      document.getElementById('locTargetCode').innerText = code;
-      const warn = document.getElementById('locOccWarning');
-      const btn = document.getElementById('btnConfirmDeleteLoc');
-
-      if (occupancy > 0) {
-        warn.classList.remove('hidden');
-        btn.disabled = true;
-        btn.classList.add('opacity-50', 'cursor-not-allowed');
-      } else {
-        warn.classList.add('hidden');
-        btn.disabled = false;
-        btn.classList.remove('opacity-50', 'cursor-not-allowed');
-      }
-
-      document.getElementById('deleteLocModal').classList.remove('hidden');
-    }
-
-    function closeDeleteLocModal() {
-      document.getElementById('deleteLocModal').classList.add('hidden');
-      activeLocCode = null;
-    }
-
-    function confirmDeleteLoc() {
-      if (activeLocCode) {
-        const row = document.querySelector(`tr[data-code="${activeLocCode}"]`);
-        if (row) row.remove();
-        alert(`Ubicación ${activeLocCode} eliminada exitosamente.`);
-      }
-      closeDeleteLocModal();
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/ubicaciones-list.js"></script>
 </body>
 </html>

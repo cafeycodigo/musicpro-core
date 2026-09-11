@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/cliente/login.css">
 </head>
 <body class="min-h-full flex flex-col justify-between font-sans text-slate-800 bg-slate-50 antialiased">
 
@@ -133,25 +135,8 @@
     <span>MusicPro WMS Sucursales © 2026 • Plataforma Interna de Operaciones</span>
   </footer>
 
-  <script>
-    function togglePassVisibility() {
-      const input = document.getElementById('passInput');
-      const icon = document.getElementById('eyeIcon');
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.className = 'fa-solid fa-eye-slash text-xs';
-      } else {
-        input.type = 'password';
-        icon.className = 'fa-solid fa-eye text-xs';
-      }
-    }
-
-    function handleLogin() {
-      const branch = document.getElementById('branchSelect').value;
-      const user = document.getElementById('userInput').value;
-      // Simulated instant authenticated session
-      window.location.href = "solicitudes-list.html";
-    }
-  </script>
+  
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/cliente/login.js"></script>
 </body>
 </html>

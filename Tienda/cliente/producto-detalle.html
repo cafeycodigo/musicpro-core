@@ -7,12 +7,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    h1, h2, h3, .font-heading { font-family: 'Outfit', sans-serif; }
-    .swatch-active { ring-2 ring-offset-2 ring-indigo-600; }
-  </style>
-  <script src="../../shared/modal-system.js"></script>
+<script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/cliente/producto-detalle.css">
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 
@@ -407,34 +404,9 @@
     </div>
   </footer>
 
-  <script>
-    let qty = 1;
-    function updateQty(delta) {
-      qty = Math.max(1, qty + delta);
-      document.getElementById('qtyInput').textContent = qty;
-    }
+  
 
-    function changeImage(src, btn) {
-      document.getElementById('mainImage').src = src;
-      document.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('ring-2', 'ring-indigo-600'));
-      btn.classList.add('ring-2', 'ring-indigo-600');
-    }
-
-    function setColor(name, btn) {
-      document.getElementById('colorLabel').textContent = name;
-      document.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('swatch-active'));
-      btn.classList.add('swatch-active');
-    }
-
-    function toggleCart() {
-      const drawer = document.getElementById('cartDrawer');
-      drawer.classList.toggle('hidden');
-    }
-
-    function addToCart() {
-      toggleCart();
-    }
-  </script>
-
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/cliente/producto-detalle.js"></script>
 </body>
 </html>

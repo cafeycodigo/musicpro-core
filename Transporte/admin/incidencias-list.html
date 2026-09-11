@@ -20,6 +20,8 @@
     }
   </script>
   <script src="../../shared/modal-system.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin/incidencias-list.css">
 </head>
 <body class="min-h-full flex font-sans text-slate-800">
 
@@ -340,17 +342,9 @@
     </div>
   </div>
 
-  <script>
-    function openResolveModal(ot, customer, phone, causal) {
-      document.getElementById('modalOtLabel').textContent = 'OT: ' + ot + ' • Causal: ' + causal;
-      document.getElementById('modalCustomer').textContent = customer;
-      document.getElementById('modalPhone').textContent = phone;
-      document.getElementById('resolveModal').classList.remove('hidden');
-    }
-    function closeResolveModal() {
-      document.getElementById('resolveModal').classList.add('hidden');
-    }
-  </script>
+  
 
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/admin/incidencias-list.js"></script>
 </body>
 </html>

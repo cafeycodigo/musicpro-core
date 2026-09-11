@@ -1,0 +1,7 @@
+/**
+ * Estilos para vista producto-detalle (cliente) - Tienda
+ */
+
+body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3, .font-heading { font-family: 'Outfit', sans-serif; }
+    .swatch-active { ring-2 ring-offset-2 ring-indigo-600; }
