@@ -56,6 +56,18 @@
         <p class="text-xs text-slate-500">Gestiona retiros, cotiza fletes y monitorea tus guías en ruta</p>
       </div>
 
+      <!-- Selector de Rol (Cliente vs Admin) -->
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <a href="envios-list.html" class="py-2.5 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-950 font-bold text-center border border-cyan-500/30 transition flex items-center justify-center gap-1.5 shadow-xs">
+          <i class="fa-solid fa-user-gear text-cyan-600"></i>
+          <span>Entrar Remitente</span>
+        </a>
+        <a href="../admin/index.html" class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-center transition flex items-center justify-center gap-1.5 shadow-xs">
+          <i class="fa-solid fa-shield-halved text-cyan-400"></i>
+          <span>Entrar Admin Logística</span>
+        </a>
+      </div>
+
       <!-- Account Type Pills -->
       <div class="grid grid-cols-2 gap-2 bg-slate-100 p-1 rounded-xl text-xs">
         <button type="button" onclick="setRemitenteType('EMP', this)" class="rem-tab py-1.5 rounded-lg font-bold bg-white text-slate-900 shadow-xs transition">

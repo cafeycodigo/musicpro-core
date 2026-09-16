@@ -50,19 +50,40 @@
       <!-- Header -->
       <div class="text-center space-y-2">
         <div class="w-12 h-12 bg-amber-500/10 text-amber-600 rounded-2xl flex items-center justify-center mx-auto text-xl border border-amber-500/20 shadow-xs">
-          <i class="fa-solid fa-store"></i>
+          <i id="loginIcon" class="fa-solid fa-boxes-stacked"></i>
         </div>
-        <h1 class="text-2xl font-bold font-heading text-slate-900">Ingreso a Sucursales</h1>
-        <p class="text-xs text-slate-500">Autenticación para emisión y seguimiento de pedidos WMS</p>
+        <h1 id="loginTitle" class="text-2xl font-bold font-heading text-slate-900">Ingreso a Sucursales</h1>
+        <p id="loginDesc" class="text-xs text-slate-500">Autenticación para emisión y seguimiento de pedidos WMS</p>
       </div>
 
-      <!-- Notice: Internal staff only (No public registration) -->
-      <div class="p-3 bg-amber-50 border border-amber-200/80 rounded-2xl flex items-start gap-3 text-xs text-amber-900">
-        <i class="fa-solid fa-shield-halved text-amber-600 mt-0.5 flex-shrink-0"></i>
-        <div>
-          <strong class="font-semibold block">Acceso Corporativo Exclusivo</strong>
-          <span class="text-[11px] text-amber-800 leading-tight">Este sistema no admite registro público. Las credenciales son suministradas por Gerencia de Operaciones.</span>
-        </div>
+      <!-- Selector de Rol (Cliente vs Admin) -->
+      <div class="p-1 bg-slate-100 rounded-2xl border border-slate-200 grid grid-cols-2 gap-1 text-xs">
+        <button type="button" id="btnRoleCliente" onclick="setRole('cliente')" class="py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-2 bg-white text-slate-900 font-bold shadow-sm border border-slate-200">
+          <i class="fa-solid fa-store text-amber-500"></i>
+          <span>Cliente / Sucursal</span>
+        </button>
+        <button type="button" id="btnRoleAdmin" onclick="setRole('admin')" class="py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-2 text-slate-500 hover:text-slate-900 font-semibold">
+          <i class="fa-solid fa-shield-halved text-red-500"></i>
+          <span>Administrador</span>
+        </button>
+      </div>
+
+      <!-- Botones de Acceso Rápido Directo -->
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <a href="solicitudes-list.html" class="py-2.5 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-950 font-bold text-center border border-amber-500/30 transition flex items-center justify-center gap-1.5 shadow-xs">
+          <i class="fa-solid fa-user-gear text-amber-600"></i>
+          <span>Entrar como Cliente</span>
+        </a>
+        <a href="../admin/index.html" class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-center transition flex items-center justify-center gap-1.5 shadow-xs">
+          <i class="fa-solid fa-shield-halved text-amber-400"></i>
+          <span>Entrar como Admin</span>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="flex-1 h-px bg-slate-200"></div>
+        <span class="text-[11px] text-slate-400 font-medium uppercase">o con tu cuenta</span>
+        <div class="flex-1 h-px bg-slate-200"></div>
       </div>
 
       <!-- Form -->
@@ -115,14 +136,59 @@
 
         <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs shadow-lg shadow-amber-500/20 transition flex items-center justify-center gap-2 hover:scale-[1.01]">
           <i class="fa-solid fa-right-to-bracket"></i>
-          <span>Ingresar al Sistema de Solicitudes</span>
+          <span id="submitText">Ingresar a Portal Sucursales</span>
         </button>
       </form>
 
+      <script>
+        let currentRole = 'cliente';
+        function setRole(role) {
+          currentRole = role;
+          const btnCliente = document.getElementById('btnRoleCliente');
+          const btnAdmin = document.getElementById('btnRoleAdmin');
+          const title = document.getElementById('loginTitle');
+          const desc = document.getElementById('loginDesc');
+          const submitText = document.getElementById('submitText');
+
+          if (role === 'admin') {
+            btnCliente.className = 'py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-2 text-slate-500 hover:text-slate-900 font-semibold';
+            btnAdmin.className = 'py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-2 bg-slate-900 text-white font-bold shadow-sm';
+            title.innerText = 'Acceso Administrador WMS';
+            desc.innerText = 'Consola central de gestión de inventario y auditoría de bodega';
+            submitText.innerText = 'Ingresar a Panel Administrador';
+          } else {
+            btnAdmin.className = 'py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-2 text-slate-500 hover:text-slate-900 font-semibold';
+            btnCliente.className = 'py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-2 bg-white text-slate-900 font-bold shadow-sm border border-slate-200';
+            title.innerText = 'Ingreso a Sucursales';
+            desc.innerText = 'Autenticación para emisión y seguimiento de pedidos WMS';
+            submitText.innerText = 'Ingresar a Portal Sucursales';
+          }
+        }
+        function handleLogin() {
+          if (currentRole === 'admin') {
+            window.location.href = '../admin/index.html';
+          } else {
+            window.location.href = 'solicitudes-list.html';
+          }
+        }
+        function togglePassVisibility() {
+          const input = document.getElementById('passInput');
+          const icon = document.getElementById('eyeIcon');
+          if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'fa-solid fa-eye-slash text-xs';
+          } else {
+            input.type = 'password';
+            icon.className = 'fa-solid fa-eye text-xs';
+          }
+        }
+      </script>
+
       <!-- Help info footer -->
-      <div class="pt-4 border-t border-slate-100 text-center text-slate-400 text-[11px]">
-        <span>Soporte Técnico Mesa de Ayuda: anexo <strong>*4401</strong></span>
-        <div class="mt-2">
+      <div class="pt-4 border-t border-slate-100 text-center text-slate-500 text-xs">
+        <span>¿Deseas registrar una nueva sucursal? </span>
+        <a href="registro.html" class="font-bold text-amber-600 hover:underline">Solicitar registro aquí</a>
+        <div class="mt-2 text-slate-400 text-[11px]">
           <a href="../admin/index.html" class="text-slate-500 hover:text-slate-800 transition">¿Acceso Administrador WMS? Haz clic aquí</a>
         </div>
       </div>
