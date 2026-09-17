@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega WMS | Clientes & Sucursales Receptoras</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+  <script src="../../shared/admin-sidebar.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Bodega WMS</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Clientes & Sucursales</span>
+      </div>
+      <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Directorio de Clientes Corporativos & Sucursales</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Gestión de entidades externas, tiendas físicas receptoras y convenios de distribución WMS.</p>
+        </div>
+        <button onclick="alert('Funcionalidad de registro de cliente corporativo.')" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 transition flex items-center gap-2 w-fit">
+          <i class="fa-solid fa-building-circle-check"></i>
+          <span>Registrar Cliente / Sucursal</span>
+        </button>
+      </div>
+
+      <!-- KPIS CLIENTES BODEGA -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Sucursales Propias</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">12 Tiendas</span>
+            <span class="text-xs font-semibold text-emerald-600">Recepción Continua</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Clientes Mayoristas B2B</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-amber-600">38 Empresas</span>
+            <span class="text-xs font-mono text-slate-500">Distribución</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Despachos este Mes</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">1.450 Pallets</span>
+            <span class="text-xs text-emerald-600 font-semibold">+18% YoY</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Línea de Crédito B2B</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">$185.000.000</span>
+            <span class="text-xs text-slate-500 font-mono">Vigente</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLA DE CLIENTES BODEGA -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Buscar cliente por RUT, razón social o código sucursal..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+          <select class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">
+            <option>Todos los tipos</option>
+            <option>Sucursal Propia MusicPro</option>
+            <option>Distribuidor Mayorista</option>
+            <option>Academia / Convenio</option>
+          </select>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-6">Cliente / Entidad</th>
+                <th class="py-3.5 px-6">Tipo</th>
+                <th class="py-3.5 px-6">Dirección & Ciudad</th>
+                <th class="py-3.5 px-6">Contacto Principal</th>
+                <th class="py-3.5 px-6">Estado</th>
+                <th class="py-3.5 px-6 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center font-bold text-xs border border-amber-300">
+                      <i class="fa-solid fa-store"></i>
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Sucursal MusicPro Providencia</span>
+                      <span class="text-[11px] text-slate-500 font-mono">SUC-PROV-01 • RUT 76.543.210-9</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                    Sucursal Propia
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Av. Pedro de Valdivia 1234, Providencia</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">Marcela Soto</span>
+                  <span class="block text-[10px] text-slate-400">m.soto@musicpro.cl</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <button onclick="alert('Detalle de cuenta sucursal.')" class="text-amber-600 hover:text-amber-800 font-bold">Ver Historial</button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-blue-100 text-blue-900 flex items-center justify-center font-bold text-xs border border-blue-300">
+                      <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Importadora & Distribuidora Sonido Total SpA</span>
+                      <span class="text-[11px] text-slate-500 font-mono">B2B-MAY-044 • RUT 77.123.456-7</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200">
+                    Mayorista B2B
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Av. Las Condes 9870, Las Condes</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">Ignacio Fuentes</span>
+                  <span class="block text-[10px] text-slate-400">contacto@sonidototal.cl</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <button onclick="alert('Detalle de cliente B2B.')" class="text-amber-600 hover:text-amber-800 font-bold">Ver Historial</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

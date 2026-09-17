@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda Admin | Usuarios del Sistema</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+  <script src="../../shared/admin-sidebar.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Tienda Admin</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Usuarios del Sistema</span>
+      </div>
+      <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Mantenedor de Usuarios del Sistema Comercial</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Administradores de e-commerce, cajeros de tienda física, vendedores POS y personal de atención.</p>
+        </div>
+        <a href="usuarios-create.html" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs shadow-md shadow-emerald-500/20 transition flex items-center gap-2 w-fit">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>Nuevo Usuario Sistema</span>
+        </a>
+      </div>
+
+      <!-- KPIS USUARIOS TIENDA -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Administradores</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">18</span>
+            <span class="text-xs font-semibold text-emerald-600">Comercial & POS</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Cajeros & POS Activos</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">12</span>
+            <span class="text-xs font-mono text-slate-500">Tiendas Temáticas</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Gestores de Catálogo</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">4</span>
+            <span class="text-xs text-emerald-600 font-semibold">Web & Promociones</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Sesiones en Vivo</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-emerald-600">14 En Línea</span>
+            <span class="text-xs text-slate-500 font-mono">Autenticados</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLA DE USUARIOS DEL SISTEMA TIENDA -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Buscar usuario por RUT, nombre o correo..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          </div>
+          <div class="flex items-center gap-3">
+            <select class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">
+              <option>Todos los roles</option>
+              <option>Admin General Ventas</option>
+              <option>Gestor de Catálogo</option>
+              <option>Cajero POS</option>
+              <option>Ejecutivo Soporte</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-6">Usuario Sistema</th>
+                <th class="py-3.5 px-6">Rol Comercial</th>
+                <th class="py-3.5 px-6">Tienda / Asignación</th>
+                <th class="py-3.5 px-6">Última Actividad</th>
+                <th class="py-3.5 px-6">Estado</th>
+                <th class="py-3.5 px-6 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-900 flex items-center justify-center font-bold text-xs border border-emerald-300">
+                      GV
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Gerencia Comercial</span>
+                      <span class="text-[11px] text-slate-500 font-mono">gerencia.ventas@musicpro.cl • 14.890.123-5</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1 w-fit">
+                    <i class="fa-solid fa-crown text-[8px]"></i> Admin General Ventas
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">E-Commerce Global</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">16/09/2026 09:10</span>
+                  <span class="block text-[10px] text-emerald-600 font-medium">En línea</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <a href="usuarios-edit.html" class="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-slate-100 transition inline-block">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="alert('Acción sobre usuario.')" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-user-xmark"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-900 flex items-center justify-center font-bold text-xs border border-blue-300">
+                      PA
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Patricio Araya</span>
+                      <span class="text-[11px] text-slate-500 font-mono">p.araya@musicpro.cl • 17.123.456-7</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200 flex items-center gap-1 w-fit">
+                    <i class="fa-solid fa-cash-register text-[8px]"></i> Cajero POS
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Tienda Providencia (Rock)</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">16/09/2026 08:50</span>
+                  <span class="block text-[10px] text-emerald-600 font-medium">En línea</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <a href="usuarios-edit.html" class="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-slate-100 transition inline-block">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="alert('Acción sobre usuario.')" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-user-xmark"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

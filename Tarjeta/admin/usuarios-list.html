@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta Admin | Usuarios del Sistema</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+  <script src="../../shared/admin-sidebar.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Tarjeta Admin</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Usuarios del Sistema</span>
+      </div>
+      <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Mantenedor de Usuarios del Sistema Financiero</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Gestión de analistas de riesgo, oficiales de cumplimiento y personal autorizado BeatPay.</p>
+        </div>
+        <a href="usuarios-create.html" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 transition flex items-center gap-2 w-fit">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>Nuevo Usuario Sistema</span>
+        </a>
+      </div>
+
+      <!-- KPIS USUARIOS TARJETA -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Analistas & Staff</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">14</span>
+            <span class="text-xs font-semibold text-amber-600">Riesgo & Emisión</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Oficiales Antifraude</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">4</span>
+            <span class="text-xs font-mono text-slate-500">Supervisión 24/7</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Ejecutivos de Crédito</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">8</span>
+            <span class="text-xs text-emerald-600 font-semibold">Aprobación Cupos</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Sesiones Seguras</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-emerald-600">12 Activas</span>
+            <span class="text-xs text-slate-500 font-mono">Cifrado HSM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLA DE USUARIOS TARJETA -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Buscar por RUT, nombre o correo..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+          <select class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">
+            <option>Todos los roles</option>
+            <option>Jefe de Riesgo & Créditos</option>
+            <option>Analista Antifraude</option>
+            <option>Ejecutivo de Evaluación</option>
+          </select>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-6">Usuario Sistema</th>
+                <th class="py-3.5 px-6">Rol Financiero</th>
+                <th class="py-3.5 px-6">Nivel de Firma / Atribución</th>
+                <th class="py-3.5 px-6">Último Acceso</th>
+                <th class="py-3.5 px-6">Estado</th>
+                <th class="py-3.5 px-6 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center font-bold text-xs border border-amber-300">
+                      FS
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Fernando Silva</span>
+                      <span class="text-[11px] text-slate-500 font-mono">fernando.silva@musicpro.cl • 13.987.654-2</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200 flex items-center gap-1 w-fit">
+                    <i class="fa-solid fa-shield-halved text-[8px]"></i> Jefe de Riesgo & Créditos
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Hasta $5.000.000 / cliente</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">16/09/2026 09:40</span>
+                  <span class="block text-[10px] text-emerald-600 font-medium">En línea</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <a href="usuarios-edit.html" class="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-slate-100 transition inline-block">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="alert('Acción de usuario.')" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-user-xmark"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-900 flex items-center justify-center font-bold text-xs border border-blue-300">
+                      VR
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Valentina Ríos</span>
+                      <span class="text-[11px] text-slate-500 font-mono">v.rios@musicpro.cl • 17.543.210-8</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200 flex items-center gap-1 w-fit">
+                    <i class="fa-solid fa-user-check text-[8px]"></i> Analista Antifraude
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Bloqueo & Reglas Antifraude</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">16/09/2026 09:15</span>
+                  <span class="block text-[10px] text-emerald-600 font-medium">En línea</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <a href="usuarios-edit.html" class="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-slate-100 transition inline-block">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="alert('Acción de usuario.')" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-user-xmark"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

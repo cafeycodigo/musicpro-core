@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega WMS | Detalle Ubicación PAS-A-RACK-03</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+  <script src="../../shared/admin-sidebar.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Bodega WMS</a>
+        <span>/</span>
+        <a href="ubicaciones-list.html" class="hover:text-slate-800">Ubicaciones & Racks</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">PAS-A-RACK-03</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="ubicaciones-edit.html" class="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+          <i class="fa-solid fa-pen-to-square"></i> Editar Ubicación
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+      <div class="max-w-5xl mx-auto space-y-6">
+
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col sm:flex-row items-start justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-extrabold text-xl">
+              <i class="fa-solid fa-table-cells-large"></i>
+            </div>
+            <div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">En Operación Activa</span>
+              <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight mt-1">Pasillo A - Rack 03 - Nivel 2</h1>
+              <p class="text-xs text-slate-500 font-mono">Código Único: PAS-A-RACK-03 • Zona: Instrumentos de Cuerda & Guitarras</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Nivel de Ocupación</span>
+            <span class="font-heading font-extrabold text-2xl text-amber-600">85.4%</span>
+          </div>
+        </div>
+
+        <!-- Muestras de artículos almacenados -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+          <h3 class="font-heading font-bold text-base text-slate-900 mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-boxes-stacked text-amber-500"></i> Artículos Actualmente Almacenados
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-600">
+              <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4">SKU / Artículo</th>
+                  <th class="py-3 px-4 text-center">Cantidad Almacenada</th>
+                  <th class="py-3 px-4 text-center">Peso Total</th>
+                  <th class="py-3 px-4 text-right">Último Movimiento</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="py-3 px-4 font-bold text-slate-800">SKU-GTR-001 • Guitarra Fender Stratocaster Player</td>
+                  <td class="py-3 px-4 text-center font-mono font-bold text-slate-900">18 Uds</td>
+                  <td class="py-3 px-4 text-center font-mono">63.0 kg</td>
+                  <td class="py-3 px-4 text-right text-slate-500">16/09/2026 14:30</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-slate-800">SKU-GTR-012 • Bajo Eléctrico Ibanez SR300E</td>
+                  <td class="py-3 px-4 text-center font-mono font-bold text-slate-900">12 Uds</td>
+                  <td class="py-3 px-4 text-center font-mono">48.0 kg</td>
+                  <td class="py-3 px-4 text-right text-slate-500">15/09/2026 11:20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda Admin | Crear Orden de Compra / Venta POS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+  <script src="../../shared/admin-sidebar.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Tienda Admin</a>
+        <span>/</span>
+        <a href="ordenes-list.html" class="hover:text-slate-800">Órdenes de Compra</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Emisión Venta POS</span>
+      </div>
+      <a href="ordenes-list.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8 max-w-4xl mx-auto w-full">
+      <div class="mb-6 flex items-center justify-between">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Emisión de Orden Presencial / Venta Asistida</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Ingresar orden de compra asistida POS y emitir comprobante de pago.</p>
+        </div>
+        <a href="ordenes-list.html" class="text-xs font-semibold text-slate-500 hover:text-slate-800 flex items-center gap-1.5">
+          <i class="fa-solid fa-arrow-left"></i> Volver a Órdenes
+        </a>
+      </div>
+
+      <form onsubmit="event.preventDefault(); alert('Orden POS emitida correctamente.'); window.location.href='ordenes-list.html';" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Cliente Comprador *</label>
+            <input type="text" placeholder="RUT o Nombre del cliente (Ej: Camila Soto)" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Método de Pago *</label>
+            <select required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <option value="TARJETA_MUSICPRO">Tarjeta MusicPro BeatPay</option>
+              <option value="TRANSBANK">Débito / Crédito Transbank</option>
+              <option value="EFECTIVO">Efectivo POS</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Producto a Agregar *</label>
+            <select required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <option value="SKU-GTR-001">Fender Stratocaster Player ($789.000)</option>
+              <option value="SKU-AMP-004">Amplificador Marshall DSL40CR ($699.000)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Sucursal Emisora POS</label>
+            <select class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <option value="PROVIDENCIA">Tienda Providencia (Rock)</option>
+              <option value="MAIPU">Tienda Maipú (DJ & Sound)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100">
+          <a href="ordenes-list.html" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">Cancelar</a>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs shadow-md shadow-emerald-500/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-receipt"></i> Emitir Orden POS
+          </button>
+        </div>
+
+      </form>
+    </main>
+  </div>
+
+</body>
+</html>

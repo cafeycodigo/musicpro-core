@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta Admin | Crear Beneficio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+  <script src="../../shared/admin-sidebar.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Tarjeta Admin</a>
+        <span>/</span>
+        <a href="beneficios-list.html" class="hover:text-slate-800">Catálogo Beneficios</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Crear Beneficio</span>
+      </div>
+      <a href="beneficios-list.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8 max-w-4xl mx-auto w-full">
+      <div class="mb-6 flex items-center justify-between">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Alta de Nuevo Beneficio Tarjetahabiente</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Crear convenio de cashback, cuotas sin interés o descuentos en conciertos.</p>
+        </div>
+        <a href="beneficios-list.html" class="text-xs font-semibold text-slate-500 hover:text-slate-800 flex items-center gap-1.5">
+          <i class="fa-solid fa-arrow-left"></i> Volver a Beneficios
+        </a>
+      </div>
+
+      <form onsubmit="event.preventDefault(); alert('Beneficio publicado.'); window.location.href='beneficios-list.html';" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre del Beneficio *</label>
+            <input type="text" placeholder="Ej: 3 Cuotas Sin Interés en Tienda MusicPro" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Categoría Beneficio *</label>
+            <select required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500">
+              <option value="CUOTAS">Cuotas Sin Interés</option>
+              <option value="CASHBACK">Cashback en Compras</option>
+              <option value="DESCUENTO">Descuento Directo</option>
+              <option value="CONCIERTOS">Entradas & Conciertos</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100">
+          <a href="beneficios-list.html" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">Cancelar</a>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-floppy-disk"></i> Guardar Beneficio
+          </button>
+        </div>
+
+      </form>
+    </main>
+  </div>
+
+</body>
+</html>

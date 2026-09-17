@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bodega WMS | Usuarios del Sistema</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="../../shared/modal-system.js"></script>
+  <script src="../../shared/admin-sidebar.js"></script>
+</head>
+<body class="min-h-full flex font-sans text-slate-800">
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-slate-800">Bodega WMS</a>
+        <span>/</span>
+        <span class="font-semibold text-slate-800">Usuarios del Sistema</span>
+      </div>
+      <a href="../../index.html" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-6 sm:p-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Mantenedor de Usuarios del Sistema</h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Gestión de personal de bodega, supervisores, operadores y permisos de acceso WMS.</p>
+        </div>
+        <a href="usuarios-create.html" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 transition flex items-center gap-2 w-fit">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>Nuevo Usuario Sistema</span>
+        </a>
+      </div>
+
+      <!-- KPIS DE USUARIOS -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Personal WMS</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">24</span>
+            <span class="text-xs font-semibold text-amber-600">4 Turnos</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Jefes & Supervisores</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">5</span>
+            <span class="text-xs font-semibold text-emerald-600">Acceso Admin</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Operadores de Pasillo</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-slate-900">15</span>
+            <span class="text-xs text-slate-500 font-mono">RF / Handheld</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Estado de Cuenta</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <span class="font-heading font-extrabold text-2xl text-emerald-600">22 Activos</span>
+            <span class="text-xs text-rose-500 font-medium">2 Suspendidos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLA DE USUARIOS DEL SISTEMA -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Buscar por RUT, nombre o correo corporativo..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+          <div class="flex items-center gap-3">
+            <select class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">
+              <option>Todos los roles</option>
+              <option>Jefe de Bodega</option>
+              <option>Supervisor de Turno</option>
+              <option>Operador WMS</option>
+              <option>Auditor de Inventario</option>
+            </select>
+            <select class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">
+              <option>Todos los estados</option>
+              <option>Activo</option>
+              <option>Inactivo / Suspendido</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-6">Usuario Sistema</th>
+                <th class="py-3.5 px-6">Rol WMS</th>
+                <th class="py-3.5 px-6">Sucursal / Centro</th>
+                <th class="py-3.5 px-6">Último Acceso</th>
+                <th class="py-3.5 px-6">Estado</th>
+                <th class="py-3.5 px-6 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center font-bold text-xs border border-amber-300">
+                      JB
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Juan Bustamante</span>
+                      <span class="text-[11px] text-slate-500 font-mono">juan.bustamante@musicpro.cl • 15.432.109-K</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200 flex items-center gap-1 w-fit">
+                    <i class="fa-solid fa-user-shield text-[8px]"></i> Jefe de Bodega
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Bodega Central Pudahuel</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">16/09/2026 08:30</span>
+                  <span class="block text-[10px] text-emerald-600 font-medium">En línea ahora</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <a href="usuarios-edit.html" class="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-slate-100 transition inline-block">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="alert('Estado del usuario actualizado.')" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-user-xmark"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center font-bold text-xs border border-slate-300">
+                      CR
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Carlos Rojas Morales</span>
+                      <span class="text-[11px] text-slate-500 font-mono">carlos.rojas@musicpro.cl • 17.654.321-4</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200 flex items-center gap-1 w-fit">
+                    <i class="fa-solid fa-dolly text-[8px]"></i> Operador WMS
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Bodega Central Pudahuel</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">16/09/2026 07:45</span>
+                  <span class="block text-[10px] text-slate-400">Hace 2 horas</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <a href="usuarios-edit.html" class="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-slate-100 transition inline-block">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="alert('Estado del usuario actualizado.')" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-user-xmark"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-800 flex items-center justify-center font-bold text-xs border border-purple-300">
+                      AM
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Andrea Martínez Pizarro</span>
+                      <span class="text-[11px] text-slate-500 font-mono">andrea.martinez@musicpro.cl • 16.987.654-1</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 border border-purple-200 flex items-center gap-1 w-fit">
+                    <i class="fa-solid fa-clipboard-check text-[8px]"></i> Auditor Inventario
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Sucursal Providencia</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">15/09/2026 18:20</span>
+                  <span class="block text-[10px] text-slate-400">Ayer</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Activo</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <a href="usuarios-edit.html" class="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-slate-100 transition inline-block">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="alert('Estado del usuario actualizado.')" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-user-xmark"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-4 px-6">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-rose-100 text-rose-800 flex items-center justify-center font-bold text-xs border border-rose-300">
+                      MS
+                    </div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">Matías Sepúlveda</span>
+                      <span class="text-[11px] text-slate-500 font-mono">matias.sepulveda@musicpro.cl • 18.111.222-3</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-1 w-fit">
+                    Operador WMS
+                  </span>
+                </td>
+                <td class="py-4 px-6 font-semibold text-slate-800">Bodega Central Pudahuel</td>
+                <td class="py-4 px-6">
+                  <span class="font-semibold text-slate-800">01/09/2026</span>
+                  <span class="block text-[10px] text-rose-500">Hace 15 días</span>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">Inactivo</span>
+                </td>
+                <td class="py-4 px-6 text-right space-x-2">
+                  <a href="usuarios-edit.html" class="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-slate-100 transition inline-block">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <button onclick="alert('Estado del usuario reactivado.')" class="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-user-check"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

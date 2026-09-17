@@ -23,9 +23,11 @@
           links: [
             { href: 'index.html', label: 'Dashboard WMS', icon: 'fa-solid fa-gauge-high' },
             { href: 'articulos-list.html', match: ['articulos-list.html', 'articulos-create.html', 'articulos-detail.html', 'articulos-edit.html'], label: 'Maestro de Artículos', icon: 'fa-solid fa-barcode' },
-            { href: 'ubicaciones-list.html', match: ['ubicaciones-list.html', 'ubicaciones-create.html', 'ubicaciones-edit.html'], label: 'Ubicaciones & Racks', icon: 'fa-solid fa-table-cells-large' },
+            { href: 'ubicaciones-list.html', match: ['ubicaciones-list.html', 'ubicaciones-create.html', 'ubicaciones-edit.html', 'ubicaciones-detail.html'], label: 'Ubicaciones & Racks', icon: 'fa-solid fa-table-cells-large' },
             { href: 'categorias-list.html', label: 'Categorías & Familias', icon: 'fa-solid fa-tags' },
-            { href: 'proveedores-list.html', label: 'Proveedores', icon: 'fa-solid fa-truck-ramp-box' },
+            { href: 'proveedores-list.html', match: ['proveedores-list.html', 'proveedores-create.html', 'proveedores-edit.html', 'proveedores-detail.html'], label: 'Proveedores', icon: 'fa-solid fa-truck-ramp-box' },
+            { href: 'clientes-list.html', match: ['clientes-list.html', 'clientes-create.html', 'clientes-edit.html', 'clientes-detail.html'], label: 'Clientes / Sucursales', icon: 'fa-solid fa-building-user' },
+            { href: 'usuarios-list.html', match: ['usuarios-list.html', 'usuarios-create.html', 'usuarios-edit.html', 'usuarios-detail.html'], label: 'Usuarios del Sistema', icon: 'fa-solid fa-user-gear' },
             { href: 'motivos-ajuste.html', label: 'Motivos de Ajuste', icon: 'fa-solid fa-clipboard-check' },
             { href: 'zonas-almacen.html', label: 'Gestión de Pasillos', icon: 'fa-solid fa-warehouse' },
             { href: 'movimientos-list.html', match: ['movimientos-list.html', 'movimientos-create.html', 'movimientos-detail.html'], label: 'Movimientos & Mermas', icon: 'fa-solid fa-arrows-rotate' }
@@ -35,7 +37,8 @@
           title: 'Operaciones Rápidas',
           links: [
             { href: 'articulos-create.html', label: 'Nuevo Artículo', icon: 'fa-solid fa-plus-circle text-amber-400' },
-            { href: 'movimientos-create.html', label: 'Ingreso / Ajuste', icon: 'fa-solid fa-file-circle-plus text-amber-400' }
+            { href: 'movimientos-create.html', label: 'Ingreso / Ajuste', icon: 'fa-solid fa-file-circle-plus text-amber-400' },
+            { href: 'usuarios-create.html', label: 'Nuevo Usuario Sistema', icon: 'fa-solid fa-user-plus text-amber-400' }
           ]
         }
       ]
@@ -56,11 +59,12 @@
           title: 'Gestión Comercial',
           links: [
             { href: 'index.html', label: 'Dashboard Ventas', icon: 'fa-solid fa-chart-pie' },
-            { href: 'productos-list.html', match: ['productos-list.html', 'productos-create.html', 'productos-edit.html'], label: 'Catálogo Productos', icon: 'fa-solid fa-box-open' },
+            { href: 'productos-list.html', match: ['productos-list.html', 'productos-create.html', 'productos-edit.html', 'productos-detail.html'], label: 'Catálogo Productos', icon: 'fa-solid fa-box-open' },
             { href: 'categorias-list.html', label: 'Categorías & Árbol', icon: 'fa-solid fa-folder-tree' },
-            { href: 'ordenes-list.html', match: ['ordenes-list.html', 'ordenes-detail.html'], label: 'Órdenes de Compra', icon: 'fa-solid fa-receipt' },
-            { href: 'cupones-list.html', match: ['cupones-list.html', 'cupones-create.html', 'cupones-edit.html'], label: 'Cupones & Promociones', icon: 'fa-solid fa-tags' },
-            { href: 'clientes-list.html', label: 'Directorio Clientes', icon: 'fa-solid fa-users' },
+            { href: 'ordenes-list.html', match: ['ordenes-list.html', 'ordenes-create.html', 'ordenes-detail.html'], label: 'Órdenes de Compra', icon: 'fa-solid fa-receipt' },
+            { href: 'cupones-list.html', match: ['cupones-list.html', 'cupones-create.html', 'cupones-edit.html', 'cupones-detail.html'], label: 'Cupones & Promociones', icon: 'fa-solid fa-tags' },
+            { href: 'clientes-list.html', match: ['clientes-list.html', 'clientes-create.html', 'clientes-edit.html', 'clientes-detail.html'], label: 'Directorio Clientes', icon: 'fa-solid fa-users' },
+            { href: 'usuarios-list.html', match: ['usuarios-list.html', 'usuarios-create.html', 'usuarios-edit.html', 'usuarios-detail.html'], label: 'Usuarios del Sistema', icon: 'fa-solid fa-user-shield' },
             { href: 'tarifas-envio.html', label: 'Reglas & Tarifas Envío', icon: 'fa-solid fa-truck-ramp-box' }
           ]
         },
@@ -68,7 +72,8 @@
           title: 'Acceso Rápido',
           links: [
             { href: 'productos-create.html', label: 'Crear Producto', icon: 'fa-solid fa-plus-circle text-emerald-400' },
-            { href: 'cupones-create.html', label: 'Crear Cupón', icon: 'fa-solid fa-ticket text-emerald-400' }
+            { href: 'cupones-create.html', label: 'Crear Cupón', icon: 'fa-solid fa-ticket text-emerald-400' },
+            { href: 'usuarios-create.html', label: 'Crear Usuario Sistema', icon: 'fa-solid fa-user-plus text-emerald-400' }
           ]
         }
       ]
@@ -90,16 +95,18 @@
           links: [
             { href: 'index.html', label: 'Métricas Globales', icon: 'fa-solid fa-chart-line' },
             { href: 'cuentas-list.html', match: ['cuentas-list.html', 'cuentas-create.html', 'cuentas-detail.html', 'cuentas-edit.html'], label: 'Clientes & Cuentas', icon: 'fa-solid fa-users-gear' },
-            { href: 'productos-tarjetas-list.html', match: ['productos-tarjetas-list.html', 'productos-tarjetas-create.html', 'productos-tarjetas-edit.html'], label: 'Planes de Tarjeta', icon: 'fa-solid fa-layer-group' },
+            { href: 'usuarios-list.html', match: ['usuarios-list.html', 'usuarios-create.html', 'usuarios-edit.html', 'usuarios-detail.html'], label: 'Usuarios del Sistema', icon: 'fa-solid fa-user-lock' },
+            { href: 'productos-tarjetas-list.html', match: ['productos-tarjetas-list.html', 'productos-tarjetas-create.html', 'productos-tarjetas-edit.html', 'productos-tarjetas-detail.html'], label: 'Planes de Tarjeta', icon: 'fa-solid fa-layer-group' },
             { href: 'transacciones-audit-list.html', match: ['transacciones-audit-list.html', 'transacciones-audit-detail.html'], label: 'Transacciones en Vivo', icon: 'fa-solid fa-receipt' },
             { href: 'fraude-reglas.html', label: 'Reglas Antifraude', icon: 'fa-solid fa-shield-halved' },
-            { href: 'beneficios-list.html', label: 'Catálogo Beneficios', icon: 'fa-solid fa-gift' }
+            { href: 'beneficios-list.html', match: ['beneficios-list.html', 'beneficios-create.html', 'beneficios-edit.html', 'beneficios-detail.html'], label: 'Catálogo Beneficios', icon: 'fa-solid fa-gift' }
           ]
         },
         {
           title: 'Operaciones',
           links: [
             { href: 'cuentas-create.html', label: 'Evaluar Nuevo Cliente', icon: 'fa-solid fa-user-plus text-amber-400' },
+            { href: 'usuarios-create.html', label: 'Crear Usuario Sistema', icon: 'fa-solid fa-user-gear text-amber-400' },
             { href: 'productos-tarjetas-create.html', label: 'Crear Producto Tarjeta', icon: 'fa-solid fa-credit-card text-amber-400' }
           ]
         }
@@ -121,10 +128,12 @@
           title: 'Operaciones Centrales',
           links: [
             { href: 'index.html', label: 'Torre de Control', icon: 'fa-solid fa-tower-broadcast' },
-            { href: 'vehiculos-list.html', match: ['vehiculos-list.html', 'vehiculos-create.html', 'vehiculos-edit.html'], label: 'Flota & Vehículos', icon: 'fa-solid fa-truck' },
-            { href: 'conductores-list.html', match: ['conductores-list.html', 'conductores-create.html', 'conductores-edit.html'], label: 'Conductores', icon: 'fa-solid fa-id-card-clip' },
+            { href: 'vehiculos-list.html', match: ['vehiculos-list.html', 'vehiculos-create.html', 'vehiculos-edit.html', 'vehiculos-detail.html'], label: 'Flota & Vehículos', icon: 'fa-solid fa-truck' },
+            { href: 'conductores-list.html', match: ['conductores-list.html', 'conductores-create.html', 'conductores-edit.html', 'conductores-detail.html'], label: 'Conductores', icon: 'fa-solid fa-id-card-clip' },
+            { href: 'clientes-list.html', match: ['clientes-list.html', 'clientes-create.html', 'clientes-edit.html', 'clientes-detail.html'], label: 'Clientes Remitentes', icon: 'fa-solid fa-building' },
+            { href: 'usuarios-list.html', match: ['usuarios-list.html', 'usuarios-create.html', 'usuarios-edit.html', 'usuarios-detail.html'], label: 'Usuarios del Sistema', icon: 'fa-solid fa-user-gear' },
             { href: 'zonas-list.html', label: 'Zonas & Tarifas', icon: 'fa-solid fa-map-location-dot' },
-            { href: 'rutas-list.html', match: ['rutas-list.html', 'rutas-create.html', 'rutas-detail.html'], label: 'Planificador de Rutas', icon: 'fa-solid fa-clipboard-list' },
+            { href: 'rutas-list.html', match: ['rutas-list.html', 'rutas-create.html', 'rutas-edit.html', 'rutas-detail.html'], label: 'Planificador de Rutas', icon: 'fa-solid fa-clipboard-list' },
             { href: 'incidencias-list.html', label: 'Incidencias & Excepciones', icon: 'fa-solid fa-triangle-exclamation text-amber-400' }
           ]
         },
@@ -133,7 +142,8 @@
           links: [
             { href: 'rutas-create.html', label: 'Asignar Ruta', icon: 'fa-solid fa-plus-circle text-cyan-400' },
             { href: 'vehiculos-create.html', label: 'Registrar Vehículo', icon: 'fa-solid fa-truck-medical text-cyan-400' },
-            { href: 'conductores-create.html', label: 'Registrar Conductor', icon: 'fa-solid fa-user-check text-cyan-400' }
+            { href: 'conductores-create.html', label: 'Registrar Conductor', icon: 'fa-solid fa-user-check text-cyan-400' },
+            { href: 'usuarios-create.html', label: 'Crear Usuario Sistema', icon: 'fa-solid fa-user-plus text-cyan-400' }
           ]
         }
       ]
