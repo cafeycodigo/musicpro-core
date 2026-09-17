@@ -12,8 +12,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Documentación Swagger UI en /docs y /swagger con Tema Personalizado MusicPro
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  ...swaggerUiOptions,
+  customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css',
+  customJs: [
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-bundle.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-standalone-preset.min.js'
+  ]
+}));
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  ...swaggerUiOptions,
+  customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css',
+  customJs: [
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-bundle.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-standalone-preset.min.js'
+  ]
+}));
 
 // Endpoint spec en formato JSON
 app.get('/docs-json', (req, res) => {
